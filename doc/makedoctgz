@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#
+# makedoctgz - makes tar archive from current MusicStaves docs
+#
+
+NAME="musicstaves-docs"
+
+ln -s html $NAME
+tar cvzf $NAME.tgz $NAME/*
+rm $NAME
