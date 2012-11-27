@@ -16,7 +16,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-from sets import Set
 from math import atan, atan2, tan, pi
 from sys import stdout, exit
 from time import time

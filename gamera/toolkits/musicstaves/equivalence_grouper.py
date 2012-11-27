@@ -19,7 +19,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-from sets import Set
 
 
 class EquivalenceGrouper(object):
@@ -103,7 +102,7 @@ same subset (equivalence class)."""
     def __iter__(self):
         """Returns an iterator returning each of the disjoint subsets as a
 list."""
-        seen = Set()
+        seen = set()
         for elem, group in self._mapping.iteritems():
             if elem not in seen:
                 yield group

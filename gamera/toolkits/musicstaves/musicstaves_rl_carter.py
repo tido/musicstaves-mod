@@ -120,7 +120,7 @@ After the section is complete, calculate_features() should be called to
 generate features of the section.
 """
    def __init__(self, run):
-      Rect.__init__(self, run)
+      Rect.__init__(run)
       # The number of black pixels in the section
       self.area = 0
       # The average vertical thickness of all the runs in the section
@@ -191,7 +191,7 @@ be tested to find staves.
 Filaments can be considered \"potential stafflines\".
 """
    def __init__(self, filament):
-      Rect.__init__(self, filament)
+      Rect.__init__(filament)
 
       self.is_staffline_marker = False
 

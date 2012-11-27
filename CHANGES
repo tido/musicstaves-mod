@@ -1,6 +1,8 @@
 Change log of the Gamera MusicStaves Toolkit
 ============================================
 
+ - no longer "deprecated sets module" warning
+
  - StaffFinder_dalitz no longer removes staff groups shorter
    than half the widest width
 

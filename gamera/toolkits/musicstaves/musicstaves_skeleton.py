@@ -19,7 +19,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-from sets import Set
 from sys import stdout
 from math import cos, sin, pi, tan, sqrt, atan, acos
 import time
