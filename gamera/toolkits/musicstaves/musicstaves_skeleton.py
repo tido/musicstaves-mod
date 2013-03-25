@@ -3,6 +3,7 @@
 
 #
 # Copyright (C) 2005,2006 Christoph Dalitz, Bastian Czerwinski
+#               2013      Christoph Dalitz
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -55,13 +56,15 @@ The algorithm consists of the following steps:
    avoids that staff line skeleton segments extent into crossing objects.
 
 3) Staff line segment candidates are picked as skeleton segments with
-   the following properties:
+   all of the following properties:
 
    - the orientation angle (least square fitted line) is below
      25 degrees
    - the segment is wider than high
    - the \"straightness\" (mean square deviation from least square fitted
      line) is below *staffline_height* \*\*2 / 2
+     Exception: when a segment is wider than 30\* *staffspace_height*, this
+     criterion is ignored
 
 4) The overall skew angle is determined as the median of the orientation
    angle probability distribution. In this distribution, each segment
@@ -246,7 +249,7 @@ with
         for s in allsegs:
             if s.nrows < s.ncols and s.orientation_angle != None and \
                abs(s.orientation_angle) < 25 and \
-               s.straightness < maxstraightness and \
+               (s.straightness < maxstraightness or s.ncols > self.staffspace_height*30) and \
                distance_transform.distance_precentage_among_points(s.points,distmin,distmax) > 0.7:
                 candidates.append(s)
             else:
