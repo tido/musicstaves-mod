@@ -157,7 +157,7 @@ namespace Aomr {
     {
       if(!undo_deskew)
         return;
-      for(typeof(deskew_data.rend()) i=deskew_data.rbegin();i<deskew_data.rend();++i)
+      for(std::vector<DeskewData>::reverse_iterator i=deskew_data.rbegin();i<deskew_data.rend();++i)
         i->undo_deskew(image, skew_strip_width);
     }
   };
@@ -527,7 +527,7 @@ namespace Aomr {
 	distance = offset[offsets->size() - 1];
       } else {
 	inc = (offset[index] - offset[index + 1]) / (double)width; /* linear interpolation */
-	distance = (int)::round((col % width) * inc) - offset[index];
+	distance = (int)vigra::round((col % width) * inc) - offset[index];
       }
       // Threshold the distance so we don't over-adjust (beyond the edge of the image).
       // Frankly, if we're deskewing by that much there's something seriously wrong elsewhere, 
@@ -853,7 +853,7 @@ namespace Aomr {
     IntVector* yproj = yproj_vertical_strip(image_original, rect.ul_x(), rect.ncols());
     try {
       Staff staff = find_stafflines(param, page, image_original, image_hfilter, rect, yproj);
-      if (staff.nrows() > 0 and staff.ncols() > 0)
+      if (staff.nrows() > 0 && staff.ncols() > 0)
 	page.add_staff(staff);
     } catch (std::exception) {
       delete yproj;

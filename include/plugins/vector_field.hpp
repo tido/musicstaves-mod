@@ -26,6 +26,7 @@ using namespace std;
 
 #include <gamera.hpp>
 
+#define _USE_MATH_DEFINES // for Visual Studio
 #include <math.h>
 #include <vector>
 
@@ -275,7 +276,7 @@ unsigned int __runlength(const T& image, size_t center_x, size_t center_y,
 
   // GO!
   length_factor=1;
-  limit_factor=(int)::round(limit/one_step);
+  limit_factor=(int)vigra::round(limit/one_step);
   while (length_factor < limit_factor && (size_t)x < ncols &&
       (size_t)y < nrows &&
       image.get(Point((size_t)x, (size_t)y)) == black_value) {

@@ -22,6 +22,7 @@
 using namespace Gamera;
 using namespace std;
 
+#define _USE_MATH_DEFINES // for Visual Studio
 #include <math.h>
 #include <queue>
 #include <deque>
@@ -955,7 +956,7 @@ PyObject* follow_staffwobble(T& image,
     y_new.push_back(starty);
     x = startx + 1;
     lasty = starty;
-    while ((x <= right_x) and (x < (int)image.ncols())) {
+    while ((x <= right_x) && (x < (int)image.ncols())) {
       y = slither_midpoint(image, x, lasty, staffline_height);
       if (y >= 0) lasty = y;
       y_new.push_back(lasty);
@@ -963,7 +964,7 @@ PyObject* follow_staffwobble(T& image,
     }
     x = startx - 1;
     lasty = starty;
-    while ((x >= left_x) and (x >= 0)) {
+    while ((x >= left_x) && (x >= 0)) {
       y = slither_midpoint(image, x, lasty, staffline_height);
       if (y >= 0) lasty = y;
       y_new.insert(y_new.begin(),lasty);

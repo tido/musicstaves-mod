@@ -28,6 +28,7 @@
 
 #include <iostream>
 #include <vector>
+#define _USE_MATH_DEFINES // for Visual Studio
 #include <math.h>
 
 #include "gamera.hpp"
@@ -533,21 +534,21 @@ static struct path_window_t make_paths(int height, double l_angle,
   if ((alpha <= 3*M_PI_4) && (alpha >= M_PI_4)) {
     ref_y=height;
     if (alpha != M_PI_2)
-      ref_x=(int)::round(ref_y/tan(alpha));
+      ref_x=(int)vigra::round(ref_y/tan(alpha));
     else
       ref_x=0;
   } else if ((alpha >= 5*M_PI_4) && (alpha <= 7*M_PI_4)) {
     ref_y=-height;
     if (alpha != 3*M_PI_2)
-      ref_x=(int)::round(ref_y/tan(alpha));
+      ref_x=(int)vigra::round(ref_y/tan(alpha));
     else
       ref_x=0;
   } else if ((alpha > 3*M_PI_4) && (alpha < 5*M_PI_4)) {
     ref_x=-height;
-    ref_y=(int)::round(ref_x*tan(alpha));
+    ref_y=(int)vigra::round(ref_x*tan(alpha));
   } else {
     ref_x=height;
-    ref_y=(int)::round(ref_x*tan(alpha));
+    ref_y=(int)vigra::round(ref_x*tan(alpha));
   }
 
   // get the starting angle as specified
@@ -586,20 +587,20 @@ static struct path_window_t make_paths(int height, double l_angle,
           // get the pixel that is *before* the
           // path (seen from (0,0))
           path.out_first.y=1;
-          path.out_first.x=(int)::round(1/tan_alpha);
+          path.out_first.x=(int)vigra::round(1/tan_alpha);
 
           for (pixel.y=-1; pixel.y > -height; pixel.y--) {
-            pixel.x=(int)::round(pixel.y/tan_alpha);
+            pixel.x=(int)vigra::round(pixel.y/tan_alpha);
             path.pixel_list.push_back(pixel);
           }
         } else {
           // get the pixel that is *before* the
           // path (seen from (0,0))
           path.out_first.y=-1;
-          path.out_first.x=(int)::round(-1/tan_alpha);
+          path.out_first.x=(int)vigra::round(-1/tan_alpha);
 
           for (pixel.y=1; pixel.y < height; pixel.y++) {
-            pixel.x=(int)::round(pixel.y/tan_alpha);
+            pixel.x=(int)vigra::round(pixel.y/tan_alpha);
             path.pixel_list.push_back(pixel);
           }
         }
@@ -648,30 +649,30 @@ static struct path_window_t make_paths(int height, double l_angle,
        */
       if (ref_x > 0) {
         path.out_first.x=-1;
-        path.out_first.y=(int)::round(-tan_alpha);
+        path.out_first.y=(int)vigra::round(-tan_alpha);
         CDEBUG(<< "path.out_first.x=" << path.out_first.x << "\n");
         CDEBUG(<< "path.out_first.y=" << path.out_first.y << "\n");
 
         pixel.x = 1;
-        pixel.y=(int)::round(pixel.x*tan_alpha);
+        pixel.y=(int)vigra::round(pixel.x*tan_alpha);
         do {
         //for (pixel.x=1; abs(pixel.y) < height; pixel.x++) {
           path.pixel_list.push_back(pixel);
           pixel.x++;
-          pixel.y=(int)::round(pixel.x*tan_alpha);
+          pixel.y=(int)vigra::round(pixel.x*tan_alpha);
         } while (abs(pixel.y) < height);
       } else {
         path.out_first.x=1;
-        path.out_first.y=(int)::round(tan_alpha);
+        path.out_first.y=(int)vigra::round(tan_alpha);
         CDEBUG(<< "path.out_first.x=" << path.out_first.x << "\n");
         CDEBUG(<< "path.out_first.y=" << path.out_first.y << "\n");
 
         pixel.x = -1;
-        pixel.y=(int)::round(pixel.x*tan_alpha);
+        pixel.y=(int)vigra::round(pixel.x*tan_alpha);
         do {
         //for (pixel.x=-1; abs(pixel.y) < height; pixel.x--) {
           path.pixel_list.push_back(pixel);
-          pixel.y=(int)::round(pixel.x*tan_alpha);
+          pixel.y=(int)vigra::round(pixel.x*tan_alpha);
           pixel.x--;
         } while (abs(pixel.y) < height);
       }
