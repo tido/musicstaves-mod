@@ -31,6 +31,7 @@ from musicstaves_skeleton import MusicStaves_skeleton
 from stafffinder_miyao import StaffFinder_miyao
 from stafffinder_projections import StaffFinder_projections
 from stafffinder_dalitz import StaffFinder_dalitz
+from stafffinder_stable_path import StaffFinder_stable_path
 
 from gamera.gui import has_gui
 if has_gui.has_gui:
@@ -57,7 +58,8 @@ if has_gui.has_gui:
 					"MusicStaves_skeleton",
 					"StaffFinder_dalitz",
 					"StaffFinder_miyao",
-					"StaffFinder_projections"]
+					"StaffFinder_projections",
+                                        "StaffFinder_stable_path"]
 			# menu id's for creating classes over popup menu
 			self._menuids = []
 			for c in self.classes:

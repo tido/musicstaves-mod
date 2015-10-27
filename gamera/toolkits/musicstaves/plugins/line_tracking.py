@@ -31,9 +31,11 @@ class get_staff_skeleton_list(PluginFunction):
 
 In order to find staffline candidates, long quasi black runs are extracted
 with extract_filled_horizontal_black_runs_. The resulting filaments are
-vertically thinned with `thinning_v_to_skeleton_list`__.
+vertically thinned with thinning_v_to_skeleton_list_.
 
-.. __: musicstaves.html#thinning-v-to-skeleton-list
+.. _extract_filled_horizontal_black_runs: musicstaves.html#extract-filled-horizontal-black-runs
+
+.. _thinning_v_to_skeleton_list: musicstaves.html#thinning-v-to-skeleton-list
 
 Arguments:
 

@@ -304,3 +304,30 @@ a StaffFinder class rather than a MusicStaves class:
     print "Staff %d has %d staves:" % (i+1, len(staff))
     for j, line in enumerate(staff):
       print "    %d. line at y-position:" % (j+1), line.average_y
+
+
+Staff removal with a different StaffFinder
+``````````````````````````````````````````
+
+It is possible to use an arbitrary StaffFinder for staff removal by 
+replacing the default stafffinfer in MusicStaves_linetracking with
+a different StaffFinderclass:
+
+.. code:: Python
+
+  from gamera.core import *
+  from gamera.toolkits.musicstaves import stafffinder_stable_path
+  from gamera.toolkits.musicstaves import musicstaves_linetracking
+
+  init_gamera()
+
+  image = load_image("music.png")
+  image = image.to_onebit()
+
+  sf = stafffinder_stable_path.StaffFinder_stable_path(image)
+  sf.find_staves()
+  ms = musicstaves_linetracking.MusicStaves_linetracking(image)
+  ms.stafffinder = sf
+  ms.remove_staves()
+
+  image_without_staves = ms.image

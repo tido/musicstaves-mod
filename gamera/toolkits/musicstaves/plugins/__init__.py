@@ -7,4 +7,5 @@ import skeleton_utilities
 import vector_field
 import evaluation
 import staffdeformation
-#import draw_shapes
+import stable_path
+
