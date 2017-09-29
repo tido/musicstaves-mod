@@ -21,7 +21,7 @@ plugin_extensions = gamera_setup.generate_plugins(plugins, PLUGIN_PACKAGE)
 
 # This is a standard distutils setup initializer.  If you need to do
 # anything more complex here, refer to the Python distutils documentation.
-setup(name=TOOLKIT_NAME, version="1.4.0",
+setup(name=TOOLKIT_NAME, version="1.4.1",
       ext_modules = plugin_extensions,
       packages = [PACKAGE, PLUGIN_PACKAGE],
       scripts = [])
