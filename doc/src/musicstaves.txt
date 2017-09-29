@@ -1,0 +1,2269 @@
+
+MusicStaves
+===========
+
+
+Classes
+-------
+
+``MusicStaves_linetracking``
+````````````````````````````
+
+object **MusicStaves_linetracking** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: line_tracking.py
+:Author: Christoph Dalitz
+
+
+Creates a `MusicStaves_linetracking`__ object.
+
+.. __: gamera.toolkits.musicstaves.musicstaves_linetracking.MusicStaves_linetracking.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.
+
+
+
+``MusicStaves_rl_carter``
+`````````````````````````
+
+object **MusicStaves_rl_carter** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: musicstaves_plugins.py
+:Author: Michael Droettboom (after an algorithm by N. P. Carter)
+
+
+Creates a MusicStaves_rl_carter__ object.
+
+.. __: gamera.toolkits.musicstaves.musicstaves_rl_carter.MusicStaves_rl_carter.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.
+
+
+
+``MusicStaves_rl_fujinaga``
+```````````````````````````
+
+object **MusicStaves_rl_fujinaga** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: staff_removal_fujinaga.py
+:Author: Michael Droettboom, Karl MacMillan and Ichiro Fujinaga
+
+
+Returns a new MusicStaves_fl_fujinaga__ object from the image.
+
+.. __: gamera.toolkits.musicstaves.musicstaves_rl_fujinaga.MusicStaves_rl_fujinaga.html
+
+
+
+``MusicStaves_rl_roach_tatem``
+``````````````````````````````
+
+object **MusicStaves_rl_roach_tatem** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: roach_tatem_plugins.py
+:Author: Michael Droettboom, after an algorithm by Roach & Tatem
+
+
+Creates a MusicStaves_rl_roach_tatem__ object.
+
+.. __: gamera.toolkits.musicstaves.musicstaves_rl_roach_tatem.MusicStaves_rl_roach_tatem.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.
+
+
+
+``MusicStaves_rl_simple``
+`````````````````````````
+
+object **MusicStaves_rl_simple** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: musicstaves_plugins.py
+:Author: Thomas Karsten
+
+
+Creates a MusicStaves_rl_simple__ object.
+
+.. __: gamera.toolkits.musicstaves.musicstaves_rl_simple.MusicStaves_rl_simple.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.
+
+
+
+``MusicStaves_skeleton``
+````````````````````````
+
+object **MusicStaves_skeleton** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: musicstaves_plugins.py
+:Author: Christoph Dalitz
+
+
+Creates a MusicStaves_skeleton__ object.
+
+.. __: gamera.toolkits.musicstaves.musicstaves_skeleton.MusicStaves_skeleton.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically. As skeletonization can be rather time
+consuming, you can optionally provide a precomputed skeleton in
+*skeleton_image*.
+
+
+
+``StaffFinder_dalitz``
+``````````````````````
+
+object **StaffFinder_dalitz** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: musicstaves_plugins.py
+:Author: Florian Pose
+
+
+Creates a StaffFinder_dalitz__ object.
+
+.. __: gamera.toolkits.musicstaves.stafffinder_dalitz.StaffFinder_dalitz.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.
+
+
+
+``StaffFinder_miyao``
+`````````````````````
+
+object **StaffFinder_miyao** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: staff_finding_miyao.py
+:Author: Christoph Dalitz
+
+
+Creates a StaffFinder_miyao__ object.
+
+.. __: gamera.toolkits.musicstaves.stafffinder_miyao.StaffFinder_miyao.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.
+
+
+
+``StaffFinder_projections``
+```````````````````````````
+
+object **StaffFinder_projections** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: musicstaves_plugins.py
+:Author: Christoph Dalitz
+
+
+Creates a StaffFinder_projections__ object.
+
+.. __: gamera.toolkits.musicstaves.stafffinder_projections.StaffFinder_projections.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.
+
+
+
+``StaffFinder_stable_path``
+```````````````````````````
+
+object **StaffFinder_stable_path** (int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Classes
+:Defined in: stable_path.py
+:Author: Christoph Dalitz
+
+
+Creates a StaffFinder_stable_path__ object.
+
+.. __: gamera.toolkits.musicstaves.stafffinder_stable_path.StaffFinder_stable_path.html
+
+Leave the parameters *staffspace_height* and *staffline_height* zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.
+
+
+
+
+Deformation
+-----------
+
+``curvature``
+`````````````
+
+object **curvature** (``Image`` [OneBit] *im_staffonly*, float *ampx*, float *period* = 1.00)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Bastian Czerwinski
+
+
+Applies Gamera's *wave* plugin and computes the the position of the
+stafflines after the deformation.
+
+Input arguments:
+
+ *im_staffonly*:
+   image containing only the staff segments (without symbols) of the
+   *self* image
+
+ *ampx*:
+   amplitude of the sine wave divided by the width of the staff system
+
+ *period*:
+   is the count of the half periods of to the sine wave over the
+   whole staff width
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* with the
+following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+``degrade_kanungo_parallel``
+````````````````````````````
+
+object **degrade_kanungo_parallel** (``Image`` [OneBit] *im_staffonly*, float(0.00, 1.00) *eta*, float(0.00, 1.00) *a0*, float *a*, float(0.00, 1.00) *b0*, float *b*, int *k* = 2, int *random_seed* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Christoph Dalitz
+
+
+Degrades an image and its corresponding staff only image in parallel
+due to a scheme proposed by Kanungo et alii (see the reference below). This is
+supposed to emulate image defects introduced through printing and scanning.
+
+The argument *im_staffonly* must be an image containing only the staff
+segments (without symbols) of the *self* image.
+The degradation scheme depends on six parameters *(eta,a0,a,b0,b,k)* with
+the following meaning:
+
+  - each foreground pixel (black) is flipped with probability
+    `a0*exp(-a*d^2) + eta`, where d is the distance to the closest
+    background pixel
+
+  - each background pixel (white) is flipped with probability
+    `b0*exp(-b*d^2) + eta`, where d is the distance to the closest
+    foreground pixel
+
+  - eventuall a morphological closing operation is performed with a disk
+    of diameter *k*. If you want to skip this step set *k=0*; in that
+    case you should do your own smoothing afterwards.
+
+The random generator is initialized with *random_seed* for allowing
+reproducable results.
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* with the
+following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+References:
+
+  T. Kanungo, R.M. Haralick, H.S. Baird, et al.:
+  *A statistical, nonparametric methodology for document
+  degradation model validation.*
+  IEEE Transactions on Pattern Analysis and Machine Intelligence
+  22 (11), 2000, pp. 1209-1223
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+``find_stafflines``
+```````````````````
+
+object **find_stafflines** ()
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Bastian Czerwinski
+
+
+Returns a list of StafflineSkeleton__ objects describing the
+stafflines in *self* image, which has contain only the stafflines of
+a computer-generated image
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+``rotation``
+````````````
+
+object **rotation** (``Image`` [OneBit] *im_staffonly*, float *angle*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Bastian Czerwinski
+
+
+Rotates a music image and computes the position of the stafflines
+after the rotation.
+
+The stafflines are detected in *im_staffonly* with horizontal projections.
+Calculating the skeleton positions after rotation takes into account
+that the Gamera `rotate` plugin not only does a rotation, but also
+pads and translates the image.
+
+Input arguments:
+
+ *im_staffonly*:
+   image containing only the staff segments (without symbols) of the
+   *self* image
+
+ *angle*
+   rotation angle (counter clockwise)
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* with the
+following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+``staffline_interruptions``
+```````````````````````````
+
+object **staffline_interruptions** (``Image`` [OneBit] *im_staffonly*, float *alpha*, int *n*, float *p* = 0.50, int *random_seed* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Bastian Czerwinski
+
+
+Applies random interruptions (with random size) to the stafflines.
+
+Paramaters:
+ *alpha*
+   The probability for each pixel to be the center of an interruption
+
+ *n*, *p*
+   The n and p parameters for the binomial distribution deciding the size
+   of the interruption
+
+A *random_seed* can be given for reproducable results.
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* with the
+following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+
+``staffline_thickness_ratio``
+`````````````````````````````
+
+object **staffline_thickness_ratio** (``Image`` [OneBit] *im_staffonly*, float *ratio*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Bastian Czerwinski
+
+
+Changes the ratio `staffline_height:staffspace_height` to
+the given *ratio*.
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* with the
+following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+``staffline_thickness_variation``
+`````````````````````````````````
+
+object **staffline_thickness_variation** (``Image`` [OneBit] *im_staffonly*, int *min*, int *max*, float *c* = 0.50, int *random_seed* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Bastian Czerwinski
+
+
+Applies variable random thickness to the stafflines using a
+Metropolis-Hastings Markov chain simulation.
+
+The new staff lines are centered at the y-position of the former
+stafflines. For every *x* value a new thickness is estamined. It
+is then drawn from `y-(thickness-1)/2` to `y+(thickness-1)/2`. In
+cases where this produces decimal places (for even values of
+thickness), an additional shift is applied, with is reestimated
+for every change of the thickness to an even value. It is randomly
+generated: in half of the cases 1, or otherwise 0.
+
+The probability to stay in the same state i.e. to stay at the same
+thickness is >= *c*. Thus *c* can be considered as an inertia factor
+allowing for smooth transitions. The stationary distribution of the
+Markov chain is set to a binomial distribution with *p = 0.5* and
+*n = max - min*.
+
+A *random_seed* can be given for reproducable results.
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* with the
+following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+References:
+    W.K. Hastings: *Monte Carlo sampling methods using Markov
+    chains and their applications*, Biometrika, 57:97-109 (1970)
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+``staffline_y_variation``
+`````````````````````````
+
+object **staffline_y_variation** (``Image`` [OneBit] *im_staffonly*, int *maxdiff*, float *c* = 0.50, int *random_seed* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Bastian Czerwinski
+
+
+Applies variable random y-value to the stafflines using a
+Metropolis-Hastings Markov chain simulation.
+
+The probability to stay in the same state i.e. to stay at the
+same y-value is >= *c*. Thus *c* can be considered as an inertia factor
+allowing for smooth transitions. The stationary distribution of the
+Markov chain is set to a binomial distribution with *p = 0.5* and
+*n = maxdiff*.
+
+*maxdiff* is the maximum variation (i.e. *max-min+1*) of the new
+y value of the line.
+
+A *random_seed* can be given for reproducable results.
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* with the
+following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+References:
+    W.K. Hastings: *Monte Carlo sampling methods using Markov
+    chains and their applications*, Biometrika, 57:97-109 (1970)
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+``typeset_emulation``
+`````````````````````
+
+object **typeset_emulation** (``Image`` [OneBit] *im_staffonly*, int *n_gap*, float *p_gap*, int *n_shift*, int *random_seed* = 0, ``bool`` *add_noshift* = False)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Bastian Czerwinski
+
+
+Emulates typeset music by interrupting staff lines between symbols
+and shifting the resulting vertical slices randomly up or down.
+
+Staff lines and systems are detected in *im_staffonly* by horizontal
+projections. Splitting points for the interruptions (gaps) of each
+staff system are detected by vertical projections in *im_staffonly*.
+
+Input arguments:
+
+ *im_staffonly*:
+   image containing only the staff segments (without symbols) of the
+   *self* image
+
+ *n_gap*, *p_gap*:
+   n and p values for gap widths (binomial distribution)
+
+ *n_shift*:
+   n value for y-shift (binomial distribution; p always 0.5)
+
+ *random_seed*:
+   Initializer for random generator allowing reproducable results.
+
+ *add_noshift*:
+   Add images to the output only containing the breaks, and no shifts
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* or (if
+*add_noshift* is set to True) *[def_full, def_staffonly, list_staffline,
+ns_full, ns_staffonly]* with the following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+ *ns_full*
+   deformed version of the *self* image, only breaks, no shifts
+
+ *ns_staffonly*
+   deformed version of the *im_staffonly*, only breaks, no shifts
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+``white_speckles_parallel``
+```````````````````````````
+
+object **white_speckles_parallel** (``Image`` [OneBit] *im_staffonly*, float(0.00, 1.00) *p*, int *n*, int *k* = 2, ``Choice`` [rook|bishop|king] *connectivity* = king, int *random_seed* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Deformation
+:Defined in: staffdeformation.py
+:Author: Christoph Dalitz
+
+
+Adds white speckles to a music image and in parllel to its
+corresponding staff only image. This is supposed to emulate image
+defects introduced through printing, scanning and thresholding.
+
+The degradation scheme depends on three parameters *(p,n,k)* with
+the following meaning:
+
+ - Each black pixel in the input image is taken with probability *p*
+   as a starting point for a random walk of length *n*.
+   Consequently *p* can be interpreted as the speckle frequency and *n*
+   as a measure for the speckle size.
+
+ - An image containing the random walk is smoothed by a closing operation
+   with a rectangle of size *k*.
+
+ - Eventually the image with the random walks is subtracted from both the
+   original image and the provided staffless image, which results in white
+   speckles at the random walk positions
+
+Input arguments:
+
+ *im_staffonly*:
+   image containing only the staff segments (without symbols) of the
+   *self* image
+
+ *p, n, k*:
+   speckle frequency, random walk length and closing disc size
+
+ *connectivity*:
+   effects the connectivity of adjacent random walk points as shown
+   in the following figure (in case of bishop moves the final closing
+   operation whitens the neighbouring 4-connected pixels too):
+
+   .. image:: images/randomwalk_connectivity.png
+
+Returns a tuple *[def_full, def_staffonly, list_staffline]* with the
+following components:
+
+ *def_full*
+   deformed version of the *self* image
+   
+ *def_staffonly*
+   deformed version of *im_staffonly*
+
+ *list_staffline*
+   a list of StafflineSkeleton__ objects describing the staffline
+   positions after the deformation
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+.. note:: Only works on computer generated images with perfectly
+   horizontal staff lines.
+
+
+
+
+Evaluation
+----------
+
+``interruption_error``
+``````````````````````
+
+``IntVector`` **interruption_error** (``Image`` [OneBit] *Gstaves*, ``Image`` [OneBit] *Sstaves*, [object *Skeletons*])
+
+
+:Returns: ``IntVector``
+:Category: MusicStaves/Evaluation
+:Defined in: evaluation.py
+:Author: Bastian Czerwinski
+
+
+Returns error information for staff line interruptions.
+
+Compares the staff-only image of the "ground truth" image *Gstaves*
+with the staff-only image of a staff removal result *Sstaves* (image
+that contains exactly the removed pixels). A list of
+StafflineSkeleton-objects *Skeletons* is also needed to find the
+stafflines in the images. This algorithm recognizes interruptions in
+the stafflines, and tries to link them by matching their x-positions.
+After that it removes links, so that every interruption is linked at
+most once. The return value is a tuple (*n1,n2,n3)* describing the
+results:
+
++------+--------------------------------------------------------------+
+|      | Meaning                                                      |
++======+==============================================================+
+| *n1* | interruptions without link (either Gstaves or Sstaves)       |
++------+--------------------------------------------------------------+
+| *n2* | removed links because of doubly linked interruptions         |
++------+--------------------------------------------------------------+
+| *n3* | interruptions in Gstaves                                     |
++------+--------------------------------------------------------------+
+
+In the following image, you can see 2 interruptions without link (blue),
+2 removed links (red) and 7 interruptions in Gstaves, so the return value
+would be (2,2,7):
+
+.. image:: images/staffinterrupt.png
+
+
+
+``pixel_error``
+```````````````
+
+list **pixel_error** (``Image`` [OneBit] *Gstaves*, ``Image`` [OneBit] *Sstaves*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: list
+:Category: MusicStaves/Evaluation
+:Defined in: evaluation.py
+:Author: Christoph Dalitz
+
+
+Returns the rate of misclassified pixels (*staff*, *non staff*)
+during staff removal.
+
+Arguments:
+
+  *self*:
+    The full original input image
+
+  *Gstaves*:
+    ground truth image containing only the staff segments that should
+    be removed
+
+  *Sstaves*:
+    image containing the actually removed staff segments
+
+The return value is a tuple (*error, e1, e2, a)* with the following
+meaning:
+
++---------+--------------------------------+
+| value   | meaning                        |
++=========+================================+
+| *error* | actual error rate              |
++---------+--------------------------------+
+| *e1*    | black area of missed staff     |
++---------+--------------------------------+
+| *e2*    | count of false positive pixels |
++---------+--------------------------------+
+| *a*     | count of black pixels          |
++---------+--------------------------------+
+
+
+
+``segment_error``
+`````````````````
+
+``IntVector`` **segment_error** (``Image`` [OneBit] *Gstaves*, ``Image`` [OneBit] *Sstaves*)
+
+
+:Returns: ``IntVector``
+:Category: MusicStaves/Evaluation
+:Defined in: evaluation.py
+:Author: Christoph Dalitz
+
+
+Returns the rate of misclassified staff segments 
+during staff removal.
+
+Compares two segmentations by building equivalence classes of
+overlapping segments as described in the reference below. Each
+class is assigned an error type depending on how many ground truth
+and test segments it contains. The return value is a tuple
+(*n1,n2,n3,n4,n5,n6)* where each value is the total number of classes
+with the corresponding error type:
+
++------+-----------------------+---------------+----------------------+
+| Nr   | Ground truth segments | Test segments | Error type           |
++======+=======================+===============+======================+
+| *n1* | 1                     | 1             | correct              |
++------+-----------------------+---------------+----------------------+
+| *n2* | 1                     | 0             | missed segment       |
++------+-----------------------+---------------+----------------------+
+| *n3* | 0                     | 1             | false positive       |
++------+-----------------------+---------------+----------------------+
+| *n4* | 1                     | > 1           | split                |
++------+-----------------------+---------------+----------------------+
+| *n5* | > 1                   | 1             | merge                |
++------+-----------------------+---------------+----------------------+
+| *n6* | > 1                   | > 1           | splits and merges    |
++------+-----------------------+---------------+----------------------+
+
+Input arguments:
+
+  *Gstaves*:
+    ground truth image containing only the staff segments that should
+    be removed
+
+  *Sstaves*:
+    image containing the actually removed staff segments
+
+References:
+
+  M. Thulke, V. Margner, A. Dengel:
+  *A general approach to quality evaluation of document
+  segmentation results.*
+  Lecture Notes in Computer Science 1655, pp. 43-57 (1999)
+
+
+
+
+Fujinaga
+--------
+
+``find_and_deskew_staves_fujinaga``
+```````````````````````````````````
+
+object **find_and_deskew_staves_fujinaga** (int(3, 12) *n_stafflines* = 5, float *staffline_height* = 0.00, float *staffspace_height* = 0.00, int(1, 64) *skew_strip_width* = 0, float(1.00, 20.00) *max_skew* = 8.00)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Fujinaga
+:Defined in: staff_removal_fujinaga.py
+:Author: Michael Droettboom, Karl MacMillan and Ichiro Fujinaga
+
+
+Locates staves while deskewing the image.  Returns a tuple of
+the form (*image*, *staves*) where *image* is the image deskewed, and
+*staves* is a list of ``StaffObj``.
+
+*n_stafflines* = 5
+   The number of stafflines in each staff.  (Autodetection of number
+   of stafflines not yet implemented).
+
+*staffline_height* = 0
+   The height (in pixels) of the stafflines. If *staffline_height* <=
+   0, the staffline height is autodetected both globally and for each
+   staff.
+
+*staffspace_height* = 0
+   The height (in pixels) of the spaces between the stafflines.  If
+   *staffspace_height* <= 0, the staffspace height is autodetected
+   both globally and for each staff.
+
+*skew_strip_width* = 0
+   The width (in pixels) of vertical strips used to deskew the image.
+   Smaller values will deskew the image with higher resolution, but
+   this may make the deskewing overly sensitive.  Larger values may
+   miss fine detail.  If *skew_strip_width* <= 0, the width will be
+   autodetermined to be the global *staffspace_h* * 2.
+
+*max_skew* = 8.0
+   The maximum amount of skew that will be detected within each
+   vertical strip.  Expressed in degrees.  This value should be fairly
+   small, because deskewing only approximates rotation at very small
+   degrees.
+
+
+
+``find_and_remove_staves_fujinaga``
+```````````````````````````````````
+
+object **find_and_remove_staves_fujinaga** (``Choice`` [all|bar|none] *crossing_symbols*, int(3, 12) *n_stafflines* = 5, float(0.00, 512.00) *staffline_height* = 0.00, float(0.00, 512.00) *staffspace_height* = 0.00, int(0, 512) *skew_strip_width* = 0, float(1.00, 20.00) *max_skew* = 8.00, ``bool`` *deskew_only* = False, ``bool`` *find_only* = False, ``bool`` *undo_deskew* = False)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Fujinaga
+:Defined in: staff_removal_fujinaga.py
+:Author: Michael Droettboom, Karl MacMillan and Ichiro Fujinaga
+
+
+Locates staves while deskewing the image, and then removes the
+staves.  Returns a tuple of the form (*deskewed_image*,
+*removed_image*, *staves*) where *deskewed_image* is the original
+image deskewed, *removed_image* is the deskewed with the stafflines
+removed, and *staves* is a list of ``StaffObj`` instances defining
+where the stafflines are.
+
+*crossing_symbols*
+   Not yet implemented -- just a placeholder for now.
+
+*n_stafflines* = 5
+   The number of stafflines in each staff.  (Autodetection of number
+   of stafflines not yet implemented).
+
+*staffline_height* = 0
+   The height (in pixels) of the stafflines. If *staffline_height* <=
+   0, the staffline height is autodetected both globally and for each
+   staff.
+
+*staffspace_height* = 0
+   The height (in pixels) of the spaces between the stafflines.  If
+   *staffspace_height* <= 0, the staffspace height is autodetected
+   both globally and for each staff.
+
+*skew_strip_width* = 0
+   The width (in pixels) of vertical strips used to deskew the image.
+   Smaller values will deskew the image with higher resolution, but
+   this may make the deskewing overly sensitive.  Larger values may
+   miss fine detail.  If *skew_strip_width* <= 0, the width will be
+   autodetermined to be the global *staffspace_h* * 2.
+
+*max_skew* = 8.0
+   The maximum amount of skew that will be detected within each
+   vertical strip.  Expressed in degrees.  This value should be fairly
+   small, because deskewing only approximates rotation at very small
+   degrees.
+
+*deskew_only* = ``False``
+   When ``True``, only perform staffline detection and deskewing.  Do
+   not remove the stafflines.
+
+*find_only* = ``False``
+   When ``True``, only perform staffline detection.  Do not deskew the
+   image or remove the stafflines.
+
+
+
+``find_staves_fujinaga``
+````````````````````````
+
+object **find_staves_fujinaga** (int(3, 12) *n_stafflines* = 5, float *staffline_height* = 0.00, float *staffspace_height* = 0.00, int(1, 64) *skew_strip_width* = 0, float(1.00, 20.00) *max_skew* = 8.00)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Fujinaga
+:Defined in: staff_removal_fujinaga.py
+:Author: Michael Droettboom, Karl MacMillan and Ichiro Fujinaga
+
+
+Locates staves, without performing any unnecessary deskewing or
+removal of stafflines.  This function is useful only to determine
+whether an image has stafflines or not.  Returns a list of
+``StaffObj``.
+
+*n_stafflines* = 5
+   The number of stafflines in each staff.  (Autodetection of number
+   of stafflines not yet implemented).
+
+*staffline_height* = 0
+   The height (in pixels) of the stafflines. If *staffline_height* <=
+   0, the staffline height is autodetected both globally and for each
+   staff.
+
+*staffspace_height* = 0
+   The height (in pixels) of the spaces between the stafflines.  If
+   *staffspace_height* <= 0, the staffspace height is autodetected
+   both globally and for each staff.
+
+*skew_strip_width* = 0
+   The width (in pixels) of vertical strips used to deskew the image.
+   Smaller values will deskew the image with higher resolution, but
+   this may make the deskewing overly sensitive.  Larger values may
+   miss fine detail.  If *skew_strip_width* <= 0, the width will be
+   autodetermined to be the global *staffspace_h* * 2.
+
+*max_skew* = 8.0
+   The maximum amount of skew that will be detected within each
+   vertical strip.  Expressed in degrees.  This value should be fairly
+   small, because deskewing only approximates rotation at very small
+   degrees.
+
+
+
+``global_staffline_deskew``
+```````````````````````````
+
+``Image`` [OneBit] **global_staffline_deskew** (float *staffline_height* = 0.00, float *staffspace_height* = 0.00, int *skew_strip_width* = 0, float *max_skew* = 5.00)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/Fujinaga
+:Defined in: staff_removal_fujinaga.py
+:Author: Michael Droettboom, Karl MacMillan and Ichiro Fujinaga
+
+
+Performs a global deskewing on the entire image by
+cross-correlating thin vertical strips of the image.  Since this
+function is global and does not deskew on staff at a time, the results
+are not great, and in particular long slurs can introduce errors.
+This same deskewing also happens early on in the
+find_and_remove_staves_fujinaga process.
+
+Returns deskewed copy of the image.
+
+It is available here for primarily for experimentation rather than as
+anything ultimately useful.
+
+*staffline_height* = 0
+   The height (in pixels) of the stafflines. If *staffline_height* <=
+   0, the staffline height is autodetected both globally and for each
+   staff.
+
+*staffspace_height* = 0
+   The height (in pixels) of the spaces between the stafflines.  If
+   *staffspace_height* <= 0, the staffspace height is autodetected
+   both globally and for each staff.
+
+*skew_strip_width* = 0
+   The width (in pixels) of vertical strips used to deskew the image.
+   Smaller values will deskew the image with higher resolution, but
+   this may make the deskewing overly sensitive.  Larger values may
+   miss fine detail.  If *skew_strip_width* <= 0, the width will be
+   autodetermined to be the global *staffspace_h* * 2.
+
+*max_skew* = 8.0
+   The maximum amount of skew that will be detected within each
+   vertical strip.  Expressed in degrees.  This value should be fairly
+   small, because deskewing only approximates rotation at very small
+   degrees.
+
+
+
+``remove_staves_fujinaga``
+``````````````````````````
+
+``Image`` [OneBit] **remove_staves_fujinaga** (object *staves*, ``Choice`` [all|bars|none] *crossing_symbols*, float *staffline_height* = 0.00, float *staffspace_height* = 0.00)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/Fujinaga
+:Defined in: staff_removal_fujinaga.py
+:Author: Michael Droettboom, Karl MacMillan and Ichiro Fujinaga
+
+
+Removes the staves from an image that has already been deskewed
+and had its staves detected by find_and_deskew_staves_fujinaga_.
+Returns the image with the staves removed.
+
+*staves*
+   A list of ``StaffObj`` instances as returned from
+   find_and_deskew_staves_fujinaga.  Other lists of StaffObj's may be
+   used, but if they do not have a ``staffrect`` member variable, each
+   staff will be treated as if it extends across the entire page from
+   left to right, and the margins of the image will not be treated
+   differently.
+
+*crossing_symbols* = 0
+   Not yet implemented -- just a placeholder for now.
+
+*staffline_height* = 0
+   The height (in pixels) of the stafflines. If *staffline_height* <=
+   0, the staffline height is autodetected both globally and for each
+   staff.
+
+*staffspace_height* = 0
+   The height (in pixels) of the spaces between the stafflines.  If
+   *staffspace_height* <= 0, the staffspace height is autodetected
+   both globally and for each staff.
+
+Note that the following are essentially (*) equivalent, (though the
+first is slightly faster):
+
+.. code:: Python
+
+   # All in one call
+   deskewed, removed, staves = source.find_and_remove_staves_fujinaga(...)
+
+   # Two separate calls, to try different staff removal methods
+   deskewed, staves = source.find_and_deskew_staves_fujinaga(...)
+   removed = deskewed.remove_staves_fujinaga(staves, ...)
+
+(*) There are some slight differences, but none that should affect the
+result.
+
+
+
+
+Line_tracking
+-------------
+
+``extract_filled_horizontal_black_runs``
+````````````````````````````````````````
+
+``Image`` [OneBit] **extract_filled_horizontal_black_runs** (int *windowwidth*, int(1, 100) *blackness* = 75)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/Line_tracking
+:Defined in: line_tracking.py
+:Author: Thomas Karsten and Christoph Dalitz
+
+
+Extract horizontal lines from an image.
+
+Returns black horizontal runs with a blackness greater than *blackness* within
+a horizontal window of width *windowwidth*. In essence this is a combination
+of ``fill_horizontal_line_gaps`` and ``filter_narrow_runs(x, 'black')``.
+
+
+
+``follow_staffwobble``
+``````````````````````
+
+object **follow_staffwobble** (object *staffline_object*, int *staffline_height* = 0, int *debug* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Line_tracking
+:Defined in: line_tracking.py
+:Author: Christoph Dalitz
+
+
+Returns a staffline skeleton that follows a wobbling staffline.
+
+This function is useful when you only approximately know the stafflines
+(eg. if you only know the average y position for each staffline). It
+follows the staff line by seeking adjacent slithers of approximately
+*staffline_height*.
+
+Arguments:
+
+  *staffline_object*:
+    A single staffline represented as StafflineAverage_, StafflinePolygon_ or
+    StafflineSkeleton_.
+
+.. _StafflineAverage: gamera.toolkits.musicstaves.stafffinder.StafflineAverage.html
+.. _StafflinePolygon: gamera.toolkits.musicstaves.stafffinder.StafflinePolygon.html
+.. _StafflineSkeleton: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+  *staffline_height*:
+    When zero, it is automatically computed as most frequent white vertical
+    runlength.
+
+Return value:
+
+  The (hopefully) more accurate staffline represented as StafflineSkeleton__.
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+
+References:
+
+- D. Bainbridge, T.C. Bell: *Dealing with superimposed objects in
+  optical music recognition*. http://www.cs.waikato.ac.nz/~davidb/publications/ipa97/
+
+.. note:: This postprocessing step is only reliable when staff lines
+   are absolutely solid and are not interrupted. Otherwise this method
+   can result in grossly inaccurate staff lines.
+
+
+
+``get_staff_skeleton_list``
+```````````````````````````
+
+object **get_staff_skeleton_list** (int *staffline_height*, int *windowwidth*, int(1, 100) *blackness* = 75)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: object
+:Category: MusicStaves/Line_tracking
+:Defined in: line_tracking.py
+:Author: Thomas Karsten and Christoph Dalitz
+
+
+Returns skeleton data of staffline candidates.
+
+In order to find staffline candidates, long quasi black runs are extracted
+with extract_filled_horizontal_black_runs_. The resulting filaments are
+vertically thinned with thinning_v_to_skeleton_list_.
+
+.. _extract_filled_horizontal_black_runs: musicstaves.html#extract-filled-horizontal-black-runs
+
+.. _thinning_v_to_skeleton_list: musicstaves.html#thinning-v-to-skeleton-list
+
+Arguments:
+
+  *windowwidth*, *blackness*:
+    Input arguments passed on to `extract_filled_horizontal_black_runs`__.
+
+.. __: musicstaves.html#extract-filled-horizontal-black-runs
+
+  *staffline_height*:
+    Input argument passed on to `thinning_v_to_skeleton_list`__. This is
+    half the threshold for splitting a vertical black run into more than
+    one skeleton points.
+
+.. __: musicstaves.html#thinning-v-to-skeleton-list
+
+Return value:
+
+  *skeleton_list*:
+    A nested list, where each sublist represents a staffline candidate
+    skeleton as an array of two elements: the first element is the leftmost
+    x position, the second element is a list of subsequent y-values.
+
+    The returned skeleton list is sorted from top to bottom and from left
+    to right.
+
+
+
+``skeleton_list_to_image``
+``````````````````````````
+
+``Image`` [OneBit|GreyScale|Grey16|RGB|Float|Complex] **skeleton_list_to_image** (object *skeleton_list*)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale|Grey16|RGB|Float|Complex]
+:Returns: ``Image`` [OneBit|GreyScale|Grey16|RGB|Float|Complex]
+:Category: MusicStaves/Line_tracking
+:Defined in: line_tracking.py
+:Author: Thomas Karsten
+
+
+Creates an image using a skeleton list as returned by
+get_staff_skeleton_list_.
+
+Argument:
+  *skeleton_list*:
+    Nested list of skeleton data. See `get_staff_skeleton_list`__ for details.
+
+.. __: musicstaves.html#get-staff-skeleton-list
+
+This function only helps to visualize a skeleton list. The image this
+function operates on is only needed for determining *ncols* and *nrows*
+of the output image. Typically the input image is the original image from
+which the skeletons have been extracted.
+
+
+
+``thinning_v_to_skeleton_list``
+```````````````````````````````
+
+object **thinning_v_to_skeleton_list** (int *staffline_height*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Line_tracking
+:Defined in: line_tracking.py
+:Author: Thomas Karsten and Christoph Dalitz
+
+
+Simplified thinning algorithm that only thins in the vertical
+direction.
+
+Return value:
+  *skeleton_list*:
+    Nested list of skeleton data. See `get_staff_skeleton_list`__ for details.
+
+.. __: musicstaves.html#get-staff-skeleton-list
+
+Each vertical black run in the image is thinned down to its middle value,
+provided the black run is not too tall. Black runs taller than
+2 * *staffline_height* are thinned more than once.
+
+
+
+
+Miyao
+-----
+
+``miyao_candidate_points``
+``````````````````````````
+
+object **miyao_candidate_points** (int(4, 100) *scanline_count* = 35, int(0, 100) *tolerance* = 2, int(0, 100) *staffline_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Miyao
+:Defined in: staff_finding_miyao.py
+:Author: Florian Pose
+
+
+Returns middle points of blackruns along *scanline_count*
+equidistant vertical scan lines, that are *staffline_height* plusminus
+*tolerance* pixels high.
+
+When *staffline_height* is given as zero (default), it is automatically
+computed as most frequent black vertical runlength.
+
+Returns a list of *scanline_count* lists, each representing a vertical
+scanline. The first value in each list is the *x* position, the subsequent
+entries are the *y* positions of candidate points for staffline anchors.
+
+
+
+``miyao_distance``
+``````````````````
+
+int **miyao_distance** (int *xa*, int *ya*, int *xb*, int *yb*, float(0.00, 1.00) *blackness* = 0.80, float(-1.57, 1.57) *pr_angle* = 3.14, int *penalty* = 3)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: int
+:Category: MusicStaves/Miyao
+:Defined in: staff_finding_miyao.py
+:Author: Christoph Dalitz
+
+
+Returns 0 when two points *a* and *b* ly on the same staff line
+candidate and *penalty* if not (note that Miyao uses 2 for a mismatch instead).
+The distance zero is only returned when the following two conditions hold:
+
+- The line angle is *pr_angle* plusminus one degree. When *pr_angle*
+  is greater than pi/2, the line angle must be within (-20,+20)
+  degrees. *pr_angle* must be given in radian.
+
+- the average blackness of the connection line is at least *blackness*
+
+
+
+``miyao_find_edge``
+```````````````````
+
+``IntVector`` **miyao_find_edge** (int *x*, int *y*, float *angle*, ``bool`` *direction*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``IntVector``
+:Category: MusicStaves/Miyao
+:Defined in: staff_finding_miyao.py
+:Author: Christoph Dalitz
+
+
+Looks for a staff line edge point near (*x*,*y*).
+
+The point (*x*,*y*) is extrapolated to the left (*direction* = True)
+or right (*direction* = False) with angle *angle* (in radian) until the
+pixel and its two vertical neighbors are white. When (*x*,*y*) itself
+is white, the edge point is searched in the opposite direction as the
+first black pixel among the three vertical neighbors.
+
+Returns the new edge point as a vector [x,y]
+
+
+
+
+RoachTatem
+----------
+
+``compute_vector_field``
+````````````````````````
+
+``Image`` [Float] **compute_vector_field** (int(1, 1000) *window_radius* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [Float]
+:Category: MusicStaves/RoachTatem
+:Defined in: roach_tatem_plugins.py
+:Author: Michael Droettboom after an algorithm by J. W. Roach and J. E. Tatem
+
+
+Computes the vector field from a onebit image.
+
+Part of the Roach and Tatem staff removal algorithm and implements
+Section 3.2 of the paper.
+
+Since the distance and thickness are not used by the staff removal
+part of Roach and Tatem's algorithm, they are not stored.
+
+*radius*
+   The radius of the circular window used to compute the vector
+   field.
+
+The return value is a FloatImage, where each pixel is the angle (in
+radians) of the line running through the corresponding pixel in the
+given image.  Each pixel value will be in the range (-pi, pi].
+
+This function is very computationally intensive.
+
+
+
+``draw_vector_field``
+`````````````````````
+
+``Image`` [OneBit] **draw_vector_field** (int(5, 25) *cell_size* = 10)
+
+
+:Operates on: ``Image`` [Float]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/RoachTatem
+:Defined in: roach_tatem_plugins.py
+:Author: Michael Droettboom after an algorithm by J. W. Roach and J. E. Tatem
+
+
+Draws a vector field as returned by compute_vector_field_ using
+lines at the appropriate angles.
+
+*cell_size*
+   The size of each cell representing a single pixel in the original
+   image.
+
+The resulting images can become quite large.  Make sure there is
+adequate memory, or run this function on a small subset of the image.
+
+
+
+``mark_horizontal_lines_rt``
+````````````````````````````
+
+[object] **mark_horizontal_lines_rt** (``Image`` [Float] *vector_image*, float *angle_threshold*, object *thickness_image*, int *staffline_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: [object]
+:Category: MusicStaves/RoachTatem
+:Defined in: roach_tatem_plugins.py
+:Author: Michael Droettboom after an algorithm by J. W. Roach and J. E. Tatem
+
+
+Given the original image and a vector field, returns a tuple of two
+images: the first containing pixels believed to be part of stafflines,
+and the second of "questionable pixels", meaning pixels that could be
+either part of stafflines or musical figures.
+
+When only the original image and a vector field are given, this function is
+part of the Roach and Tatem staff removal algorithm, and implements Section
+3.4 of their paper.
+
+When the additional FloatImage *thickness* and *staffline_height* are given,
+the implementation will not mark pixels as part of horizontal lines, which
+thickness is greater than *staffline_height*. When *staffline_height* is set
+to 0 it will default to the size of the most frequent black vertical run
+(considered to be the average staffline height).
+
+
+
+``remove_stafflines_rt``
+````````````````````````
+
+``Image`` [OneBit] **remove_stafflines_rt** (``Image`` [OneBit] *lines*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/RoachTatem
+:Defined in: roach_tatem_plugins.py
+:Author: Michael Droettboom after an algorithm by J. W. Roach and J. E. Tatem
+
+
+Given the original image and an image of probably stafflines,
+removes the stafflines and returns the result.
+
+Part of the Roach and Tatem staff removal algorithm, and implements
+Section 3.5 of their paper.
+
+
+
+
+Skeleton_utilities
+------------------
+
+``create_skeleton_segment``
+```````````````````````````
+
+SkeletonSegment **create_skeleton_segment** ([object *points*], [object *branching_points*])
+
+
+:Returns: SkeletonSegment
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Christoph Dalitz
+
+
+Constructor for a SkeletonSegment__ from a list of points.
+
+.. __: gamera.toolkits.musicstaves.plugins.skeleton_utilities.SkeletonSegment.html
+
+
+
+``distance_precentage_among_points``
+````````````````````````````````````
+
+float **distance_precentage_among_points** ([object *points*], int *mindistance*, int *maxdistance*)
+
+
+:Operates on: ``Image`` [Float]
+:Returns: float
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Christoph Dalitz
+
+
+Returns the fraction of the given points that have pixel value
+between *mindistance* and *maxdistance* in the image *distance_transform*.
+
+
+
+``estimate_next_point``
+```````````````````````
+
+``FloatVector`` **estimate_next_point** (``Point`` *current*, ``FloatVector`` *parameters*, float *t_end*, float *dt_end* = 0.00, int *direction* = 1)
+
+
+:Returns: ``FloatVector``
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Thomas Karsten
+
+
+Estimates the next point on a given parabola.
+
+Arguments:
+  *current*
+    The current point, which has to lie on the parabola.
+
+  *parameters*
+    The parameters [ax, ay, bx, by, cx, cy] that describe a parametric
+    parabola (see parabola_).
+
+  *t_end*
+    The distance of the current point to the first point (see parabola_ for
+    a possible computation).
+
+  *dt_end*
+    The distance of the current point to the previous one. When set to
+    the default value, it will be estimated automatically.
+
+  *direction*
+    The direction where to go. This option is not supported yet.
+
+The return value is the vector [p, t_end, dt_end] where
+
+  *p* is the estimated point,
+
+  *t_end* is the distance of the estimated point to the first point,
+
+  *dt_end* is the distance of the estimated point to the current point.
+
+.. code:: Python
+
+    # calculate the parameters of the parabola and estimate the following point
+    parameters, t_end = parabola(points)
+    next_point, t_new, dt_new = estimate_next_point(points[-1], parameters, t_end)
+
+
+
+``extend_skeleton``
+```````````````````
+
+``Image`` [OneBit] **extend_skeleton** (``Image`` [Float] *distance_transform*, ``ChoiceString(strict)`` [horizontal|linear|parabolic] *extrapolation_scheme* = linear, int *n_points* = 3)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Christoph Dalitz, Thomas Karsten
+
+
+Extends a skeleton image at end points until a white
+pixel in the provided unskeletonized image is found.
+
+This is typically useful only for thinned out skeletons, because these do
+not extend to the edges. For medial axis transform skeletons use
+``remove_spurs_from_skeleton`` instead.
+
+Each skeleton segment in *self* will be extended, until the skeleton segment
+is as long as the segment in *orig_image*. In case that the skeleton segment
+consists of 3 or more points, an estimating parabola will be calculated using
+the function parabola_. In case of a skeleton segment consisting of 2 points,
+the segment will be extended using the fitting line.
+
+Arguments:
+
+  *self*
+    The skeleton image to be extended
+
+  *distance_transform*
+    Distance transform of the original unskeletonized image. Determines
+    how far the skeleton is extrapolated at each end point.
+
+  *extrapolation_scheme*, *n_points*
+    Determines how new points are calculated. For 'linear' or 'parabolic'
+    extrapolation a line or parabola is fitted through *n_points* end
+    points of the skeleton branch. For 'horizontal' extrapolation the
+    skeleton branch is not investigated.
+
+    As horizontal extrapolation can lead to errenous results,
+    no more pixels are added in horizontal extrapolation than the distance
+    transform value at the skeleton end point.
+
+
+
+``get_corner_points``
+`````````````````````
+
+[object] **get_corner_points** ([object *points*], int *cornerwidth* = 1)
+
+
+:Returns: [object]
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Christoph Dalitz
+
+
+Returns the corner points of the skeleton segment consisting of the
+provided points by looking for angles below a certain threshold.
+
+Corners are detected by measuring the angle at each point plusminus
+*cornerwidth* neighbor points (see the figure below). The maximum angle is
+currently hard coded to 135 degrees. Apart from an angle threshold we
+also check whether the branches are approximately straight.
+
+.. image:: images/split_skeleton.png
+
+For an overview of more sophisticated corner detection algorithms, see
+C.H. Teh and R.T. Chin:
+*On the Detection of Dominant points on Digital Curves.* IEEE Transactions
+on Pattern Analysis and Machine Intelligence, vol. 11, no. 8, pp. 859-872
+(1989).
+
+
+
+``get_corner_points_rj``
+````````````````````````
+
+[object] **get_corner_points_rj** ([object *points*], int *cornerwidth* = 1)
+
+
+:Returns: [object]
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Bastian Czerwinski
+
+
+Returns the corner points (maximum curvature points) of the skeleton
+segment consisting of the provided points according to an algorithm by
+Rosenfeld and Johnston.
+
+See A. Rosenfeld and E. Johnston: *Angle detection on digital curves.* IEEE
+Trans. Comput., vol. C-22, pp. 875-878, Sept. 1973
+Compared to the algorithm in the paper the following modifications have been
+made:
+
+ - While Rosenfeld and Johnston's algorithm only works on closed curves,
+   this function operates on an open curve. The first checked point is the
+   one with the index *conerwidth* + 1 (*cornerwidth* corresponds to the
+   parameter *m* in the original paper).
+
+ - This function does not allow adjacent dominant points, with a (chessboard)
+   distance less than *cornerwidth*. When this happens, the algorithm decides
+   based upon the angle found (it takes the sharper one).
+
+ - Dominant points are considered corner points only if the angle of
+   the branches (see figure below) is less than *maxangle* (measured
+   in degrees; currently hard coded to 140 degrees).
+
+.. image:: images/split_skeleton.png
+
+
+
+``lin_parabola``
+````````````````
+
+``FloatVector`` **lin_parabola** ([object *points*])
+
+
+:Returns: ``FloatVector``
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Bastian Czerwinski
+
+
+Calculate an estimating parabola for the given points. The first given
+point (*points[0]*) is considered to be within the segment, whereas the last
+given point (*points[-1]*) is considered to be the end point of the segment.
+
+Since the segment (consisting of the given points) does not necessarily have to be a function, the values of *x* and *y* are described using a parameter *t*
+with 2 functions:
+
+    x = x(t)
+
+    y = y(t)
+
+where
+
+    x(t) = ax*t^2 + bx*t + cx
+
+    y(t) = by*t + cy
+
+The distance *t* is the sum of the distances between all points and is
+estimated with the eclidean distance:
+
+    t = sum(sqrt(dx^2 + dy^2))
+
+Thus, the distance for *points[0]* is 0 and the distance for *points[-1]* is
+*t*.
+
+The return value is the FloatVector [ax, ay, bx, by, cx, cy] of which ay is
+always 0. The values can be used to calculate further points using the
+function estimate_next_point_.
+
+.. note:: Using the calculated parameters it is always possible to
+          re-calculate the last given point (+-1). If the parabola of all
+          given points does not match this criteria, the number of used points
+          will be reduced and the parabola will be calculated again (see the
+          image below).
+
+.. image:: images/parabola.png
+
+
+
+``parabola``
+````````````
+
+``FloatVector`` **parabola** ([object *points*])
+
+
+:Returns: ``FloatVector``
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Thomas Karsten
+
+
+Calculate an estimating parabola for the given points. The first given
+point (*points[0]*) is considered to be within the segment, whereas the last
+given point (*points[-1]*) is considered to be the end point of the segment.
+
+Since the segment (consisting of the given points) does not necessarily have to be a function, the values of *x* and *y* are described using a parameter *t*
+with 2 functions:
+
+    x = x(t)
+
+    y = y(t)
+
+where
+
+    x(t) = ax*t^2 + bx*t + cx
+
+    y(t) = ay*t^2 + by*t + cy
+
+The distance *t* is the sum of the distances between all points and is
+estimated with the eclidean distance:
+
+    t = sum(sqrt(dx^2 + dy^2))
+
+Thus, the distance for *points[0]* is 0 and the distance for *points[-1]* is
+*t*.
+
+The return value is the FloatVector [ax, ay, bx, by, cx, cy]. The values can
+be used to calculate further points using the function estimate_next_point_.
+
+.. note:: Using the calculated parameters it is always possible to
+          re-calculate the last given point (+-1). If the parabola of all
+          given points does not match this criteria, the number of used points
+          will be reduced and the parabola will be calculated again (see the
+          image below).
+
+.. image:: images/parabola.png
+
+
+
+``remove_spurs_from_skeleton``
+``````````````````````````````
+
+``Image`` [OneBit] **remove_spurs_from_skeleton** (int *length*, ``Choice`` [remove|keep|extrapolate] *endtreatment*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Christoph Dalitz
+
+
+Removes short branches ("spurs") from a skeleton image.
+
+Parameters:
+
+  *length*:
+    only end branches not longer than length are removed
+  *endtreatment*:
+    determines how end points (branching points with two spurs and one
+    branch longer than *length*) are treated: 0 = spurs are removed,
+    1 = spurs are kept, 2 = end point is interpolated between the two
+    end branches.
+
+.. note:: Setting *endtreatment* = 0 will result in shortened
+          skeletons that no longer extend to the corners. The same
+          may happen for *endtreatment* = 2, though to a lesser extent.
+
+
+
+``remove_vruns_around_points``
+``````````````````````````````
+
+**remove_vruns_around_points** ([object *points*], int *threshold* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Christoph Dalitz
+
+
+Removes all vertical runs to which any of the given points belongs.
+When the parameter *threshold* is greater than zero, only vertical runlengths
+shorter than *threshold* are removed.
+
+
+
+``split_skeleton``
+``````````````````
+
+[SkeletonSegment] **split_skeleton** (``Image`` [Float] *distance_transform*, int *cornerwidth*, ``Choice`` [chessboard|manhattan|euclidean] *norm* = chessboard)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: [SkeletonSegment]
+:Category: MusicStaves/Skeleton_utilities
+:Defined in: skeleton_utilities.py
+:Author: Christoph Dalitz
+
+
+Splits a skeleton image at branching and corner points and returns
+a list of `SkeletonSegments`__.
+
+.. __: gamera.toolkits.musicstaves.plugins.skeleton_utilities.SkeletonSegment.html
+
+The input image must be a skeleton, the `FloatImage` must be a distance
+transform obtained from the original image. The splitting procedure
+consists of two steps:
+
+1) Split at "branching" (more than two connected) points.
+
+2) In the remaining branches, corners are detected with get_corner_points_rj,
+   which requires a parameter *cornerwidth*. A reasonable value for
+   *cornerwidth* could be *max(staffspace_height/2,5)*; setting *cornerwidth*
+   to zero will skip the corner detection.
+
+In both steps, a number of pixels is removed around each splitting point.
+This number is taken from the *distance_transform* image. If you
+do not want this, simply pass as *distance_transform* an image with all
+pixel values equal to zero.
+The parameter *norm* should determine the removal shape (diamond for
+chessboard, square for manhatten and circle for euclidean distance), but
+is currently ignored.
+
+
+
+
+Stable_path
+-----------
+
+``get_stable_path_staff_skeletons``
+```````````````````````````````````
+
+object **get_stable_path_staff_skeletons** (``bool`` *with_trimming* = True, ``bool`` *with_deletion* = False, ``bool`` *with_staff_fixing* = False, ``bool`` *enable_strong_staff_pixels* = False, int *staffline_height* = 0, int *staffspace_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: object
+:Category: MusicStaves/Stable_path
+:Defined in: stable_path.py
+:Author: Ian Karp
+
+
+Returns the staffline skeletons found by the stable path algorithm, as described in
+        Cardoso, J., A. Capela, A. Rebelo, C. Guedes, and I. Porto (2008): A connected path approach
+        for staff detection on a music score. 15th IEEE International Conference on Image Processing,
+        pp. 1005-8.
+        
+        Arguments:
+        
+        *with_trimming*:
+        Trims staff sets where white space or ornamentations are found.
+        
+        *with_deletion*:
+        If checked, the image will be processed once and will create an image comprised of only found staves and then the code is run again. More accurate for images with a lot of lyrics or ornamentation.
+        
+        *with_staff_fixing*:
+        Uses the slopes of staff sets to fix staff lines that differ wildly from the slope at specific intervals.
+        
+        *enable_strong_staff_pixels*:
+        Experimental method that reduces the weights of vertical runs that are the exact width of staffline_height and are exactly staffspace_height away from the closest black pixel.
+        
+        *staffline_height* and *staffspace_height*:
+        If left as 0 they will be automatically determined.
+        
+        
+        Return value:
+        
+        *skeleton_list*:
+        A nested list, where each sublist represents a staffline candidate
+        skeleton as an array of two elements: the first element is the leftmost
+        x position, the second element is a list of subsequent y-values.
+        
+        The returned skeleton list is sorted from top to bottom and from left
+        to right.
+        
+
+
+``correct_rotation``
+--------------------
+
+``Image`` [OneBit|GreyScale] **correct_rotation** (int *staffline_height* = 0)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Returns: ``Image`` [OneBit|GreyScale]
+:Category: MusicStaves
+:Defined in: musicstaves_plugins.py
+:Author: Christoph Dalitz
+
+
+Corrects a possible rotation angle with the aid of skewed projections.
+
+When the image is large, it is temporarily scaled down for performance
+reasons. The parameter *staffline_height* determines how much the image
+is scaled down: when it is larger than 3, the image is scaled down so that
+the resulting staffline height is 2. Thus if you want to suppress the
+downscaling, set *staffline_height* to one.
+
+When *staffline_height* is given as zero, it is computed automatically
+as most frequent black vertical run.
+    
+
+
+``fill_horizontal_line_gaps``
+-----------------------------
+
+**fill_horizontal_line_gaps** (int *windowwidth*, int(1, 100) *blackness*, ``bool`` *fill_average* = False)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Category: MusicStaves
+:Defined in: musicstaves_plugins.py
+:Author: Christoph Dalitz
+
+
+Fills white gaps in horizontal lines with black.
+
+The image is scanned with a line of *windowwidth* pixels.
+When the average blackness within this window is at least *blackness*
+percent, the middle pixel is turned black.
+
+The parameter *fill_average* only applies to greyscale images: when *True*,
+the middle pixel is not set to black but to the window average,
+if this average value is darker than the current pixel value.
+Note that this is different from a convolution because pixels
+are never turned lighter.
+    
+
+
+``fill_vertical_line_gaps``
+---------------------------
+
+**fill_vertical_line_gaps** (int *windowheight*, int(1, 100) *blackness*, ``bool`` *fill_average* = False)
+
+
+:Operates on: ``Image`` [OneBit|GreyScale]
+:Category: MusicStaves
+:Defined in: musicstaves_plugins.py
+:Author: Christoph Dalitz
+
+
+Fills white gaps in vertical lines with black.
+
+The image is scanned with a vertical line of *windowwidth* pixels.
+When the average blackness within this window is at least *blackness*
+percent, the middle pixel is turned black.
+
+The parameter *fill_average* only applies to greyscale images: when *True*,
+the middle pixel is not set to black but to the window average,
+if this average value is darker than the current pixel value.
+Note that this is different from a convolution because pixels
+are never turned lighter.
+    
+
+
+``keep_tall_skewed_runs``
+-------------------------
+
+``Image`` [OneBit] **keep_tall_skewed_runs** (float(-85.00, 85.00) *minangle*, float(-85.00, 85.00) *maxangle*, int *height*, [object *points*], ``ChoiceString(strict)`` [both|up|down] *direction*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves
+:Defined in: skewed_runs.py
+:Author: Thomas Karsten and Christoph Dalitz
+
+
+Removes all black pixels except those belonging to black runs taller
+than a given height in a given angle range.
+
+Arguments:
+
+.. image:: images/skewed_tall_runs.png
+
+*minangle*, *maxangle*:
+  Angle range that is scanned for tall runs. Angles are measured in degrees
+  and relative to the vertical axis; thus in the image above *minangle*
+  is about -30 and *maxangle* about 45. When both angles are zero, the
+  function behaves like ``filter_short_runs``.
+
+*height*:
+  When *points* is not given, only black runs taller than *2 * height* are kept.
+  Otherwise the condition depends on the parameter *direction* (see below).
+
+*points*:
+  When given, only tall runs crossing these points are kept.
+  Additionally they must run at least *height* in the given *direction*.
+  For performance reasons, of each skewed run
+  only the part up to *2 * height* around the given points is kept.
+  When empty or omitted, all tall skewed runs are kept.
+
+*direction*:
+  When ``both``, skewed runs must run at least *height* both in the upper
+  and lower vertical direction. When ``up`` or ``down``, the only need to
+  run in one direction starting from the given points. Only has effect
+  when additionally *poins* is given.
+    
+
+
+``match_staff_template``
+------------------------
+
+``Image`` [OneBit] **match_staff_template** (int *width*, int *line_distance*, int *nlines* = 2, int(1, 100) *blackness* = 70)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves
+:Defined in: musicstaves_plugins.py
+:Author: Christoph Dalitz
+
+
+Extracts all points from an image that match a staff template.
+
+The template consists of *nlines* horizontal lines of width *width* with
+a vertical distance *line_distance*. The midpoint of each line is extracted
+if each line contains more than *blackness* percent black pixels. In order
+to avoid cutting off the staff lines at the beginning and end of each staff,
+the lines are extrapolated at the ends until no further black point is found.
+
+Reasonable parameter values are *3 * staffspace_height / 2* for *width* and
+*staffspace_height + staffline_height* for *line_distance*.
+
+
+
+
+vector_field
+------------
+
+``angles_to_RGB``
+`````````````````
+
+``Image`` [RGB] **angles_to_RGB** ([object *v_images*], int *path_length*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [RGB]
+:Category: MusicStaves/vector_field
+:Defined in: vector_field.py
+:Author: Thomas Karsten
+
+
+Converts angle information for each pixel to RGB values.
+
+Each angle is displayed in a specific color, e.g. 0 degrees is visualised in 
+cyan (RGB (0, 255, 255)), and an angle of 90 degrees is shown in red
+(RGB (255, 0, 0)). The HSI color space is mapped to 180 degrees. Thus, angles
+of opposed chords will result in same colors, which is shown in the color
+circle below.
+
+Example:
+
+.. image:: images/angles_to_RGB.png
+
+Argument:
+
+*v_images*:
+  List of 1 to 3 FloatImages, typically returned by
+  compute_longest_chord_vectors_. Their meaning is as follows:
+
+  *1st image*:
+    Affects the hue of the RGB image. The pixel values must be in the range
+    [-pi, pi] and are mapped to [0, 360] degrees.
+
+  *2nd image*:
+    Affects the saturation of the RGB image. The higher the pixel value the
+    higher the saturation. If not given, the saturation defaults to 1.0 (100
+    percent).
+
+  *3rd image*:
+    Affects the intensity of the RGB image. The smaller the pixel value the
+    higher the intensity. If not given, the intensity defaults to 1.0 (100
+    percent).
+
+*path_length*:
+  Maximum pixel value of the 2nd and the 3rd image. This value is used to
+  normalise the pixel information and to keep both the saturation and the
+  intensity in a range from [0, 1.0].
+
+
+
+``compute_longest_chord_vectors``
+`````````````````````````````````
+
+[object] **compute_longest_chord_vectors** (int *path_length* = 0, float(0.00, 90.00) *resolution* = 3.00)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: [object]
+:Category: MusicStaves/vector_field
+:Defined in: vector_field.py
+:Author: Thomas Karsten
+
+
+Computes the vector field from a onebit image.
+
+This function determines about the longest chord where each black pixel is
+located at. A chord is a straight line, consisting of black pixels only. The
+return value consists of three FloatImages.
+
+*1st image*:
+    Contains the angle (in radians) of each pixel
+    the line running through the corresponding pixel in the given image. Each
+    pixel value will be in the range (-pi, pi].
+
+*2nd image*:
+    length of the longest chord at each pixel position
+
+*3rd image*:
+    Contains the thickness of the longest chord at each pixel position.
+    Thereby the thickness is the length of the chord perpendicular to the
+    detected longest chord (depending on *resolution* more or less
+    perpendicular).
+
+
+This function is similar to compute_vector_field_, but is not that
+computationally intensive (depending on *resolution*).
+
+Arguments:
+    
+*path_length*:
+    maximum length that will be tested for each chord
+
+*resolution*:
+   Angle that is used to scan the image (in degree). When the resolution is
+   set to 0, then the default value will be used instead.
+
+
+
+``keep_vectorfield_runs``
+`````````````````````````
+
+``Image`` [OneBit] **keep_vectorfield_runs** ([object *points*], int *height*, ``ChoiceString(strict)`` [up|down] *direction*, int *maxlength*, int *numangles*)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/vector_field
+:Defined in: vector_field.py
+:Author: Christoph Dalitz
+
+
+The returned image only contains those black pixels that belong to black
+runs crossing the given points at an angle equal the vector field value at
+these points. All runs are only extracted in the given *direction* and up
+to the given *height*.
+
+Arguments:
+
+*height*:
+  Black runs are only kept up to *height* in the given *direction* (see below).
+
+*points*:
+  Only tall runs crossing these points are kept.
+
+*direction*:
+  In which direction (``up`` or ``down``) ``height`` takes effect.
+
+*maxlength*, *numangles*:
+  Technical details for the computation of the vector field values
+  which are computed by picking the angle of the longest chord through
+  the point. *numangles* is the number of sample chords tested; chords
+  longer than *maxlength* are truncated (for performance reasons).
+
+
+

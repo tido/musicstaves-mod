@@ -1,0 +1,38 @@
+=======
+Classes
+=======
+
+Alphabetical
+-------------
+
+
+**E**
+
+EquivalenceGrouper_ (gamera.toolkits.musicstaves.equivalence_grouper.EquivalenceGrouper)
+
+**M**
+
+MusicStaves_ (gamera.toolkits.musicstaves.musicstaves.MusicStaves), MusicStaves_linetracking_ (gamera.toolkits.musicstaves.musicstaves_linetracking.MusicStaves_linetracking), MusicStaves_rl_carter_ (gamera.toolkits.musicstaves.musicstaves_rl_carter.MusicStaves_rl_carter), MusicStaves_rl_fujinaga_ (gamera.toolkits.musicstaves.musicstaves_rl_fujinaga.MusicStaves_rl_fujinaga), MusicStaves_rl_roach_tatem_ (gamera.toolkits.musicstaves.musicstaves_rl_roach_tatem.MusicStaves_rl_roach_tatem), MusicStaves_rl_simple_ (gamera.toolkits.musicstaves.musicstaves_rl_simple.MusicStaves_rl_simple), MusicStaves_skeleton_ (gamera.toolkits.musicstaves.musicstaves_skeleton.MusicStaves_skeleton)
+
+**S**
+
+SkeletonSegment_ (gamera.toolkits.musicstaves.plugins.skeleton_utilities.SkeletonSegment), StaffFinder_ (gamera.toolkits.musicstaves.stafffinder.StaffFinder), StaffFinder_dalitz_ (gamera.toolkits.musicstaves.stafffinder_dalitz.StaffFinder_dalitz), StaffFinder_miyao_ (gamera.toolkits.musicstaves.stafffinder_miyao.StaffFinder_miyao), StaffFinder_projections_ (gamera.toolkits.musicstaves.stafffinder_projections.StaffFinder_projections), StaffFinder_stable_path_ (gamera.toolkits.musicstaves.stafffinder_stable_path.StaffFinder_stable_path), StafflineAverage_ (gamera.toolkits.musicstaves.stafffinder.StafflineAverage), StafflinePolygon_ (gamera.toolkits.musicstaves.stafffinder.StafflinePolygon), StafflineSkeleton_ (gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton), StaffObj_ (gamera.toolkits.musicstaves.musicstaves.StaffObj)
+
+.. _EquivalenceGrouper: gamera.toolkits.musicstaves.equivalence_grouper.EquivalenceGrouper.html
+.. _MusicStaves: gamera.toolkits.musicstaves.musicstaves.MusicStaves.html
+.. _MusicStaves_linetracking: gamera.toolkits.musicstaves.musicstaves_linetracking.MusicStaves_linetracking.html
+.. _MusicStaves_rl_carter: gamera.toolkits.musicstaves.musicstaves_rl_carter.MusicStaves_rl_carter.html
+.. _MusicStaves_rl_fujinaga: gamera.toolkits.musicstaves.musicstaves_rl_fujinaga.MusicStaves_rl_fujinaga.html
+.. _MusicStaves_rl_roach_tatem: gamera.toolkits.musicstaves.musicstaves_rl_roach_tatem.MusicStaves_rl_roach_tatem.html
+.. _MusicStaves_rl_simple: gamera.toolkits.musicstaves.musicstaves_rl_simple.MusicStaves_rl_simple.html
+.. _MusicStaves_skeleton: gamera.toolkits.musicstaves.musicstaves_skeleton.MusicStaves_skeleton.html
+.. _SkeletonSegment: gamera.toolkits.musicstaves.plugins.skeleton_utilities.SkeletonSegment.html
+.. _StaffFinder: gamera.toolkits.musicstaves.stafffinder.StaffFinder.html
+.. _StaffFinder_dalitz: gamera.toolkits.musicstaves.stafffinder_dalitz.StaffFinder_dalitz.html
+.. _StaffFinder_miyao: gamera.toolkits.musicstaves.stafffinder_miyao.StaffFinder_miyao.html
+.. _StaffFinder_projections: gamera.toolkits.musicstaves.stafffinder_projections.StaffFinder_projections.html
+.. _StaffFinder_stable_path: gamera.toolkits.musicstaves.stafffinder_stable_path.StaffFinder_stable_path.html
+.. _StafflineAverage: gamera.toolkits.musicstaves.stafffinder.StafflineAverage.html
+.. _StafflinePolygon: gamera.toolkits.musicstaves.stafffinder.StafflinePolygon.html
+.. _StafflineSkeleton: gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html
+.. _StaffObj: gamera.toolkits.musicstaves.musicstaves.StaffObj.html

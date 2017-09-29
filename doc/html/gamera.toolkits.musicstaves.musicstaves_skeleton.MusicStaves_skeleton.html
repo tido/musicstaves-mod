@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class MusicStaves_skeleton</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-musicstaves-skeleton">
+<h1 class="title">class <tt class="docutils literal">MusicStaves_skeleton</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#musicstaves-skeleton" id="id3"><tt class="docutils literal">MusicStaves_skeleton</tt></a><ul>
+<li><a class="reference internal" href="#init" id="id4"><tt class="docutils literal">__init__</tt></a></li>
+<li><a class="reference internal" href="#remove-staves" id="id5"><tt class="docutils literal">remove_staves</tt></a></li>
+<li><a class="reference internal" href="#get-staffpos" id="id6"><tt class="docutils literal">get_staffpos</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="musicstaves-skeleton">
+<h1><a class="toc-backref" href="#id3"><tt class="docutils literal">MusicStaves_skeleton</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.musicstaves_skeleton</tt></p>
+<p><p>Implements a skeleton based staff line removal.</p>
+<p>The algorithm consists of the following steps:</p>
+<ol class="arabic simple">
+<li>Depending on the sekeleton type (medial axis or thinned), the skeleton
+needs some &quot;improvement&quot;. Medial axis skeletons contain a lot of short
+spurs; these are removed when they are shorter than <em>staffline_height</em> / 2.
+Thinned out skeletons do not extend to the edges; these are extended
+by extrapolating the skeleton ends.</li>
+<li>The &quot;improved&quot; skeleton is split at branching
+and corner points; around each splitting point a number of pixels (taken
+from the distance tranform at the splitting point) is removed. The latter
+avoids that staff line skeleton segments extent into crossing objects.</li>
+<li>Staff line segment candidates are picked as skeleton segments with
+all of the following properties:<ul>
+<li>the orientation angle (least square fitted line) is below
+25 degrees</li>
+<li>the segment is wider than high</li>
+<li>the &quot;straightness&quot; (mean square deviation from least square fitted
+line) is below <em>staffline_height</em> **2 / 2
+Exception: when a segment is wider than 30* <em>staffspace_height</em>, this
+criterion is ignored</li>
+</ul>
+</li>
+<li>The overall skew angle is determined as the median of the orientation
+angle probability distribution. In this distribution, each segment
+is weighted according to its width.</li>
+<li>The staff segment candidates are then horizontally and vertically linked.
+A vertical link is added between segments with a horizontal overlap
+and a vertical distance around staffline_height + staffspace_height.
+A horizontal link is added when the extrapolated end points are
+close enough (below staffline_height); for the extrapolation the
+previously calculated skew angle or the segment orientation is used.</li>
+<li>Staff systems and lines are then detected as connected components
+in the segmant graph as in <tt class="docutils literal">StaffFinder_miyao</tt>. Connected components
+that are too small are removed. When <em>num_lines</em>
+is not given, it is guessed as in <tt class="docutils literal">StaffFinder_miyao</tt> and lines
+are removed from overfull staff systems.</li>
+<li>A staff now typically still contains some &quot;false positives&quot; (non
+staff segments which are detected as staff segments). When staff segments
+assigned to the same line overlap, this is a clear indication of a false
+positive. Thus from each overlapping staff segment group on the same line
+the one that is closest to its least-square-fitted neighborhood
+is picked and the other are discarded.</li>
+<li>To check for further &quot;false positives&quot;, non staff segments that have
+the same branching point as a staff segment are extrapolated by a
+parametric parabola. If this parabola is approximately tangential
+to the staff segment, the latter is considered a false positive.</li>
+<li>In order to remove staff lines, all vertical black runs around the
+detected staff systems are removed. As skeleton branches occasionally
+extend into solid regions, vertical runs are only removed when they
+are not longer than <em>2 * staffline_height</em>.</li>
+</ol>
+<p>References:</p>
+<blockquote>
+Skeletonization is a commonly used technique in optical music recognition,
+though it is usually applied <em>after</em> staff line removal. As a proof of
+concept, D. Nehab detected staff lines in a vectorized skeleton, see
+Diego Nehab: <em>Staff Line Detection by Skewed Projection.</em>
+<a class="reference external" href="http://www.cs.princeton.edu/~diego/academic/phd/496/writeup.pdf">http://www.cs.princeton.edu/~diego/academic/phd/</a> (2003)</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="init">
+<h2><a class="toc-backref" href="#id4"><tt class="docutils literal">__init__</tt></a></h2>
+<p>In addition to the arguments of the constructor of the MusicStaves
+base class, the constructor optionally allows to pass a precomputed skeleton
+image. This can be useful for testing purposes, because skeleton computation
+can be time consuming.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">__init__(image, staffline_height=0, staffspace_height=0, skelimage=None, medialaxis=False)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>sekelimage</em>:</dt>
+<dd>a onebit image of the skeleton. When the skeleton is a medial axis
+transform, set the following parameter to <tt class="docutils literal">True</tt>.</dd>
+<dt><em>medialaxis</em>:</dt>
+<dd><p class="first">Depending on the skeleton generating algorithm, the skeleton can
+be a medial axis transform or a thinned out image.</p>
+<img alt="images/medialaxis.png" class="last" src="images/medialaxis.png" />
+</dd>
+</dl>
+</blockquote>
+<p>As each skeleton type requires a different preprocessing in
+<em>remove_staves</em>, you must provide the type as a parameter. When you do
+not provide a precomputed skeleton and leave the skeleton computation
+to <em>remove_staves</em>, set <tt class="docutils literal">medialaxis=False</tt>, because a thinned out
+skeleton is significantly faster to compute than a medial axis transform.</p>
+</div>
+<div class="section" id="remove-staves">
+<h2><a class="toc-backref" href="#id5"><tt class="docutils literal">remove_staves</tt></a></h2>
+<p>Detects and removes staff lines from a music/tablature image.
+A skeleton of the found staff lines is stored as a nested list of
+<tt class="docutils literal">StafflineSkeleton</tt> in the property <tt class="docutils literal">linelist</tt>, where each sublist
+represents a staff system (as in the <tt class="docutils literal">StaffFinder</tt> base class).</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal"><span class="pre">remove_staves(crossing_symbols='all',</span> num_lines=0, debug=0,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">false_positive_criterion='quad_angle',</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">horizontal_extrapolation='segment_angle')</span></tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>crossing_symbols</em>:</dt>
+<dd>This algorithm only supports the value 'all'.</dd>
+<dt><em>num_lines</em>:</dt>
+<dd>Number of lines within one staff. A value of zero for automatic
+detection is supported, but if you give the actual number, staff line
+detection will improve.</dd>
+<dt><em>debug</em>:</dt>
+<dd>Set the debug level verbosity. For <em>debug</em> &gt;= 1, tracing information
+is printed to stdout, for <em>debug</em> &gt;= 2 images with prefix
+<tt class="docutils literal">skeldebug</tt> are written into the current working directory.</dd>
+<dt><em>false_positive_criterion</em></dt>
+<dd>Criterion to be used to identify false positives. Supports the values
+'none', 'lin_meets', 'lin_angle' and 'quad_angle'.</dd>
+<dt><em>horizontal_extrapolation</em></dt>
+<dd>In which direction the extrapolation for horizontal linking of segments
+shall be done. Possible values are 'segment_angle' (angle of least square
+line through the segment) or 'skew_angle' (global document skew angle).</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="get-staffpos">
+<h2><a class="toc-backref" href="#id6"><tt class="docutils literal">get_staffpos</tt></a></h2>
+<p>Returns the y-positions of all staff lines at a given x-position.
+Can only be called <em>after</em> <tt class="docutils literal">remove_staves</tt>.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">get_staffpos(x=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>x</em>:</dt>
+<dd>This parameter has no effect, because the staffline is assumed to
+be horizontal.</dd>
+</dl>
+</blockquote>
+<p>The return value is a list of <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.StaffObj.html#staffobj">StaffObj</a>.</p>
+<p>Note that a more accurate way to obtain the staff lines for this class
+is by accessing <tt class="docutils literal">self.linelist</tt>, because this does not just yield the average
+y-position, but the full staff line skeletons. Example:</p>
+<div class="highlight"><pre><span class="n">ms</span> <span class="o">=</span> <span class="n">MusicStaves_skeleton</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">remove_staves</span><span class="p">()</span>
+<span class="n">sf</span> <span class="o">=</span> <span class="n">StaffFinder</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ms</span><span class="o">.</span><span class="n">staffline_height</span><span class="p">,</span> <span class="n">ms</span><span class="o">.</span><span class="n">staffspace_height</span><span class="p">)</span>
+<span class="n">sf</span><span class="o">.</span><span class="n">linelist</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">linelist</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">show_result</span><span class="p">()</span>
+<span class="n">rgb</span><span class="o">.</span><span class="n">save_PNG</span><span class="p">(</span><span class="s">&quot;foundstaves.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

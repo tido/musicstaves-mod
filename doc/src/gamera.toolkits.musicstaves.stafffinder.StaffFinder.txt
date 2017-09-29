@@ -1,0 +1,13 @@
+class ``StaffFinder``
+=====================
+
+``StaffFinder``
+---------------
+
+In module ``gamera.toolkits.musicstaves.stafffinder``
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder StaffFinder
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder StaffFinder __init__ find_staves show_result get_average get_polygon get_skeleton
+

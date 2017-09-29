@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>MusicStaves Toolkit User's Manual</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="musicstaves-toolkit-user-s-manual">
+<h1 class="title">MusicStaves Toolkit User's Manual</h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id13">Overview</a></li>
+<li><a class="reference internal" href="#using-the-gamera-gui" id="id14">Using the Gamera GUI</a><ul>
+<li><a class="reference internal" href="#create-a-musicstaves-or-stafffinderobject" id="id15">Create a MusicStaves or StaffFinderobject</a><ul>
+<li><a class="reference internal" href="#using-the-musicstaves-toolkit-icon" id="id16">Using the MusicStaves toolkit icon</a></li>
+<li><a class="reference internal" href="#using-an-image-icon" id="id17">Using an image icon</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-musicstaves-object" id="id18">Using the MusicStaves object</a></li>
+<li><a class="reference internal" href="#using-the-stafffinder-object" id="id19">Using the StaffFinder object</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#noninteractive-use-from-scripts" id="id20">Noninteractive use from Scripts</a><ul>
+<li><a class="reference internal" href="#staff-removal-with-musicstaves" id="id21">Staff removal with MusicStaves</a></li>
+<li><a class="reference internal" href="#staff-finding-without-removal-with-stafffinder" id="id22">Staff finding (without removal) with StaffFinder</a></li>
+<li><a class="reference internal" href="#staff-removal-with-a-different-stafffinder" id="id23">Staff removal with a different StaffFinder</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This manual is for those, who want to use the toolkit for
+finding and removing stafflines, but are not interested in implementing
+their own staff removal algorithms.</p>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id13">Overview</a></h1>
+<p>Staff removal with this toolkit requires three steps (apart from importing
+the MusicStaves toolkit):</p>
+<ol class="arabic simple">
+<li>Create a MusicStaves derived class (see <a class="reference external" href="classes.html">Classes</a> for possible options)
+from an image.</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li>Remove the stafflines with the method <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.MusicStaves.html#remove-staves">remove_staves</a>. The image
+with the staff lines removed is stored in <tt class="docutils literal">MusicStaves.image</tt>.</li>
+</ol>
+<ol class="arabic simple" start="3">
+<li>Query the original staff line positions with <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.MusicStaves.html#get-staffpos">get_staffpos</a>.</li>
+</ol>
+<p>If you do not want to remove the staff lines, but only want to know their
+positions, you can perform the following steps:</p>
+<ol class="arabic simple">
+<li>Create a StaffFinder derived class (see <a class="reference external" href="classes.html">Classes</a> for possible options)
+from an image.</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li>Find the stafflines with the method <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html#find-staves">find_staves</a>. When the image
+is changed during staff finding these changes are reflected in
+<tt class="docutils literal">StaffFinder.image</tt>.</li>
+</ol>
+<ol class="arabic simple" start="3">
+<li>Obtain the staff line positions with the appropriate accuracy with
+any of the methods <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html#get-average">get_average</a>, <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html#get-polygon">get_polygon</a> or <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html#get-skeleton">get_skeleton</a>.</li>
+</ol>
+<p>All steps can be achieved both interactively from the gamera GUI or
+noninteractively from python scripts.</p>
+</div>
+<div class="section" id="using-the-gamera-gui">
+<h1><a class="toc-backref" href="#id14">Using the Gamera GUI</a></h1>
+<p>Before using the toolkit you must import it. This can be done from the
+&quot;Toolkits&quot; main menu entry. After the MusicStaves toolkit was imported
+the icon of the MusicStaves toolkit will appear in the icon window of the
+Gamera GUI.</p>
+<p>There are three possible MusicStaves icons in the sidebar:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><img alt="MusicStavesModuleIcon" src="images/musicstaves_module_icon.png" /></td>
+<td>Icon of the MusicStaves toolkit. It only
+indicates that the toolkit was successfully
+imported.</td>
+</tr>
+<tr><td><img alt="MusicStavesIcon" src="images/musicstaves_icon.png" /></td>
+<td>Icon of a MusicStaves object. This is bound
+to an image and offers staff removal
+functionality.</td>
+</tr>
+<tr><td><img alt="StaffFinderIcon" src="images/stafffinder_icon.png" /></td>
+<td>Icon of a StaffFinder object. This is bound
+to an image and offers staff finding
+functionality without staff line removal.</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<div class="section" id="create-a-musicstaves-or-stafffinderobject">
+<h2><a class="toc-backref" href="#id15">Create a MusicStaves or StaffFinderobject</a></h2>
+<p>There are two ways to create a MusicStaves or StaffFinder object:</p>
+<blockquote>
+<ul class="simple">
+<li>from the context menu of the grey musicstaves icon</li>
+<li>from the context menu of a onebit or greyscale image</li>
+</ul>
+</blockquote>
+<div class="section" id="using-the-musicstaves-toolkit-icon">
+<h3><a class="toc-backref" href="#id16">Using the MusicStaves toolkit icon</a></h3>
+<p>Right-clicking the MusicStaves toolkit icon opens a menu containing
+all existing MusicStaves and StaffFinder classes. Each class represents
+a specific staff removal algorithm; see <a class="reference external" href="classes.html">Classes</a> for a detailed description.
+After selecting a class, the following dialog opens.</p>
+<img alt="images/dialog.png" src="images/dialog.png" />
+<p>Leave the paramters <em>Staffspace height</em> and <em>Staffline height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+<p>Next you are asked for a name for the MusicStaves object:</p>
+<img alt="images/name_query.png" src="images/name_query.png" />
+<p>Eventually the MusicStaves object is created and appears as a colored icon in
+the sidebar on the left.</p>
+</div>
+<div class="section" id="using-an-image-icon">
+<h3><a class="toc-backref" href="#id17">Using an image icon</a></h3>
+<p>An alternative way to create a MusicStaves or StaffFinder object is to first
+load a onebit or greyscale image and then use the context menu of its icon.
+When the MusicStaves toolkit is loaded, a further menu entry is added to
+the plugin menu of a onebit and greyscale image: <tt class="docutils literal">MusicStaves</tt>. All available
+MusicStaves classes are listed in its submenu <tt class="docutils literal">classes</tt>.</p>
+<p>Again a dialog will pop up asking for additional parameters. Leave them
+at their default values unless you know exactly what they mean.</p>
+</div>
+</div>
+<div class="section" id="using-the-musicstaves-object">
+<h2><a class="toc-backref" href="#id18">Using the MusicStaves object</a></h2>
+<p>Once a MusicStaves object has been created, the context menu of its icon
+offers the following entries:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Menu Entry</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Remove staves</td>
+<td>Removes staff lines according to the algorithm
+implemented in the particular class. For a
+parameter description in the popping up dialog
+see <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.MusicStaves.html#remove-staves">MusicStaves::remove_staves</a></td>
+</tr>
+<tr><td>Display image</td>
+<td>Display the image.
+A double click on the icon does the same.</td>
+</tr>
+<tr><td>Copy image</td>
+<td>Create a copy of the image belonging to the
+MusicStaves object.</td>
+</tr>
+<tr><td>Info</td>
+<td>Shows staffline_height and staffspace_height
+and after staff removal also their positions</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>When the staff lines are removed you can query their position with the
+method <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.MusicStaves.html#get-staffpos">get_staffpos</a> from the python shell window.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">MusicStaves objects work on a copy of the original image.
+In particular the staff lines are not removed from the original
+image, but from the local copy.</p>
+</div>
+</div>
+<div class="section" id="using-the-stafffinder-object">
+<h2><a class="toc-backref" href="#id19">Using the StaffFinder object</a></h2>
+<p>Once a StaffFinder object has been created, the context menu of its icon
+offers the following entries:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Menu Entry</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Find staves</td>
+<td>Finds staff lines according to the algorithm
+implemented in the particular class. For a
+parameter description in the popping up dialog
+see <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html#find-staves">StaffFinder::find_staves</a></td>
+</tr>
+<tr><td>Show staves</td>
+<td>Shows the found staves colored in the image
+A double click on the icon does the same.</td>
+</tr>
+<tr><td>Display image</td>
+<td>Display the image.</td>
+</tr>
+<tr><td>Copy image</td>
+<td>Create a copy of the image belonging to the
+StaffFinder object.</td>
+</tr>
+<tr><td>Info</td>
+<td>Shows staffline_height and staffspace_height
+and after staff finding also their positions</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>When the staff lines are found you can query their position with the
+methods <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html#get-average">get_average</a>, <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html#get-polygon">get_polygon</a> or <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html#get-skeleton">get_skeleton</a>  from the python
+shell window.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">StaffFinder objects work on a copy of the original image.
+If the algorithm alters this image this changes will not be visible in
+the original image, but in the local copy.</p>
+</div>
+</div>
+</div>
+<div class="section" id="noninteractive-use-from-scripts">
+<h1><a class="toc-backref" href="#id20">Noninteractive use from Scripts</a></h1>
+<div class="section" id="staff-removal-with-musicstaves">
+<h2><a class="toc-backref" href="#id21">Staff removal with MusicStaves</a></h2>
+<p>The following code shows how staff lines are removed and how their position
+can be queried afterwards:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">gamera.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">gamera.toolkits.musicstaves</span> <span class="kn">import</span> <span class="n">musicstaves_rl_simple</span>
+
+<span class="n">init_gamera</span><span class="p">()</span>
+
+<span class="n">image</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s">&quot;tablature.tif&quot;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to_onebit</span><span class="p">()</span>
+
+<span class="n">ms</span> <span class="o">=</span> <span class="n">musicstaves_rl_simple</span><span class="o">.</span><span class="n">MusicStaves_rl_simple</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">remove_staves</span><span class="p">(</span><span class="n">crossing_symbols</span> <span class="o">=</span> <span class="s">&#39;bars&#39;</span><span class="p">)</span>
+
+<span class="n">staves</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">get_staffpos</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">staff</span> <span class="ow">in</span> <span class="n">staves</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Staff </span><span class="si">%d</span><span class="s"> has </span><span class="si">%d</span><span class="s"> staves:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">staff</span><span class="o">.</span><span class="n">staffno</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">staff</span><span class="o">.</span><span class="n">yposlist</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">staff</span><span class="o">.</span><span class="n">yposlist</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;    </span><span class="si">%d</span><span class="s">. line at y-position:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span>
+
+<span class="n">no_staves_img</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">image_copy</span><span class="p">()</span>
+<span class="c"># alternative without copying:  no_staves_img = ms.image</span>
+</pre></div>
+<p>And here is a step by step explanation:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">gamera.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">gamera.toolkits.musicstaves</span> <span class="kn">import</span> <span class="n">musicstaves_rl_simple</span>
+
+<span class="n">init_gamera</span><span class="p">()</span>
+</pre></div>
+<p>This imports the gamera core modules as well as the <tt class="docutils literal">musicstaves_rl_simple</tt>
+module. Additionally it initializes gamera.</p>
+<div class="highlight"><pre><span class="n">image</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s">&quot;tablature.tif&quot;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to_onebit</span><span class="p">()</span>
+
+<span class="n">ms</span> <span class="o">=</span> <span class="n">musicstaves_rl_simple</span><span class="o">.</span><span class="n">MusicStaves_rl_simple</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+<p>This initializes a <tt class="docutils literal">MusicStaves_rl_simple</tt> object from the image file
+<tt class="docutils literal">tablature.tif</tt>.</p>
+<div class="highlight"><pre><span class="n">ms</span><span class="o">.</span><span class="n">remove_staves</span><span class="p">(</span><span class="n">crossing_symbols</span><span class="o">=</span><span class="s">&#39;bars&#39;</span><span class="p">,</span> <span class="n">num_lines</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">staves</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">get_staffpos</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">staff</span> <span class="ow">in</span> <span class="n">staves</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Staff </span><span class="si">%d</span><span class="s"> has </span><span class="si">%d</span><span class="s"> staves:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">staff</span><span class="o">.</span><span class="n">staffno</span><span class="p">,</span> <span class="n">staff</span><span class="o">.</span><span class="n">n_staves</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">staff</span><span class="o">.</span><span class="n">yposlist</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;    </span><span class="si">%d</span><span class="s">. line at y-position:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span>
+</pre></div>
+<p>This demonstrates how to remove staff lines and query their positions
+afterwards with a loop over the returned <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.StaffObj.html#staffobj">StaffObj</a>.</p>
+<div class="highlight"><pre><span class="n">no_staves_img</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">image_copy</span><span class="p">()</span>
+</pre></div>
+<p>The staff lines have not been removed from the original image, but from
+a local copy which is stored in the property <tt class="docutils literal">image</tt> of the MusicStaves
+object. Thus it is copied back for further processing.</p>
+</div>
+<div class="section" id="staff-finding-without-removal-with-stafffinder">
+<h2><a class="toc-backref" href="#id22">Staff finding (without removal) with StaffFinder</a></h2>
+<p>Finding staff lines without removal works similar, but you need to use
+a StaffFinder class rather than a MusicStaves class:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">gamera.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">gamera.toolkits.musicstaves</span> <span class="kn">import</span> <span class="n">stafffinder_miyao</span>
+
+<span class="n">init_gamera</span><span class="p">()</span>
+
+<span class="n">image</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s">&quot;tablature.png&quot;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to_onebit</span><span class="p">()</span>
+
+<span class="n">sf</span> <span class="o">=</span> <span class="n">stafffinder_miyao</span><span class="o">.</span><span class="n">StaffFinder_miyao</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">sf</span><span class="o">.</span><span class="n">find_staves</span><span class="p">()</span>
+
+<span class="n">staves</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">get_average</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">staff</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">staves</span><span class="p">):</span>
+  <span class="k">print</span> <span class="s">&quot;Staff </span><span class="si">%d</span><span class="s"> has </span><span class="si">%d</span><span class="s"> staves:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">staff</span><span class="p">))</span>
+  <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">staff</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&quot;    </span><span class="si">%d</span><span class="s">. line at y-position:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">line</span><span class="o">.</span><span class="n">average_y</span>
+</pre></div>
+</div>
+<div class="section" id="staff-removal-with-a-different-stafffinder">
+<h2><a class="toc-backref" href="#id23">Staff removal with a different StaffFinder</a></h2>
+<p>It is possible to use an arbitrary StaffFinder for staff removal by
+replacing the default stafffinfer in MusicStaves_linetracking with
+a different StaffFinderclass:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">gamera.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">gamera.toolkits.musicstaves</span> <span class="kn">import</span> <span class="n">stafffinder_stable_path</span>
+<span class="kn">from</span> <span class="nn">gamera.toolkits.musicstaves</span> <span class="kn">import</span> <span class="n">musicstaves_linetracking</span>
+
+<span class="n">init_gamera</span><span class="p">()</span>
+
+<span class="n">image</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s">&quot;music.png&quot;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to_onebit</span><span class="p">()</span>
+
+<span class="n">sf</span> <span class="o">=</span> <span class="n">stafffinder_stable_path</span><span class="o">.</span><span class="n">StaffFinder_stable_path</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">sf</span><span class="o">.</span><span class="n">find_staves</span><span class="p">()</span>
+<span class="n">ms</span> <span class="o">=</span> <span class="n">musicstaves_linetracking</span><span class="o">.</span><span class="n">MusicStaves_linetracking</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">stafffinder</span> <span class="o">=</span> <span class="n">sf</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">remove_staves</span><span class="p">()</span>
+
+<span class="n">image_without_staves</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

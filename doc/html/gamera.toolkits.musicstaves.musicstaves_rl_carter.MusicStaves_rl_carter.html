@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class MusicStaves_rl_carter</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-musicstaves-rl-carter">
+<h1 class="title">class <tt class="docutils literal">MusicStaves_rl_carter</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#musicstaves-rl-carter" id="id2"><tt class="docutils literal">MusicStaves_rl_carter</tt></a><ul>
+<li><a class="reference internal" href="#remove-staves" id="id3"><tt class="docutils literal">remove_staves</tt></a></li>
+<li><a class="reference internal" href="#get-staffpos" id="id4"><tt class="docutils literal">get_staffpos</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="musicstaves-rl-carter">
+<h1><a class="toc-backref" href="#id2"><tt class="docutils literal">MusicStaves_rl_carter</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.musicstaves_rl_carter</tt></p>
+<p><p>This code is a clean room re-implementation of the staff removal algorithm
+described in Carter's PhD thesis:</p>
+<blockquote>
+Carter, N.  Automatic recognition of printed music in
+the context of electronic publishing.  Ph.D. Thesis.  Depts. of
+Physics and Music.  University of Surrey.</blockquote>
+<p>Carter's approach segments the image using a concept known as the
+line-adjacency graph.  Each segment resulting from this analysis is
+either part of a staffline or not, so once the sections have been
+found, no further analysis at the pixel level is necessary.
+Stafflines are found by finding obvious straight and horizontal
+candidates for staffline sections (called filaments), and then finding
+filaments that are evenly spaced from one another.  These filaments
+are used to build models of the stafflines (modeled in this
+implementation as a set of connected line segments) and then thin
+sections that fall along these modeled lines are removed.</p>
+<p>Noteably, Carter's algorithm does not perform any deskewing or
+rotation to straighten the stafflines, and the line model allows the
+stafflines to be slightly curved and rotated below a certain (unknown)
+threshold.  The stafflines are not even required to be parallel within
+a staff.  Any systems using the results of this algorithm will have
+to take the non-straight and non-horizontal line models into account
+when determining the pitches of noteheads etc.</p>
+<p>The LAG is different from the common-case graph as used in the Gamera
+graph library in that each node must have two distinct sets of
+undirected edges (leftward and rightward).</p>
+<p>There is (at least) one hole in Carter's description where an
+assumption was made.</p>
+<blockquote>
+&quot;Once a stave had been found, each staveline was tracked across the
+page in both directions and all sections which fell within the
+projected path of the staveline and were below the threshold for
+permitted filament thickness were flagged as staveline sections.&quot;</blockquote>
+<p>How the &quot;projected path&quot; is calculated is not clear, so I have
+implemented something that seems to work and at least doesn't
+contradict Carter's thesis.  Each staffline filament is used as a
+starting point and the graph is traced in both directions looking for
+additional line segments that are part of the staff.  If a likely
+staffline candidate is not found directly through the graph, a second
+more expensive search is performed that allows for gaps in the staff
+lines.  The projected path of the line is computed by using a least
+squares fit on the last <em>n</em> points in the opposite direction of tracing,
+where <em>n</em> is a relatively large number, in this case staffspace_height
+* 8.0.  This keeps the projected path relatively free of errors in the
+angle, and allows for a moderate amount of local curvature.  (Using the
+projected path of each line segment individually caused too many
+over-skewed projected angles, particularly on short, noisy segments.
+In some cases, these projected lines would cross into adjacent
+stafflines and all kinds of terrible things would happen.)</p>
+<p>Additionally, Carter does not specify a threshold as to when a
+set of filaments are evenly spaced enough to be considered a
+set of stafflines.  From experimentation I arrived at</p>
+<blockquote>
+if (|dist - (staffspace_height + staffline_height)| &lt;= 3) then is staff</blockquote>
+<p>but that may fail in some untested cases.</p>
+<!-- note: Staff lines with no crossing symbols are not identified as stafflines
+by Carter's algorithm, because they only consist of one segment
+lacking the property of being horizontally linked with other staff
+segment candidates. Consequently the *entire staff system* is not
+detected. In most scores this is rare because bar lines touch all
+staff lines, but it can cause problems in barless music. -->
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom after an algorithm by Nicholas Carter.</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="remove-staves">
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal">remove_staves</tt></a></h2>
+<p>Detects and removes staff lines from a music/tablature image.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal"><span class="pre">remove_staves(crossing_symbols='all',</span> num_lines=5, adj_ratio=2.5, noise_size=5, alpha=10.0, beta=0.1, angle_threshold=3.0, string_join_factor=0.25)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>crossing_symbols</em>:</dt>
+<dd>Ignored.</dd>
+<dt><em>num_lines</em>:</dt>
+<dd>The number of stafflines in each staff.  (Autodetection of number of stafflines not yet
+implemented).</dd>
+</dl>
+</blockquote>
+<p>It is unlikely one would need to provide the arguments below:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>adj_ratio</em></dt>
+<dd>The maximum ratio between adjacent vertical runs in order to be considered part of the
+same section.  Higher values of this number will result in fewer, larger sections.</dd>
+<dt><em>noise_size</em></dt>
+<dd>The maximum size of a section that will be considered noise.</dd>
+<dt><em>alpha</em></dt>
+<dd>The minimum aspect ratio of a potential staffline section.</dd>
+<dt><em>beta</em></dt>
+<dd>The minimum &quot;straightness&quot; of a potential staffline section (as given by the gamma fittness
+function of a least-squares fit line).</dd>
+<dt><em>angle_threshold</em></dt>
+<dd>The maximum distance from the mean angle a section may be to be considered as a potential
+staffline (in degrees).</dd>
+<dt><em>string_join_factor</em></dt>
+<dd>The threshold for joining filaments together into filament strings.</dd>
+<dt><em>debug</em></dt>
+<dd><p class="first">When True, returns a tuple of images to help debug each stage of the algorithm.
+Times for each stages are also displayed.  The tuples elements are:</p>
+<dl class="last docutils">
+<dt><em>result</em></dt>
+<dd>The normal result, with stafflines removed.</dd>
+<dt><em>sections</em></dt>
+<dd>Shows the segmentation by LAG.  Use display_ccs to show the segments differently
+coloured.</dd>
+<dt><em>potential_stafflines</em></dt>
+<dd>Shows the sections that are potentially part of stafflines</dd>
+<dt><em>filament_strings</em></dt>
+<dd>Shows how the vertically aligned potential stafflines are grouped into
+filament_strings</dd>
+<dt><em>staffline_chunks</em></dt>
+<dd>The filament strings believed to be part of stafflines</dd>
+<dt><em>stafflines</em></dt>
+<dd>Draws the modelled lines on top of the image.</dd>
+</dl>
+</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="get-staffpos">
+<h2><a class="toc-backref" href="#id4"><tt class="docutils literal">get_staffpos</tt></a></h2>
+<p>Returns the y-positions of all staff lines at a given x-position.
+Can only be called <em>after</em> <tt class="docutils literal">remove_staves</tt>.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">get_staffpos(x=0)</tt></blockquote>
+<p>Since the lines are modelled as connected sets of non-horizontal line segments,
+<em>x</em> is relevant to the result.</p>
+<p>The return value is a list of <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.StaffObj.html#staffobj">StaffObj</a>.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

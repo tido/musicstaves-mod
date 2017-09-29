@@ -1,0 +1,13 @@
+class ``MusicStaves_rl_roach_tatem``
+====================================
+
+``MusicStaves_rl_roach_tatem``
+------------------------------
+
+In module ``gamera.toolkits.musicstaves.musicstaves_rl_roach_tatem``
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_rl_roach_tatem MusicStaves_rl_roach_tatem
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_rl_roach_tatem MusicStaves_rl_roach_tatem remove_staves get_staffpos
+

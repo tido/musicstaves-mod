@@ -1,0 +1,13 @@
+class ``StaffObj``
+==================
+
+``StaffObj``
+------------
+
+In module ``gamera.toolkits.musicstaves.musicstaves``
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves StaffObj
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves StaffObj __init__
+

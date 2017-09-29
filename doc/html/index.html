@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<title>MusicStaves Toolkit Documentation</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="musicstaves-toolkit-documentation">
+<h1 class="title">MusicStaves Toolkit Documentation</h1>
+
+<p><strong>Last modified</strong>: December 07, 2012</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id6">Overview</a></li>
+<li><a class="reference internal" href="#user-s-manual" id="id7">User's Manual</a></li>
+<li><a class="reference internal" href="#developer-s-manual" id="id8">Developer's Manual</a></li>
+<li><a class="reference internal" href="#installation" id="id9">Installation</a><ul>
+<li><a class="reference internal" href="#prerequisites" id="id10">Prerequisites</a></li>
+<li><a class="reference internal" href="#building-and-installing" id="id11">Building and Installing</a></li>
+<li><a class="reference internal" href="#installing-without-root-privileges" id="id12">Installing without root privileges</a></li>
+<li><a class="reference internal" href="#uninstallation" id="id13">Uninstallation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Editor:</th><td class="field-body">Christoph Dalitz and Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+<p>Use the <a class="reference external" href="http://music-staves.sourceforge.net/">SourceForge project page</a> for access to CVS, file releases, etc.</p>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id6">Overview</a></h1>
+<p>An important preprocessing step in Optical Music Recognition is the
+removal of staff lines. This toolkit provides methods for removing staff
+lines from a music image and for querying their positions afterwards.</p>
+<p>Apart from the basic functionality, this toolkit also provides</p>
+<ul class="simple">
+<li>a unified interface to different staff removal algorithms</li>
+<li>a unified interface to different staff finding (without removal) algorithms</li>
+<li>a plugin framework for adding custom staff removal algorithms</li>
+</ul>
+</div>
+<div class="section" id="user-s-manual">
+<h1><a class="toc-backref" href="#id7">User's Manual</a></h1>
+<p>This documentation is for those, who want to use the toolkit for
+finding and removing stafflines, but are not interested in implementing
+their own staff removal algorithms.</p>
+<ul class="simple">
+<li><a class="reference external" href="usermanual.html">Using the MusicStaves toolkit</a>: Describes how to use this toolkit
+both in Python scripts and from the Gamera GUI</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="plugins.html">Plugins</a>: Reference for the plugin functions shipped with this toolkit</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="classes.html">Classes</a>: Reference for the classes defined in this toolkit. Each class
+represents a specific staff removal algorithm.</li>
+</ul>
+</div>
+<div class="section" id="developer-s-manual">
+<h1><a class="toc-backref" href="#id8">Developer's Manual</a></h1>
+<p>This documentation is for those, who want to implement their own staff
+removal algorithms for inclusion into this toolkit.</p>
+<ul class="simple">
+<li><a class="reference external" href="developermanual.html#overall-structure">Overall Structure</a>: Describes the general structure and class hierarchy
+of the MusicStaves toolkit.</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="developermanual.html#adding-your-own-class">Adding own methods</a>: Describes how to make own staff removal methods
+available within the framework of the MusicStaves toolkit.</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h1><a class="toc-backref" href="#id9">Installation</a></h1>
+<p>This toolkit has only been tested on Linux and MacOS X.
+We do not know whether and how this toolkit could be compiled
+and installed on Windows (although it should be possible in principle).</p>
+<p>The following installation instructions should work for any Unix like
+operating system (MacOS X, Linux, Solaris, FreeBSD, ...).</p>
+<div class="section" id="prerequisites">
+<h2><a class="toc-backref" href="#id10">Prerequisites</a></h2>
+<p>First you will need a working installation of Gamera. See the
+<a class="reference external" href="http://ldp.library.jhu.edu/projects/gamera/">Gamera website</a> for details. It is strongly recommended that you use
+the CVS version rather than the latest stable release.</p>
+<p>If you want to generate the documentation, you will need two additional
+third-party Python libraries:</p>
+<blockquote>
+<ul class="simple">
+<li><a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> (version 0.3 or later) for handling reStructuredText documents.</li>
+<li><a class="reference external" href="http://pygments.org/">pygments</a> (version 0.6 or later) or <a class="reference external" href="http://silvercity.sourceforge.net/">SilverCity</a> (version 0.9 or later)
+for colorizing source code.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="building-and-installing">
+<h2><a class="toc-backref" href="#id11">Building and Installing</a></h2>
+<p>To build and install this toolkit, go to the base directory of the toolkit
+distribution and run the <tt class="docutils literal">setup.py</tt> script as follows:</p>
+<pre class="literal-block">
+# 1) compile
+python setup.py build
+
+# 2) install
+#    a) on MacOS X
+sudo python setup.py install
+#    b) on Linux
+su root -c setup.py install
+</pre>
+<p>Command 1) compiles the toolkit from the sources and command 2) installs
+it into the Python library directory. As the latter requires
+root privilegue, you need to use <tt class="docutils literal">sudo</tt> (vanilla MacOS X configuration)
+or <tt class="docutils literal">su root <span class="pre">-c</span></tt> (vanilla Linux configuration).</p>
+<p>To regenerate the documentation, go to the <tt class="docutils literal">doc</tt> directory and run the
+<tt class="docutils literal">gendoc.py</tt> script. The output will be placed in the <tt class="docutils literal">doc/html/</tt>
+directory.  The contents of this directory can be placed on a webserver
+for convenient viewing.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before building the documentation you must install the
+toolkit. Otherwise <tt class="docutils literal">gendoc.py</tt> will not find the plugin documentation.</p>
+</div>
+</div>
+<div class="section" id="installing-without-root-privileges">
+<h2><a class="toc-backref" href="#id12">Installing without root privileges</a></h2>
+<p>The above installation with <tt class="docutils literal">python setup.py install</tt> will install
+the toolkit system wide and thus requires root privileges. If you do
+not have root access (Linux) or are no sudoer (MacOS X), you can
+install the MusicStaves toolkit into your home directory. Note however
+that this also requires that gamera is installed into your home directory.
+It is currently not possibole to install gamera globally and only toolkits
+locally.</p>
+<p>Here are the steps to install both gamera and the MusicStaves toolkit into
+<tt class="docutils literal">~/python</tt>:</p>
+<pre class="literal-block">
+# install gamera locally
+mkdir ~/python
+python setup.py install --home=$HOME/python
+
+# build and install the MusicSatves toolkit locally
+export CFLAGS=-I$HOME/python/include/python2.3/gamera
+python setup.py build
+python setup.py install --home=$HOME/python
+</pre>
+<p>Moreover you should set the following environment variables in your
+<tt class="docutils literal"><span class="pre">~/.profile</span></tt>:</p>
+<pre class="literal-block">
+# search path for python modules
+export PYTHONPATH=$HOME/python/lib/python
+
+# search path for executables (eg. gamera_gui)
+export PATH=$HOME/python/bin:$PATH
+</pre>
+</div>
+<div class="section" id="uninstallation">
+<h2><a class="toc-backref" href="#id13">Uninstallation</a></h2>
+<p>All files of this toolkit are installed into the
+<tt class="docutils literal">gamera/toolkits/musicstaves</tt> subdirectory of the Python library folder.
+Thus it is sufficient to remove this directory for an uninstallation.</p>
+<p>Where the python library folder is depends on your system and python version.
+Here are the folders that you need to remove on MacOS X and Debian Linux
+(with python 2.3):</p>
+<blockquote>
+<ul class="simple">
+<li>MacOS X: <tt class="docutils literal">/Library/Python/2.3/gamera/toolkits/musicstaves</tt></li>
+<li>Debian Linux: <tt class="docutils literal"><span class="pre">/usr/lib/python2.3/site-packages/gamera/toolkits/musicstaves</span></tt></li>
+</ul>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

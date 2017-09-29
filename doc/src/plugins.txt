@@ -1,0 +1,284 @@
+=======
+Plugins
+=======
+
+By categories
+-------------
+
+- MusicStaves_
+
+  - Classes_
+
+    - MusicStaves_linetracking_
+
+    - MusicStaves_rl_carter_
+
+    - MusicStaves_rl_fujinaga_
+
+    - MusicStaves_rl_roach_tatem_
+
+    - MusicStaves_rl_simple_
+
+    - MusicStaves_skeleton_
+
+    - StaffFinder_dalitz_
+
+    - StaffFinder_miyao_
+
+    - StaffFinder_projections_
+
+    - StaffFinder_stable_path_
+
+  - Deformation_
+
+    - curvature_
+
+    - degrade_kanungo_parallel_
+
+    - find_stafflines_
+
+    - rotation_
+
+    - staffline_interruptions_
+
+    - staffline_thickness_ratio_
+
+    - staffline_thickness_variation_
+
+    - staffline_y_variation_
+
+    - typeset_emulation_
+
+    - white_speckles_parallel_
+
+  - Evaluation_
+
+    - interruption_error_
+
+    - pixel_error_
+
+    - segment_error_
+
+  - Fujinaga_
+
+    - find_and_deskew_staves_fujinaga_
+
+    - find_and_remove_staves_fujinaga_
+
+    - find_staves_fujinaga_
+
+    - global_staffline_deskew_
+
+    - remove_staves_fujinaga_
+
+  - Line_tracking_
+
+    - extract_filled_horizontal_black_runs_
+
+    - follow_staffwobble_
+
+    - get_staff_skeleton_list_
+
+    - skeleton_list_to_image_
+
+    - thinning_v_to_skeleton_list_
+
+  - Miyao_
+
+    - miyao_candidate_points_
+
+    - miyao_distance_
+
+    - miyao_find_edge_
+
+  - RoachTatem_
+
+    - compute_vector_field_
+
+    - draw_vector_field_
+
+    - mark_horizontal_lines_rt_
+
+    - remove_stafflines_rt_
+
+  - Skeleton_utilities_
+
+    - create_skeleton_segment_
+
+    - distance_precentage_among_points_
+
+    - estimate_next_point_
+
+    - extend_skeleton_
+
+    - get_corner_points_
+
+    - get_corner_points_rj_
+
+    - lin_parabola_
+
+    - parabola_
+
+    - remove_spurs_from_skeleton_
+
+    - remove_vruns_around_points_
+
+    - split_skeleton_
+
+  - Stable_path_
+
+    - get_stable_path_staff_skeletons_
+
+  - correct_rotation_
+
+  - fill_horizontal_line_gaps_
+
+  - fill_vertical_line_gaps_
+
+  - keep_tall_skewed_runs_
+
+  - match_staff_template_
+
+  - vector_field_
+
+    - angles_to_RGB_
+
+    - compute_longest_chord_vectors_
+
+    - keep_vectorfield_runs_
+
+Alphabetical
+-------------
+
+
+**A**
+
+angles_to_RGB_
+
+**C**
+
+compute_longest_chord_vectors_, compute_vector_field_, correct_rotation_, create_skeleton_segment_, curvature_
+
+**D**
+
+degrade_kanungo_parallel_, distance_precentage_among_points_, draw_vector_field_
+
+**E**
+
+estimate_next_point_, extend_skeleton_, extract_filled_horizontal_black_runs_
+
+**F**
+
+fill_horizontal_line_gaps_, fill_vertical_line_gaps_, find_and_deskew_staves_fujinaga_, find_and_remove_staves_fujinaga_, find_stafflines_, find_staves_fujinaga_, follow_staffwobble_
+
+**G**
+
+get_corner_points_, get_corner_points_rj_, get_stable_path_staff_skeletons_, get_staff_skeleton_list_, global_staffline_deskew_
+
+**I**
+
+interruption_error_
+
+**K**
+
+keep_tall_skewed_runs_, keep_vectorfield_runs_
+
+**L**
+
+lin_parabola_
+
+**M**
+
+mark_horizontal_lines_rt_, match_staff_template_, miyao_candidate_points_, miyao_distance_, miyao_find_edge_, MusicStaves_linetracking_, MusicStaves_rl_carter_, MusicStaves_rl_fujinaga_, MusicStaves_rl_roach_tatem_, MusicStaves_rl_simple_, MusicStaves_skeleton_
+
+**P**
+
+parabola_, pixel_error_
+
+**R**
+
+remove_spurs_from_skeleton_, remove_stafflines_rt_, remove_staves_fujinaga_, remove_vruns_around_points_, rotation_
+
+**S**
+
+segment_error_, skeleton_list_to_image_, split_skeleton_, StaffFinder_dalitz_, StaffFinder_miyao_, StaffFinder_projections_, StaffFinder_stable_path_, staffline_interruptions_, staffline_thickness_ratio_, staffline_thickness_variation_, staffline_y_variation_
+
+**T**
+
+thinning_v_to_skeleton_list_, typeset_emulation_
+
+**W**
+
+white_speckles_parallel_
+
+.. _MusicStaves: musicstaves.html#musicstaves
+.. _Classes: musicstaves.html#classes
+.. _MusicStaves_linetracking: musicstaves.html#musicstaves-linetracking
+.. _MusicStaves_rl_carter: musicstaves.html#musicstaves-rl-carter
+.. _MusicStaves_rl_fujinaga: musicstaves.html#musicstaves-rl-fujinaga
+.. _MusicStaves_rl_roach_tatem: musicstaves.html#musicstaves-rl-roach-tatem
+.. _MusicStaves_rl_simple: musicstaves.html#musicstaves-rl-simple
+.. _MusicStaves_skeleton: musicstaves.html#musicstaves-skeleton
+.. _StaffFinder_dalitz: musicstaves.html#stafffinder-dalitz
+.. _StaffFinder_miyao: musicstaves.html#stafffinder-miyao
+.. _StaffFinder_projections: musicstaves.html#stafffinder-projections
+.. _StaffFinder_stable_path: musicstaves.html#stafffinder-stable-path
+.. _Deformation: musicstaves.html#deformation
+.. _curvature: musicstaves.html#curvature
+.. _degrade_kanungo_parallel: musicstaves.html#degrade-kanungo-parallel
+.. _find_stafflines: musicstaves.html#find-stafflines
+.. _rotation: musicstaves.html#rotation
+.. _staffline_interruptions: musicstaves.html#staffline-interruptions
+.. _staffline_thickness_ratio: musicstaves.html#staffline-thickness-ratio
+.. _staffline_thickness_variation: musicstaves.html#staffline-thickness-variation
+.. _staffline_y_variation: musicstaves.html#staffline-y-variation
+.. _typeset_emulation: musicstaves.html#typeset-emulation
+.. _white_speckles_parallel: musicstaves.html#white-speckles-parallel
+.. _Evaluation: musicstaves.html#evaluation
+.. _interruption_error: musicstaves.html#interruption-error
+.. _pixel_error: musicstaves.html#pixel-error
+.. _segment_error: musicstaves.html#segment-error
+.. _Fujinaga: musicstaves.html#fujinaga
+.. _find_and_deskew_staves_fujinaga: musicstaves.html#find-and-deskew-staves-fujinaga
+.. _find_and_remove_staves_fujinaga: musicstaves.html#find-and-remove-staves-fujinaga
+.. _find_staves_fujinaga: musicstaves.html#find-staves-fujinaga
+.. _global_staffline_deskew: musicstaves.html#global-staffline-deskew
+.. _remove_staves_fujinaga: musicstaves.html#remove-staves-fujinaga
+.. _Line_tracking: musicstaves.html#line-tracking
+.. _extract_filled_horizontal_black_runs: musicstaves.html#extract-filled-horizontal-black-runs
+.. _follow_staffwobble: musicstaves.html#follow-staffwobble
+.. _get_staff_skeleton_list: musicstaves.html#get-staff-skeleton-list
+.. _skeleton_list_to_image: musicstaves.html#skeleton-list-to-image
+.. _thinning_v_to_skeleton_list: musicstaves.html#thinning-v-to-skeleton-list
+.. _Miyao: musicstaves.html#miyao
+.. _miyao_candidate_points: musicstaves.html#miyao-candidate-points
+.. _miyao_distance: musicstaves.html#miyao-distance
+.. _miyao_find_edge: musicstaves.html#miyao-find-edge
+.. _RoachTatem: musicstaves.html#roachtatem
+.. _compute_vector_field: musicstaves.html#compute-vector-field
+.. _draw_vector_field: musicstaves.html#draw-vector-field
+.. _mark_horizontal_lines_rt: musicstaves.html#mark-horizontal-lines-rt
+.. _remove_stafflines_rt: musicstaves.html#remove-stafflines-rt
+.. _Skeleton_utilities: musicstaves.html#skeleton-utilities
+.. _create_skeleton_segment: musicstaves.html#create-skeleton-segment
+.. _distance_precentage_among_points: musicstaves.html#distance-precentage-among-points
+.. _estimate_next_point: musicstaves.html#estimate-next-point
+.. _extend_skeleton: musicstaves.html#extend-skeleton
+.. _get_corner_points: musicstaves.html#get-corner-points
+.. _get_corner_points_rj: musicstaves.html#get-corner-points-rj
+.. _lin_parabola: musicstaves.html#lin-parabola
+.. _parabola: musicstaves.html#parabola
+.. _remove_spurs_from_skeleton: musicstaves.html#remove-spurs-from-skeleton
+.. _remove_vruns_around_points: musicstaves.html#remove-vruns-around-points
+.. _split_skeleton: musicstaves.html#split-skeleton
+.. _Stable_path: musicstaves.html#stable-path
+.. _get_stable_path_staff_skeletons: musicstaves.html#get-stable-path-staff-skeletons
+.. _correct_rotation: musicstaves.html#correct-rotation
+.. _fill_horizontal_line_gaps: musicstaves.html#fill-horizontal-line-gaps
+.. _fill_vertical_line_gaps: musicstaves.html#fill-vertical-line-gaps
+.. _keep_tall_skewed_runs: musicstaves.html#keep-tall-skewed-runs
+.. _match_staff_template: musicstaves.html#match-staff-template
+.. _vector_field: musicstaves.html#vector-field
+.. _angles_to_RGB: musicstaves.html#angles-to-rgb
+.. _compute_longest_chord_vectors: musicstaves.html#compute-longest-chord-vectors
+.. _keep_vectorfield_runs: musicstaves.html#keep-vectorfield-runs

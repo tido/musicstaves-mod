@@ -1,0 +1,13 @@
+class ``MusicStaves_skeleton``
+==============================
+
+``MusicStaves_skeleton``
+------------------------
+
+In module ``gamera.toolkits.musicstaves.musicstaves_skeleton``
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_skeleton MusicStaves_skeleton
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_skeleton MusicStaves_skeleton __init__ remove_staves get_staffpos
+

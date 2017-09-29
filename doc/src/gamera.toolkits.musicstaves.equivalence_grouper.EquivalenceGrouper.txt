@@ -1,0 +1,13 @@
+class ``EquivalenceGrouper``
+============================
+
+``EquivalenceGrouper``
+----------------------
+
+In module ``gamera.toolkits.musicstaves.equivalence_grouper``
+
+.. docstring:: gamera.toolkits.musicstaves.equivalence_grouper EquivalenceGrouper
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.equivalence_grouper EquivalenceGrouper __init__ join joined __iter__
+

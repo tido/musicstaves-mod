@@ -1,0 +1,2527 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>MusicStaves</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="musicstaves">
+<h1 class="title">MusicStaves</h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#classes" id="id30">Classes</a><ul>
+<li><a class="reference internal" href="#musicstaves-linetracking" id="id31"><tt class="docutils literal">MusicStaves_linetracking</tt></a></li>
+<li><a class="reference internal" href="#musicstaves-rl-carter" id="id32"><tt class="docutils literal">MusicStaves_rl_carter</tt></a></li>
+<li><a class="reference internal" href="#musicstaves-rl-fujinaga" id="id33"><tt class="docutils literal">MusicStaves_rl_fujinaga</tt></a></li>
+<li><a class="reference internal" href="#musicstaves-rl-roach-tatem" id="id34"><tt class="docutils literal">MusicStaves_rl_roach_tatem</tt></a></li>
+<li><a class="reference internal" href="#musicstaves-rl-simple" id="id35"><tt class="docutils literal">MusicStaves_rl_simple</tt></a></li>
+<li><a class="reference internal" href="#musicstaves-skeleton" id="id36"><tt class="docutils literal">MusicStaves_skeleton</tt></a></li>
+<li><a class="reference internal" href="#stafffinder-dalitz" id="id37"><tt class="docutils literal">StaffFinder_dalitz</tt></a></li>
+<li><a class="reference internal" href="#stafffinder-miyao" id="id38"><tt class="docutils literal">StaffFinder_miyao</tt></a></li>
+<li><a class="reference internal" href="#stafffinder-projections" id="id39"><tt class="docutils literal">StaffFinder_projections</tt></a></li>
+<li><a class="reference internal" href="#stafffinder-stable-path" id="id40"><tt class="docutils literal">StaffFinder_stable_path</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deformation" id="id41">Deformation</a><ul>
+<li><a class="reference internal" href="#curvature" id="id42"><tt class="docutils literal">curvature</tt></a></li>
+<li><a class="reference internal" href="#degrade-kanungo-parallel" id="id43"><tt class="docutils literal">degrade_kanungo_parallel</tt></a></li>
+<li><a class="reference internal" href="#find-stafflines" id="id44"><tt class="docutils literal">find_stafflines</tt></a></li>
+<li><a class="reference internal" href="#rotation" id="id45"><tt class="docutils literal">rotation</tt></a></li>
+<li><a class="reference internal" href="#staffline-interruptions" id="id46"><tt class="docutils literal">staffline_interruptions</tt></a></li>
+<li><a class="reference internal" href="#staffline-thickness-ratio" id="id47"><tt class="docutils literal">staffline_thickness_ratio</tt></a></li>
+<li><a class="reference internal" href="#staffline-thickness-variation" id="id48"><tt class="docutils literal">staffline_thickness_variation</tt></a></li>
+<li><a class="reference internal" href="#staffline-y-variation" id="id49"><tt class="docutils literal">staffline_y_variation</tt></a></li>
+<li><a class="reference internal" href="#typeset-emulation" id="id50"><tt class="docutils literal">typeset_emulation</tt></a></li>
+<li><a class="reference internal" href="#white-speckles-parallel" id="id51"><tt class="docutils literal">white_speckles_parallel</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#evaluation" id="id52">Evaluation</a><ul>
+<li><a class="reference internal" href="#interruption-error" id="id53"><tt class="docutils literal">interruption_error</tt></a></li>
+<li><a class="reference internal" href="#pixel-error" id="id54"><tt class="docutils literal">pixel_error</tt></a></li>
+<li><a class="reference internal" href="#segment-error" id="id55"><tt class="docutils literal">segment_error</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fujinaga" id="id56">Fujinaga</a><ul>
+<li><a class="reference internal" href="#find-and-deskew-staves-fujinaga" id="id57"><tt class="docutils literal">find_and_deskew_staves_fujinaga</tt></a></li>
+<li><a class="reference internal" href="#find-and-remove-staves-fujinaga" id="id58"><tt class="docutils literal">find_and_remove_staves_fujinaga</tt></a></li>
+<li><a class="reference internal" href="#find-staves-fujinaga" id="id59"><tt class="docutils literal">find_staves_fujinaga</tt></a></li>
+<li><a class="reference internal" href="#global-staffline-deskew" id="id60"><tt class="docutils literal">global_staffline_deskew</tt></a></li>
+<li><a class="reference internal" href="#remove-staves-fujinaga" id="id61"><tt class="docutils literal">remove_staves_fujinaga</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#line-tracking" id="id62">Line_tracking</a><ul>
+<li><a class="reference internal" href="#extract-filled-horizontal-black-runs" id="id63"><tt class="docutils literal">extract_filled_horizontal_black_runs</tt></a></li>
+<li><a class="reference internal" href="#follow-staffwobble" id="id64"><tt class="docutils literal">follow_staffwobble</tt></a></li>
+<li><a class="reference internal" href="#get-staff-skeleton-list" id="id65"><tt class="docutils literal">get_staff_skeleton_list</tt></a></li>
+<li><a class="reference internal" href="#skeleton-list-to-image" id="id66"><tt class="docutils literal">skeleton_list_to_image</tt></a></li>
+<li><a class="reference internal" href="#id26" id="id67"><tt class="docutils literal">thinning_v_to_skeleton_list</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#miyao" id="id68">Miyao</a><ul>
+<li><a class="reference internal" href="#miyao-candidate-points" id="id69"><tt class="docutils literal">miyao_candidate_points</tt></a></li>
+<li><a class="reference internal" href="#miyao-distance" id="id70"><tt class="docutils literal">miyao_distance</tt></a></li>
+<li><a class="reference internal" href="#miyao-find-edge" id="id71"><tt class="docutils literal">miyao_find_edge</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#roachtatem" id="id72">RoachTatem</a><ul>
+<li><a class="reference internal" href="#compute-vector-field" id="id73"><tt class="docutils literal">compute_vector_field</tt></a></li>
+<li><a class="reference internal" href="#draw-vector-field" id="id74"><tt class="docutils literal">draw_vector_field</tt></a></li>
+<li><a class="reference internal" href="#mark-horizontal-lines-rt" id="id75"><tt class="docutils literal">mark_horizontal_lines_rt</tt></a></li>
+<li><a class="reference internal" href="#remove-stafflines-rt" id="id76"><tt class="docutils literal">remove_stafflines_rt</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skeleton-utilities" id="id77">Skeleton_utilities</a><ul>
+<li><a class="reference internal" href="#create-skeleton-segment" id="id78"><tt class="docutils literal">create_skeleton_segment</tt></a></li>
+<li><a class="reference internal" href="#distance-precentage-among-points" id="id79"><tt class="docutils literal">distance_precentage_among_points</tt></a></li>
+<li><a class="reference internal" href="#estimate-next-point" id="id80"><tt class="docutils literal">estimate_next_point</tt></a></li>
+<li><a class="reference internal" href="#extend-skeleton" id="id81"><tt class="docutils literal">extend_skeleton</tt></a></li>
+<li><a class="reference internal" href="#get-corner-points" id="id82"><tt class="docutils literal">get_corner_points</tt></a></li>
+<li><a class="reference internal" href="#get-corner-points-rj" id="id83"><tt class="docutils literal">get_corner_points_rj</tt></a></li>
+<li><a class="reference internal" href="#lin-parabola" id="id84"><tt class="docutils literal">lin_parabola</tt></a></li>
+<li><a class="reference internal" href="#parabola" id="id85"><tt class="docutils literal">parabola</tt></a></li>
+<li><a class="reference internal" href="#remove-spurs-from-skeleton" id="id86"><tt class="docutils literal">remove_spurs_from_skeleton</tt></a></li>
+<li><a class="reference internal" href="#remove-vruns-around-points" id="id87"><tt class="docutils literal">remove_vruns_around_points</tt></a></li>
+<li><a class="reference internal" href="#split-skeleton" id="id88"><tt class="docutils literal">split_skeleton</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stable-path" id="id89">Stable_path</a><ul>
+<li><a class="reference internal" href="#get-stable-path-staff-skeletons" id="id90"><tt class="docutils literal">get_stable_path_staff_skeletons</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#correct-rotation" id="id91"><tt class="docutils literal">correct_rotation</tt></a></li>
+<li><a class="reference internal" href="#fill-horizontal-line-gaps" id="id92"><tt class="docutils literal">fill_horizontal_line_gaps</tt></a></li>
+<li><a class="reference internal" href="#fill-vertical-line-gaps" id="id93"><tt class="docutils literal">fill_vertical_line_gaps</tt></a></li>
+<li><a class="reference internal" href="#keep-tall-skewed-runs" id="id94"><tt class="docutils literal">keep_tall_skewed_runs</tt></a></li>
+<li><a class="reference internal" href="#match-staff-template" id="id95"><tt class="docutils literal">match_staff_template</tt></a></li>
+<li><a class="reference internal" href="#vector-field" id="id96">vector_field</a><ul>
+<li><a class="reference internal" href="#angles-to-rgb" id="id97"><tt class="docutils literal">angles_to_RGB</tt></a></li>
+<li><a class="reference internal" href="#compute-longest-chord-vectors" id="id98"><tt class="docutils literal">compute_longest_chord_vectors</tt></a></li>
+<li><a class="reference internal" href="#keep-vectorfield-runs" id="id99"><tt class="docutils literal">keep_vectorfield_runs</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="classes">
+<h1><a class="toc-backref" href="#id30">Classes</a></h1>
+<div class="section" id="musicstaves-linetracking">
+<h2><a class="toc-backref" href="#id31"><tt class="docutils literal">MusicStaves_linetracking</tt></a></h2>
+<p>object <strong>MusicStaves_linetracking</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">line_tracking.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves_linetracking.MusicStaves_linetracking.html">MusicStaves_linetracking</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+</div>
+<div class="section" id="musicstaves-rl-carter">
+<h2><a class="toc-backref" href="#id32"><tt class="docutils literal">MusicStaves_rl_carter</tt></a></h2>
+<p>object <strong>MusicStaves_rl_carter</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom (after an algorithm by N. P. Carter)</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves_rl_carter.MusicStaves_rl_carter.html">MusicStaves_rl_carter</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+</div>
+<div class="section" id="musicstaves-rl-fujinaga">
+<h2><a class="toc-backref" href="#id33"><tt class="docutils literal">MusicStaves_rl_fujinaga</tt></a></h2>
+<p>object <strong>MusicStaves_rl_fujinaga</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_removal_fujinaga.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, Karl MacMillan and Ichiro Fujinaga</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a new <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves_rl_fujinaga.MusicStaves_rl_fujinaga.html">MusicStaves_fl_fujinaga</a> object from the image.</p>
+</div>
+<div class="section" id="musicstaves-rl-roach-tatem">
+<h2><a class="toc-backref" href="#id34"><tt class="docutils literal">MusicStaves_rl_roach_tatem</tt></a></h2>
+<p>object <strong>MusicStaves_rl_roach_tatem</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">roach_tatem_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, after an algorithm by Roach &amp; Tatem</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves_rl_roach_tatem.MusicStaves_rl_roach_tatem.html">MusicStaves_rl_roach_tatem</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+</div>
+<div class="section" id="musicstaves-rl-simple">
+<h2><a class="toc-backref" href="#id35"><tt class="docutils literal">MusicStaves_rl_simple</tt></a></h2>
+<p>object <strong>MusicStaves_rl_simple</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves_rl_simple.MusicStaves_rl_simple.html">MusicStaves_rl_simple</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+</div>
+<div class="section" id="musicstaves-skeleton">
+<h2><a class="toc-backref" href="#id36"><tt class="docutils literal">MusicStaves_skeleton</tt></a></h2>
+<p>object <strong>MusicStaves_skeleton</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves_skeleton.MusicStaves_skeleton.html">MusicStaves_skeleton</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically. As skeletonization can be rather time
+consuming, you can optionally provide a precomputed skeleton in
+<em>skeleton_image</em>.</p>
+</div>
+<div class="section" id="stafffinder-dalitz">
+<h2><a class="toc-backref" href="#id37"><tt class="docutils literal">StaffFinder_dalitz</tt></a></h2>
+<p>object <strong>StaffFinder_dalitz</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Florian Pose</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder_dalitz.StaffFinder_dalitz.html">StaffFinder_dalitz</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+</div>
+<div class="section" id="stafffinder-miyao">
+<h2><a class="toc-backref" href="#id38"><tt class="docutils literal">StaffFinder_miyao</tt></a></h2>
+<p>object <strong>StaffFinder_miyao</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_finding_miyao.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder_miyao.StaffFinder_miyao.html">StaffFinder_miyao</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+</div>
+<div class="section" id="stafffinder-projections">
+<h2><a class="toc-backref" href="#id39"><tt class="docutils literal">StaffFinder_projections</tt></a></h2>
+<p>object <strong>StaffFinder_projections</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder_projections.StaffFinder_projections.html">StaffFinder_projections</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+</div>
+<div class="section" id="stafffinder-stable-path">
+<h2><a class="toc-backref" href="#id40"><tt class="docutils literal">StaffFinder_stable_path</tt></a></h2>
+<p>object <strong>StaffFinder_stable_path</strong> (int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Classes</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">stable_path.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder_stable_path.StaffFinder_stable_path.html">StaffFinder_stable_path</a> object.</p>
+<p>Leave the parameters <em>staffspace_height</em> and <em>staffline_height</em> zero
+unless you have computed them somehow beforehand. When left zero,
+they are computed automatically.</p>
+</div>
+</div>
+<div class="section" id="deformation">
+<h1><a class="toc-backref" href="#id41">Deformation</a></h1>
+<div class="section" id="curvature">
+<h2><a class="toc-backref" href="#id42"><tt class="docutils literal">curvature</tt></a></h2>
+<p>object <strong>curvature</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, float <em>ampx</em>, float <em>period</em> = 1.00)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Applies Gamera's <em>wave</em> plugin and computes the the position of the
+stafflines after the deformation.</p>
+<p>Input arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>im_staffonly</em>:</dt>
+<dd>image containing only the staff segments (without symbols) of the
+<em>self</em> image</dd>
+<dt><em>ampx</em>:</dt>
+<dd>amplitude of the sine wave divided by the width of the staff system</dd>
+<dt><em>period</em>:</dt>
+<dd>is the count of the half periods of to the sine wave over the
+whole staff width</dd>
+</dl>
+</blockquote>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> with the
+following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="degrade-kanungo-parallel">
+<h2><a class="toc-backref" href="#id43"><tt class="docutils literal">degrade_kanungo_parallel</tt></a></h2>
+<p>object <strong>degrade_kanungo_parallel</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, float(0.00, 1.00) <em>eta</em>, float(0.00, 1.00) <em>a0</em>, float <em>a</em>, float(0.00, 1.00) <em>b0</em>, float <em>b</em>, int <em>k</em> = 2, int <em>random_seed</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Degrades an image and its corresponding staff only image in parallel
+due to a scheme proposed by Kanungo et alii (see the reference below). This is
+supposed to emulate image defects introduced through printing and scanning.</p>
+<p>The argument <em>im_staffonly</em> must be an image containing only the staff
+segments (without symbols) of the <em>self</em> image.
+The degradation scheme depends on six parameters <em>(eta,a0,a,b0,b,k)</em> with
+the following meaning:</p>
+<blockquote>
+<ul class="simple">
+<li>each foreground pixel (black) is flipped with probability
+<cite>a0*exp(-a*d^2) + eta</cite>, where d is the distance to the closest
+background pixel</li>
+<li>each background pixel (white) is flipped with probability
+<cite>b0*exp(-b*d^2) + eta</cite>, where d is the distance to the closest
+foreground pixel</li>
+<li>eventuall a morphological closing operation is performed with a disk
+of diameter <em>k</em>. If you want to skip this step set <em>k=0</em>; in that
+case you should do your own smoothing afterwards.</li>
+</ul>
+</blockquote>
+<p>The random generator is initialized with <em>random_seed</em> for allowing
+reproducable results.</p>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> with the
+following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+</dl>
+</blockquote>
+<p>References:</p>
+<blockquote>
+T. Kanungo, R.M. Haralick, H.S. Baird, et al.:
+<em>A statistical, nonparametric methodology for document
+degradation model validation.</em>
+IEEE Transactions on Pattern Analysis and Machine Intelligence
+22 (11), 2000, pp. 1209-1223</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="find-stafflines">
+<h2><a class="toc-backref" href="#id44"><tt class="docutils literal">find_stafflines</tt></a></h2>
+<p>object <strong>find_stafflines</strong> ()</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the
+stafflines in <em>self</em> image, which has contain only the stafflines of
+a computer-generated image</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="rotation">
+<h2><a class="toc-backref" href="#id45"><tt class="docutils literal">rotation</tt></a></h2>
+<p>object <strong>rotation</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, float <em>angle</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Rotates a music image and computes the position of the stafflines
+after the rotation.</p>
+<p>The stafflines are detected in <em>im_staffonly</em> with horizontal projections.
+Calculating the skeleton positions after rotation takes into account
+that the Gamera <cite>rotate</cite> plugin not only does a rotation, but also
+pads and translates the image.</p>
+<p>Input arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>im_staffonly</em>:</dt>
+<dd>image containing only the staff segments (without symbols) of the
+<em>self</em> image</dd>
+<dt><em>angle</em></dt>
+<dd>rotation angle (counter clockwise)</dd>
+</dl>
+</blockquote>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> with the
+following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="staffline-interruptions">
+<h2><a class="toc-backref" href="#id46"><tt class="docutils literal">staffline_interruptions</tt></a></h2>
+<p>object <strong>staffline_interruptions</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, float <em>alpha</em>, int <em>n</em>, float <em>p</em> = 0.50, int <em>random_seed</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Applies random interruptions (with random size) to the stafflines.</p>
+<dl class="docutils">
+<dt>Paramaters:</dt>
+<dd><dl class="first last docutils">
+<dt><em>alpha</em></dt>
+<dd>The probability for each pixel to be the center of an interruption</dd>
+<dt><em>n</em>, <em>p</em></dt>
+<dd>The n and p parameters for the binomial distribution deciding the size
+of the interruption</dd>
+</dl>
+</dd>
+</dl>
+<p>A <em>random_seed</em> can be given for reproducable results.</p>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> with the
+following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="staffline-thickness-ratio">
+<h2><a class="toc-backref" href="#id47"><tt class="docutils literal">staffline_thickness_ratio</tt></a></h2>
+<p>object <strong>staffline_thickness_ratio</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, float <em>ratio</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Changes the ratio <cite>staffline_height:staffspace_height</cite> to
+the given <em>ratio</em>.</p>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> with the
+following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="staffline-thickness-variation">
+<h2><a class="toc-backref" href="#id48"><tt class="docutils literal">staffline_thickness_variation</tt></a></h2>
+<p>object <strong>staffline_thickness_variation</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, int <em>min</em>, int <em>max</em>, float <em>c</em> = 0.50, int <em>random_seed</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Applies variable random thickness to the stafflines using a
+Metropolis-Hastings Markov chain simulation.</p>
+<p>The new staff lines are centered at the y-position of the former
+stafflines. For every <em>x</em> value a new thickness is estamined. It
+is then drawn from <cite>y-(thickness-1)/2</cite> to <cite>y+(thickness-1)/2</cite>. In
+cases where this produces decimal places (for even values of
+thickness), an additional shift is applied, with is reestimated
+for every change of the thickness to an even value. It is randomly
+generated: in half of the cases 1, or otherwise 0.</p>
+<p>The probability to stay in the same state i.e. to stay at the same
+thickness is &gt;= <em>c</em>. Thus <em>c</em> can be considered as an inertia factor
+allowing for smooth transitions. The stationary distribution of the
+Markov chain is set to a binomial distribution with <em>p = 0.5</em> and
+<em>n = max - min</em>.</p>
+<p>A <em>random_seed</em> can be given for reproducable results.</p>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> with the
+following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+</dl>
+</blockquote>
+<dl class="docutils">
+<dt>References:</dt>
+<dd>W.K. Hastings: <em>Monte Carlo sampling methods using Markov
+chains and their applications</em>, Biometrika, 57:97-109 (1970)</dd>
+</dl>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="staffline-y-variation">
+<h2><a class="toc-backref" href="#id49"><tt class="docutils literal">staffline_y_variation</tt></a></h2>
+<p>object <strong>staffline_y_variation</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, int <em>maxdiff</em>, float <em>c</em> = 0.50, int <em>random_seed</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Applies variable random y-value to the stafflines using a
+Metropolis-Hastings Markov chain simulation.</p>
+<p>The probability to stay in the same state i.e. to stay at the
+same y-value is &gt;= <em>c</em>. Thus <em>c</em> can be considered as an inertia factor
+allowing for smooth transitions. The stationary distribution of the
+Markov chain is set to a binomial distribution with <em>p = 0.5</em> and
+<em>n = maxdiff</em>.</p>
+<p><em>maxdiff</em> is the maximum variation (i.e. <em>max-min+1</em>) of the new
+y value of the line.</p>
+<p>A <em>random_seed</em> can be given for reproducable results.</p>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> with the
+following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+</dl>
+</blockquote>
+<dl class="docutils">
+<dt>References:</dt>
+<dd>W.K. Hastings: <em>Monte Carlo sampling methods using Markov
+chains and their applications</em>, Biometrika, 57:97-109 (1970)</dd>
+</dl>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="typeset-emulation">
+<h2><a class="toc-backref" href="#id50"><tt class="docutils literal">typeset_emulation</tt></a></h2>
+<p>object <strong>typeset_emulation</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, int <em>n_gap</em>, float <em>p_gap</em>, int <em>n_shift</em>, int <em>random_seed</em> = 0, <tt class="docutils literal">bool</tt> <em>add_noshift</em> = False)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Emulates typeset music by interrupting staff lines between symbols
+and shifting the resulting vertical slices randomly up or down.</p>
+<p>Staff lines and systems are detected in <em>im_staffonly</em> by horizontal
+projections. Splitting points for the interruptions (gaps) of each
+staff system are detected by vertical projections in <em>im_staffonly</em>.</p>
+<p>Input arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>im_staffonly</em>:</dt>
+<dd>image containing only the staff segments (without symbols) of the
+<em>self</em> image</dd>
+<dt><em>n_gap</em>, <em>p_gap</em>:</dt>
+<dd>n and p values for gap widths (binomial distribution)</dd>
+<dt><em>n_shift</em>:</dt>
+<dd>n value for y-shift (binomial distribution; p always 0.5)</dd>
+<dt><em>random_seed</em>:</dt>
+<dd>Initializer for random generator allowing reproducable results.</dd>
+<dt><em>add_noshift</em>:</dt>
+<dd>Add images to the output only containing the breaks, and no shifts</dd>
+</dl>
+</blockquote>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> or (if
+<em>add_noshift</em> is set to True) <em>[def_full, def_staffonly, list_staffline,
+ns_full, ns_staffonly]</em> with the following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+<dt><em>ns_full</em></dt>
+<dd>deformed version of the <em>self</em> image, only breaks, no shifts</dd>
+<dt><em>ns_staffonly</em></dt>
+<dd>deformed version of the <em>im_staffonly</em>, only breaks, no shifts</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+<div class="section" id="white-speckles-parallel">
+<h2><a class="toc-backref" href="#id51"><tt class="docutils literal">white_speckles_parallel</tt></a></h2>
+<p>object <strong>white_speckles_parallel</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>im_staffonly</em>, float(0.00, 1.00) <em>p</em>, int <em>n</em>, int <em>k</em> = 2, <tt class="docutils literal">Choice</tt> [rook|bishop|king] <em>connectivity</em> = king, int <em>random_seed</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Deformation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staffdeformation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Adds white speckles to a music image and in parllel to its
+corresponding staff only image. This is supposed to emulate image
+defects introduced through printing, scanning and thresholding.</p>
+<p>The degradation scheme depends on three parameters <em>(p,n,k)</em> with
+the following meaning:</p>
+<blockquote>
+<ul class="simple">
+<li>Each black pixel in the input image is taken with probability <em>p</em>
+as a starting point for a random walk of length <em>n</em>.
+Consequently <em>p</em> can be interpreted as the speckle frequency and <em>n</em>
+as a measure for the speckle size.</li>
+<li>An image containing the random walk is smoothed by a closing operation
+with a rectangle of size <em>k</em>.</li>
+<li>Eventually the image with the random walks is subtracted from both the
+original image and the provided staffless image, which results in white
+speckles at the random walk positions</li>
+</ul>
+</blockquote>
+<p>Input arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>im_staffonly</em>:</dt>
+<dd>image containing only the staff segments (without symbols) of the
+<em>self</em> image</dd>
+<dt><em>p, n, k</em>:</dt>
+<dd>speckle frequency, random walk length and closing disc size</dd>
+<dt><em>connectivity</em>:</dt>
+<dd><p class="first">effects the connectivity of adjacent random walk points as shown
+in the following figure (in case of bishop moves the final closing
+operation whitens the neighbouring 4-connected pixels too):</p>
+<img alt="images/randomwalk_connectivity.png" class="last" src="images/randomwalk_connectivity.png" />
+</dd>
+</dl>
+</blockquote>
+<p>Returns a tuple <em>[def_full, def_staffonly, list_staffline]</em> with the
+following components:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>def_full</em></dt>
+<dd>deformed version of the <em>self</em> image</dd>
+<dt><em>def_staffonly</em></dt>
+<dd>deformed version of <em>im_staffonly</em></dd>
+<dt><em>list_staffline</em></dt>
+<dd>a list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> objects describing the staffline
+positions after the deformation</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works on computer generated images with perfectly
+horizontal staff lines.</p>
+</div>
+</div>
+</div>
+<div class="section" id="evaluation">
+<h1><a class="toc-backref" href="#id52">Evaluation</a></h1>
+<div class="section" id="interruption-error">
+<h2><a class="toc-backref" href="#id53"><tt class="docutils literal">interruption_error</tt></a></h2>
+<p><tt class="docutils literal">IntVector</tt> <strong>interruption_error</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>Gstaves</em>, <tt class="docutils literal">Image</tt> [OneBit] <em>Sstaves</em>, [object <em>Skeletons</em>])</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">IntVector</tt></td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Evaluation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">evaluation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Returns error information for staff line interruptions.</p>
+<p>Compares the staff-only image of the &quot;ground truth&quot; image <em>Gstaves</em>
+with the staff-only image of a staff removal result <em>Sstaves</em> (image
+that contains exactly the removed pixels). A list of
+StafflineSkeleton-objects <em>Skeletons</em> is also needed to find the
+stafflines in the images. This algorithm recognizes interruptions in
+the stafflines, and tries to link them by matching their x-positions.
+After that it removes links, so that every interruption is linked at
+most once. The return value is a tuple (<em>n1,n2,n3)</em> describing the
+results:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">&nbsp;</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><em>n1</em></td>
+<td>interruptions without link (either Gstaves or Sstaves)</td>
+</tr>
+<tr><td><em>n2</em></td>
+<td>removed links because of doubly linked interruptions</td>
+</tr>
+<tr><td><em>n3</em></td>
+<td>interruptions in Gstaves</td>
+</tr>
+</tbody>
+</table>
+<p>In the following image, you can see 2 interruptions without link (blue),
+2 removed links (red) and 7 interruptions in Gstaves, so the return value
+would be (2,2,7):</p>
+<img alt="images/staffinterrupt.png" src="images/staffinterrupt.png" />
+</div>
+<div class="section" id="pixel-error">
+<h2><a class="toc-backref" href="#id54"><tt class="docutils literal">pixel_error</tt></a></h2>
+<p>list <strong>pixel_error</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>Gstaves</em>, <tt class="docutils literal">Image</tt> [OneBit] <em>Sstaves</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">list</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Evaluation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">evaluation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the rate of misclassified pixels (<em>staff</em>, <em>non staff</em>)
+during staff removal.</p>
+<p>Arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>self</em>:</dt>
+<dd>The full original input image</dd>
+<dt><em>Gstaves</em>:</dt>
+<dd>ground truth image containing only the staff segments that should
+be removed</dd>
+<dt><em>Sstaves</em>:</dt>
+<dd>image containing the actually removed staff segments</dd>
+</dl>
+</blockquote>
+<p>The return value is a tuple (<em>error, e1, e2, a)</em> with the following
+meaning:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">value</th>
+<th class="head">meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><em>error</em></td>
+<td>actual error rate</td>
+</tr>
+<tr><td><em>e1</em></td>
+<td>black area of missed staff</td>
+</tr>
+<tr><td><em>e2</em></td>
+<td>count of false positive pixels</td>
+</tr>
+<tr><td><em>a</em></td>
+<td>count of black pixels</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="segment-error">
+<h2><a class="toc-backref" href="#id55"><tt class="docutils literal">segment_error</tt></a></h2>
+<p><tt class="docutils literal">IntVector</tt> <strong>segment_error</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>Gstaves</em>, <tt class="docutils literal">Image</tt> [OneBit] <em>Sstaves</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">IntVector</tt></td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Evaluation</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">evaluation.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the rate of misclassified staff segments
+during staff removal.</p>
+<p>Compares two segmentations by building equivalence classes of
+overlapping segments as described in the reference below. Each
+class is assigned an error type depending on how many ground truth
+and test segments it contains. The return value is a tuple
+(<em>n1,n2,n3,n4,n5,n6)</em> where each value is the total number of classes
+with the corresponding error type:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="35%" />
+<col width="23%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Nr</th>
+<th class="head">Ground truth segments</th>
+<th class="head">Test segments</th>
+<th class="head">Error type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><em>n1</em></td>
+<td>1</td>
+<td>1</td>
+<td>correct</td>
+</tr>
+<tr><td><em>n2</em></td>
+<td>1</td>
+<td>0</td>
+<td>missed segment</td>
+</tr>
+<tr><td><em>n3</em></td>
+<td>0</td>
+<td>1</td>
+<td>false positive</td>
+</tr>
+<tr><td><em>n4</em></td>
+<td>1</td>
+<td>&gt; 1</td>
+<td>split</td>
+</tr>
+<tr><td><em>n5</em></td>
+<td>&gt; 1</td>
+<td>1</td>
+<td>merge</td>
+</tr>
+<tr><td><em>n6</em></td>
+<td>&gt; 1</td>
+<td>&gt; 1</td>
+<td>splits and merges</td>
+</tr>
+</tbody>
+</table>
+<p>Input arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>Gstaves</em>:</dt>
+<dd>ground truth image containing only the staff segments that should
+be removed</dd>
+<dt><em>Sstaves</em>:</dt>
+<dd>image containing the actually removed staff segments</dd>
+</dl>
+</blockquote>
+<p>References:</p>
+<blockquote>
+M. Thulke, V. Margner, A. Dengel:
+<em>A general approach to quality evaluation of document
+segmentation results.</em>
+Lecture Notes in Computer Science 1655, pp. 43-57 (1999)</blockquote>
+</div>
+</div>
+<div class="section" id="fujinaga">
+<h1><a class="toc-backref" href="#id56">Fujinaga</a></h1>
+<div class="section" id="find-and-deskew-staves-fujinaga">
+<h2><a class="toc-backref" href="#id57"><tt class="docutils literal">find_and_deskew_staves_fujinaga</tt></a></h2>
+<p>object <strong>find_and_deskew_staves_fujinaga</strong> (int(3, 12) <em>n_stafflines</em> = 5, float <em>staffline_height</em> = 0.00, float <em>staffspace_height</em> = 0.00, int(1, 64) <em>skew_strip_width</em> = 0, float(1.00, 20.00) <em>max_skew</em> = 8.00)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Fujinaga</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_removal_fujinaga.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, Karl MacMillan and Ichiro Fujinaga</td>
+</tr>
+</tbody>
+</table>
+<p>Locates staves while deskewing the image.  Returns a tuple of
+the form (<em>image</em>, <em>staves</em>) where <em>image</em> is the image deskewed, and
+<em>staves</em> is a list of <tt class="docutils literal">StaffObj</tt>.</p>
+<dl class="docutils">
+<dt><em>n_stafflines</em> = 5</dt>
+<dd>The number of stafflines in each staff.  (Autodetection of number
+of stafflines not yet implemented).</dd>
+<dt><em>staffline_height</em> = 0</dt>
+<dd>The height (in pixels) of the stafflines. If <em>staffline_height</em> &lt;=
+0, the staffline height is autodetected both globally and for each
+staff.</dd>
+<dt><em>staffspace_height</em> = 0</dt>
+<dd>The height (in pixels) of the spaces between the stafflines.  If
+<em>staffspace_height</em> &lt;= 0, the staffspace height is autodetected
+both globally and for each staff.</dd>
+<dt><em>skew_strip_width</em> = 0</dt>
+<dd>The width (in pixels) of vertical strips used to deskew the image.
+Smaller values will deskew the image with higher resolution, but
+this may make the deskewing overly sensitive.  Larger values may
+miss fine detail.  If <em>skew_strip_width</em> &lt;= 0, the width will be
+autodetermined to be the global <em>staffspace_h</em> * 2.</dd>
+<dt><em>max_skew</em> = 8.0</dt>
+<dd>The maximum amount of skew that will be detected within each
+vertical strip.  Expressed in degrees.  This value should be fairly
+small, because deskewing only approximates rotation at very small
+degrees.</dd>
+</dl>
+</div>
+<div class="section" id="find-and-remove-staves-fujinaga">
+<h2><a class="toc-backref" href="#id58"><tt class="docutils literal">find_and_remove_staves_fujinaga</tt></a></h2>
+<p>object <strong>find_and_remove_staves_fujinaga</strong> (<tt class="docutils literal">Choice</tt> [all|bar|none] <em>crossing_symbols</em>, int(3, 12) <em>n_stafflines</em> = 5, float(0.00, 512.00) <em>staffline_height</em> = 0.00, float(0.00, 512.00) <em>staffspace_height</em> = 0.00, int(0, 512) <em>skew_strip_width</em> = 0, float(1.00, 20.00) <em>max_skew</em> = 8.00, <tt class="docutils literal">bool</tt> <em>deskew_only</em> = False, <tt class="docutils literal">bool</tt> <em>find_only</em> = False, <tt class="docutils literal">bool</tt> <em>undo_deskew</em> = False)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Fujinaga</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_removal_fujinaga.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, Karl MacMillan and Ichiro Fujinaga</td>
+</tr>
+</tbody>
+</table>
+<p>Locates staves while deskewing the image, and then removes the
+staves.  Returns a tuple of the form (<em>deskewed_image</em>,
+<em>removed_image</em>, <em>staves</em>) where <em>deskewed_image</em> is the original
+image deskewed, <em>removed_image</em> is the deskewed with the stafflines
+removed, and <em>staves</em> is a list of <tt class="docutils literal">StaffObj</tt> instances defining
+where the stafflines are.</p>
+<dl class="docutils">
+<dt><em>crossing_symbols</em></dt>
+<dd>Not yet implemented -- just a placeholder for now.</dd>
+<dt><em>n_stafflines</em> = 5</dt>
+<dd>The number of stafflines in each staff.  (Autodetection of number
+of stafflines not yet implemented).</dd>
+<dt><em>staffline_height</em> = 0</dt>
+<dd>The height (in pixels) of the stafflines. If <em>staffline_height</em> &lt;=
+0, the staffline height is autodetected both globally and for each
+staff.</dd>
+<dt><em>staffspace_height</em> = 0</dt>
+<dd>The height (in pixels) of the spaces between the stafflines.  If
+<em>staffspace_height</em> &lt;= 0, the staffspace height is autodetected
+both globally and for each staff.</dd>
+<dt><em>skew_strip_width</em> = 0</dt>
+<dd>The width (in pixels) of vertical strips used to deskew the image.
+Smaller values will deskew the image with higher resolution, but
+this may make the deskewing overly sensitive.  Larger values may
+miss fine detail.  If <em>skew_strip_width</em> &lt;= 0, the width will be
+autodetermined to be the global <em>staffspace_h</em> * 2.</dd>
+<dt><em>max_skew</em> = 8.0</dt>
+<dd>The maximum amount of skew that will be detected within each
+vertical strip.  Expressed in degrees.  This value should be fairly
+small, because deskewing only approximates rotation at very small
+degrees.</dd>
+<dt><em>deskew_only</em> = <tt class="docutils literal">False</tt></dt>
+<dd>When <tt class="docutils literal">True</tt>, only perform staffline detection and deskewing.  Do
+not remove the stafflines.</dd>
+<dt><em>find_only</em> = <tt class="docutils literal">False</tt></dt>
+<dd>When <tt class="docutils literal">True</tt>, only perform staffline detection.  Do not deskew the
+image or remove the stafflines.</dd>
+</dl>
+</div>
+<div class="section" id="find-staves-fujinaga">
+<h2><a class="toc-backref" href="#id59"><tt class="docutils literal">find_staves_fujinaga</tt></a></h2>
+<p>object <strong>find_staves_fujinaga</strong> (int(3, 12) <em>n_stafflines</em> = 5, float <em>staffline_height</em> = 0.00, float <em>staffspace_height</em> = 0.00, int(1, 64) <em>skew_strip_width</em> = 0, float(1.00, 20.00) <em>max_skew</em> = 8.00)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Fujinaga</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_removal_fujinaga.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, Karl MacMillan and Ichiro Fujinaga</td>
+</tr>
+</tbody>
+</table>
+<p>Locates staves, without performing any unnecessary deskewing or
+removal of stafflines.  This function is useful only to determine
+whether an image has stafflines or not.  Returns a list of
+<tt class="docutils literal">StaffObj</tt>.</p>
+<dl class="docutils">
+<dt><em>n_stafflines</em> = 5</dt>
+<dd>The number of stafflines in each staff.  (Autodetection of number
+of stafflines not yet implemented).</dd>
+<dt><em>staffline_height</em> = 0</dt>
+<dd>The height (in pixels) of the stafflines. If <em>staffline_height</em> &lt;=
+0, the staffline height is autodetected both globally and for each
+staff.</dd>
+<dt><em>staffspace_height</em> = 0</dt>
+<dd>The height (in pixels) of the spaces between the stafflines.  If
+<em>staffspace_height</em> &lt;= 0, the staffspace height is autodetected
+both globally and for each staff.</dd>
+<dt><em>skew_strip_width</em> = 0</dt>
+<dd>The width (in pixels) of vertical strips used to deskew the image.
+Smaller values will deskew the image with higher resolution, but
+this may make the deskewing overly sensitive.  Larger values may
+miss fine detail.  If <em>skew_strip_width</em> &lt;= 0, the width will be
+autodetermined to be the global <em>staffspace_h</em> * 2.</dd>
+<dt><em>max_skew</em> = 8.0</dt>
+<dd>The maximum amount of skew that will be detected within each
+vertical strip.  Expressed in degrees.  This value should be fairly
+small, because deskewing only approximates rotation at very small
+degrees.</dd>
+</dl>
+</div>
+<div class="section" id="global-staffline-deskew">
+<h2><a class="toc-backref" href="#id60"><tt class="docutils literal">global_staffline_deskew</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>global_staffline_deskew</strong> (float <em>staffline_height</em> = 0.00, float <em>staffspace_height</em> = 0.00, int <em>skew_strip_width</em> = 0, float <em>max_skew</em> = 5.00)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Fujinaga</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_removal_fujinaga.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, Karl MacMillan and Ichiro Fujinaga</td>
+</tr>
+</tbody>
+</table>
+<p>Performs a global deskewing on the entire image by
+cross-correlating thin vertical strips of the image.  Since this
+function is global and does not deskew on staff at a time, the results
+are not great, and in particular long slurs can introduce errors.
+This same deskewing also happens early on in the
+find_and_remove_staves_fujinaga process.</p>
+<p>Returns deskewed copy of the image.</p>
+<p>It is available here for primarily for experimentation rather than as
+anything ultimately useful.</p>
+<dl class="docutils">
+<dt><em>staffline_height</em> = 0</dt>
+<dd>The height (in pixels) of the stafflines. If <em>staffline_height</em> &lt;=
+0, the staffline height is autodetected both globally and for each
+staff.</dd>
+<dt><em>staffspace_height</em> = 0</dt>
+<dd>The height (in pixels) of the spaces between the stafflines.  If
+<em>staffspace_height</em> &lt;= 0, the staffspace height is autodetected
+both globally and for each staff.</dd>
+<dt><em>skew_strip_width</em> = 0</dt>
+<dd>The width (in pixels) of vertical strips used to deskew the image.
+Smaller values will deskew the image with higher resolution, but
+this may make the deskewing overly sensitive.  Larger values may
+miss fine detail.  If <em>skew_strip_width</em> &lt;= 0, the width will be
+autodetermined to be the global <em>staffspace_h</em> * 2.</dd>
+<dt><em>max_skew</em> = 8.0</dt>
+<dd>The maximum amount of skew that will be detected within each
+vertical strip.  Expressed in degrees.  This value should be fairly
+small, because deskewing only approximates rotation at very small
+degrees.</dd>
+</dl>
+</div>
+<div class="section" id="remove-staves-fujinaga">
+<h2><a class="toc-backref" href="#id61"><tt class="docutils literal">remove_staves_fujinaga</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>remove_staves_fujinaga</strong> (object <em>staves</em>, <tt class="docutils literal">Choice</tt> [all|bars|none] <em>crossing_symbols</em>, float <em>staffline_height</em> = 0.00, float <em>staffspace_height</em> = 0.00)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Fujinaga</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_removal_fujinaga.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, Karl MacMillan and Ichiro Fujinaga</td>
+</tr>
+</tbody>
+</table>
+<p>Removes the staves from an image that has already been deskewed
+and had its staves detected by <a class="reference internal" href="#find-and-deskew-staves-fujinaga">find_and_deskew_staves_fujinaga</a>.
+Returns the image with the staves removed.</p>
+<dl class="docutils">
+<dt><em>staves</em></dt>
+<dd>A list of <tt class="docutils literal">StaffObj</tt> instances as returned from
+find_and_deskew_staves_fujinaga.  Other lists of StaffObj's may be
+used, but if they do not have a <tt class="docutils literal">staffrect</tt> member variable, each
+staff will be treated as if it extends across the entire page from
+left to right, and the margins of the image will not be treated
+differently.</dd>
+<dt><em>crossing_symbols</em> = 0</dt>
+<dd>Not yet implemented -- just a placeholder for now.</dd>
+<dt><em>staffline_height</em> = 0</dt>
+<dd>The height (in pixels) of the stafflines. If <em>staffline_height</em> &lt;=
+0, the staffline height is autodetected both globally and for each
+staff.</dd>
+<dt><em>staffspace_height</em> = 0</dt>
+<dd>The height (in pixels) of the spaces between the stafflines.  If
+<em>staffspace_height</em> &lt;= 0, the staffspace height is autodetected
+both globally and for each staff.</dd>
+</dl>
+<p>Note that the following are essentially (*) equivalent, (though the
+first is slightly faster):</p>
+<div class="highlight"><pre><span class="c"># All in one call</span>
+<span class="n">deskewed</span><span class="p">,</span> <span class="n">removed</span><span class="p">,</span> <span class="n">staves</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">find_and_remove_staves_fujinaga</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="c"># Two separate calls, to try different staff removal methods</span>
+<span class="n">deskewed</span><span class="p">,</span> <span class="n">staves</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">find_and_deskew_staves_fujinaga</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">removed</span> <span class="o">=</span> <span class="n">deskewed</span><span class="o">.</span><span class="n">remove_staves_fujinaga</span><span class="p">(</span><span class="n">staves</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+<p>(*) There are some slight differences, but none that should affect the
+result.</p>
+</div>
+</div>
+<div class="section" id="line-tracking">
+<h1><a class="toc-backref" href="#id62">Line_tracking</a></h1>
+<div class="section" id="extract-filled-horizontal-black-runs">
+<h2><a class="toc-backref" href="#id63"><tt class="docutils literal">extract_filled_horizontal_black_runs</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>extract_filled_horizontal_black_runs</strong> (int <em>windowwidth</em>, int(1, 100) <em>blackness</em> = 75)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Line_tracking</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">line_tracking.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten and Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Extract horizontal lines from an image.</p>
+<p>Returns black horizontal runs with a blackness greater than <em>blackness</em> within
+a horizontal window of width <em>windowwidth</em>. In essence this is a combination
+of <tt class="docutils literal">fill_horizontal_line_gaps</tt> and <tt class="docutils literal">filter_narrow_runs(x, 'black')</tt>.</p>
+</div>
+<div class="section" id="follow-staffwobble">
+<h2><a class="toc-backref" href="#id64"><tt class="docutils literal">follow_staffwobble</tt></a></h2>
+<p>object <strong>follow_staffwobble</strong> (object <em>staffline_object</em>, int <em>staffline_height</em> = 0, int <em>debug</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Line_tracking</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">line_tracking.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a staffline skeleton that follows a wobbling staffline.</p>
+<p>This function is useful when you only approximately know the stafflines
+(eg. if you only know the average y position for each staffline). It
+follows the staff line by seeking adjacent slithers of approximately
+<em>staffline_height</em>.</p>
+<p>Arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>staffline_object</em>:</dt>
+<dd>A single staffline represented as <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineAverage.html">StafflineAverage</a>, <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflinePolygon.html">StafflinePolygon</a> or
+<a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl class="docutils">
+<dt><em>staffline_height</em>:</dt>
+<dd>When zero, it is automatically computed as most frequent white vertical
+runlength.</dd>
+</dl>
+</blockquote>
+<p>Return value:</p>
+<blockquote>
+The (hopefully) more accurate staffline represented as <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a>.</blockquote>
+<p>References:</p>
+<ul class="simple">
+<li>D. Bainbridge, T.C. Bell: <em>Dealing with superimposed objects in
+optical music recognition</em>. <a class="reference external" href="http://www.cs.waikato.ac.nz/~davidb/publications/ipa97/">http://www.cs.waikato.ac.nz/~davidb/publications/ipa97/</a></li>
+</ul>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">This postprocessing step is only reliable when staff lines
+are absolutely solid and are not interrupted. Otherwise this method
+can result in grossly inaccurate staff lines.</p>
+</div>
+</div>
+<div class="section" id="get-staff-skeleton-list">
+<h2><a class="toc-backref" href="#id65"><tt class="docutils literal">get_staff_skeleton_list</tt></a></h2>
+<p>object <strong>get_staff_skeleton_list</strong> (int <em>staffline_height</em>, int <em>windowwidth</em>, int(1, 100) <em>blackness</em> = 75)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Line_tracking</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">line_tracking.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten and Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Returns skeleton data of staffline candidates.</p>
+<p>In order to find staffline candidates, long quasi black runs are extracted
+with <a class="reference external" href="musicstaves.html#extract-filled-horizontal-black-runs">extract_filled_horizontal_black_runs</a>. The resulting filaments are
+vertically thinned with <a class="reference external" href="musicstaves.html#thinning-v-to-skeleton-list">thinning_v_to_skeleton_list</a>.</p>
+<p>Arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>windowwidth</em>, <em>blackness</em>:</dt>
+<dd>Input arguments passed on to <a class="reference external" href="musicstaves.html#extract-filled-horizontal-black-runs">extract_filled_horizontal_black_runs</a>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl class="docutils">
+<dt><em>staffline_height</em>:</dt>
+<dd>Input argument passed on to <a class="reference external" href="musicstaves.html#thinning-v-to-skeleton-list">thinning_v_to_skeleton_list</a>. This is
+half the threshold for splitting a vertical black run into more than
+one skeleton points.</dd>
+</dl>
+</blockquote>
+<p>Return value:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>skeleton_list</em>:</dt>
+<dd><p class="first">A nested list, where each sublist represents a staffline candidate
+skeleton as an array of two elements: the first element is the leftmost
+x position, the second element is a list of subsequent y-values.</p>
+<p class="last">The returned skeleton list is sorted from top to bottom and from left
+to right.</p>
+</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="skeleton-list-to-image">
+<h2><a class="toc-backref" href="#id66"><tt class="docutils literal">skeleton_list_to_image</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit|GreyScale|Grey16|RGB|Float|Complex] <strong>skeleton_list_to_image</strong> (object <em>skeleton_list</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale|Grey16|RGB|Float|Complex]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale|Grey16|RGB|Float|Complex]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Line_tracking</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">line_tracking.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+<p>Creates an image using a skeleton list as returned by
+<a class="reference internal" href="#get-staff-skeleton-list">get_staff_skeleton_list</a>.</p>
+<dl class="docutils">
+<dt>Argument:</dt>
+<dd><dl class="first last docutils">
+<dt><em>skeleton_list</em>:</dt>
+<dd>Nested list of skeleton data. See <a class="reference external" href="musicstaves.html#get-staff-skeleton-list">get_staff_skeleton_list</a> for details.</dd>
+</dl>
+</dd>
+</dl>
+<p>This function only helps to visualize a skeleton list. The image this
+function operates on is only needed for determining <em>ncols</em> and <em>nrows</em>
+of the output image. Typically the input image is the original image from
+which the skeletons have been extracted.</p>
+</div>
+<div class="section" id="id26">
+<h2><a class="toc-backref" href="#id67"><tt class="docutils literal">thinning_v_to_skeleton_list</tt></a></h2>
+<p>object <strong>thinning_v_to_skeleton_list</strong> (int <em>staffline_height</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Line_tracking</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">line_tracking.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten and Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Simplified thinning algorithm that only thins in the vertical
+direction.</p>
+<dl class="docutils">
+<dt>Return value:</dt>
+<dd><dl class="first last docutils">
+<dt><em>skeleton_list</em>:</dt>
+<dd>Nested list of skeleton data. See <a class="reference external" href="musicstaves.html#get-staff-skeleton-list">get_staff_skeleton_list</a> for details.</dd>
+</dl>
+</dd>
+</dl>
+<p>Each vertical black run in the image is thinned down to its middle value,
+provided the black run is not too tall. Black runs taller than
+2 * <em>staffline_height</em> are thinned more than once.</p>
+</div>
+</div>
+<div class="section" id="miyao">
+<h1><a class="toc-backref" href="#id68">Miyao</a></h1>
+<div class="section" id="miyao-candidate-points">
+<h2><a class="toc-backref" href="#id69"><tt class="docutils literal">miyao_candidate_points</tt></a></h2>
+<p>object <strong>miyao_candidate_points</strong> (int(4, 100) <em>scanline_count</em> = 35, int(0, 100) <em>tolerance</em> = 2, int(0, 100) <em>staffline_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Miyao</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_finding_miyao.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Florian Pose</td>
+</tr>
+</tbody>
+</table>
+<p>Returns middle points of blackruns along <em>scanline_count</em>
+equidistant vertical scan lines, that are <em>staffline_height</em> plusminus
+<em>tolerance</em> pixels high.</p>
+<p>When <em>staffline_height</em> is given as zero (default), it is automatically
+computed as most frequent black vertical runlength.</p>
+<p>Returns a list of <em>scanline_count</em> lists, each representing a vertical
+scanline. The first value in each list is the <em>x</em> position, the subsequent
+entries are the <em>y</em> positions of candidate points for staffline anchors.</p>
+</div>
+<div class="section" id="miyao-distance">
+<h2><a class="toc-backref" href="#id70"><tt class="docutils literal">miyao_distance</tt></a></h2>
+<p>int <strong>miyao_distance</strong> (int <em>xa</em>, int <em>ya</em>, int <em>xb</em>, int <em>yb</em>, float(0.00, 1.00) <em>blackness</em> = 0.80, float(-1.57, 1.57) <em>pr_angle</em> = 3.14, int <em>penalty</em> = 3)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">int</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Miyao</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_finding_miyao.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Returns 0 when two points <em>a</em> and <em>b</em> ly on the same staff line
+candidate and <em>penalty</em> if not (note that Miyao uses 2 for a mismatch instead).
+The distance zero is only returned when the following two conditions hold:</p>
+<ul class="simple">
+<li>The line angle is <em>pr_angle</em> plusminus one degree. When <em>pr_angle</em>
+is greater than pi/2, the line angle must be within (-20,+20)
+degrees. <em>pr_angle</em> must be given in radian.</li>
+<li>the average blackness of the connection line is at least <em>blackness</em></li>
+</ul>
+</div>
+<div class="section" id="miyao-find-edge">
+<h2><a class="toc-backref" href="#id71"><tt class="docutils literal">miyao_find_edge</tt></a></h2>
+<p><tt class="docutils literal">IntVector</tt> <strong>miyao_find_edge</strong> (int <em>x</em>, int <em>y</em>, float <em>angle</em>, <tt class="docutils literal">bool</tt> <em>direction</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">IntVector</tt></td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Miyao</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">staff_finding_miyao.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Looks for a staff line edge point near (<em>x</em>,*y*).</p>
+<p>The point (<em>x</em>,*y*) is extrapolated to the left (<em>direction</em> = True)
+or right (<em>direction</em> = False) with angle <em>angle</em> (in radian) until the
+pixel and its two vertical neighbors are white. When (<em>x</em>,*y*) itself
+is white, the edge point is searched in the opposite direction as the
+first black pixel among the three vertical neighbors.</p>
+<p>Returns the new edge point as a vector [x,y]</p>
+</div>
+</div>
+<div class="section" id="roachtatem">
+<h1><a class="toc-backref" href="#id72">RoachTatem</a></h1>
+<div class="section" id="compute-vector-field">
+<h2><a class="toc-backref" href="#id73"><tt class="docutils literal">compute_vector_field</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [Float] <strong>compute_vector_field</strong> (int(1, 1000) <em>window_radius</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [Float]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/RoachTatem</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">roach_tatem_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom after an algorithm by J. W. Roach and J. E. Tatem</td>
+</tr>
+</tbody>
+</table>
+<p>Computes the vector field from a onebit image.</p>
+<p>Part of the Roach and Tatem staff removal algorithm and implements
+Section 3.2 of the paper.</p>
+<p>Since the distance and thickness are not used by the staff removal
+part of Roach and Tatem's algorithm, they are not stored.</p>
+<dl class="docutils">
+<dt><em>radius</em></dt>
+<dd>The radius of the circular window used to compute the vector
+field.</dd>
+</dl>
+<p>The return value is a FloatImage, where each pixel is the angle (in
+radians) of the line running through the corresponding pixel in the
+given image.  Each pixel value will be in the range (-pi, pi].</p>
+<p>This function is very computationally intensive.</p>
+</div>
+<div class="section" id="draw-vector-field">
+<h2><a class="toc-backref" href="#id74"><tt class="docutils literal">draw_vector_field</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>draw_vector_field</strong> (int(5, 25) <em>cell_size</em> = 10)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [Float]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/RoachTatem</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">roach_tatem_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom after an algorithm by J. W. Roach and J. E. Tatem</td>
+</tr>
+</tbody>
+</table>
+<p>Draws a vector field as returned by <a class="reference internal" href="#compute-vector-field">compute_vector_field</a> using
+lines at the appropriate angles.</p>
+<dl class="docutils">
+<dt><em>cell_size</em></dt>
+<dd>The size of each cell representing a single pixel in the original
+image.</dd>
+</dl>
+<p>The resulting images can become quite large.  Make sure there is
+adequate memory, or run this function on a small subset of the image.</p>
+</div>
+<div class="section" id="mark-horizontal-lines-rt">
+<h2><a class="toc-backref" href="#id75"><tt class="docutils literal">mark_horizontal_lines_rt</tt></a></h2>
+<p>[object] <strong>mark_horizontal_lines_rt</strong> (<tt class="docutils literal">Image</tt> [Float] <em>vector_image</em>, float <em>angle_threshold</em>, object <em>thickness_image</em>, int <em>staffline_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">[object]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/RoachTatem</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">roach_tatem_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom after an algorithm by J. W. Roach and J. E. Tatem</td>
+</tr>
+</tbody>
+</table>
+<p>Given the original image and a vector field, returns a tuple of two
+images: the first containing pixels believed to be part of stafflines,
+and the second of &quot;questionable pixels&quot;, meaning pixels that could be
+either part of stafflines or musical figures.</p>
+<p>When only the original image and a vector field are given, this function is
+part of the Roach and Tatem staff removal algorithm, and implements Section
+3.4 of their paper.</p>
+<p>When the additional FloatImage <em>thickness</em> and <em>staffline_height</em> are given,
+the implementation will not mark pixels as part of horizontal lines, which
+thickness is greater than <em>staffline_height</em>. When <em>staffline_height</em> is set
+to 0 it will default to the size of the most frequent black vertical run
+(considered to be the average staffline height).</p>
+</div>
+<div class="section" id="remove-stafflines-rt">
+<h2><a class="toc-backref" href="#id76"><tt class="docutils literal">remove_stafflines_rt</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>remove_stafflines_rt</strong> (<tt class="docutils literal">Image</tt> [OneBit] <em>lines</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/RoachTatem</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">roach_tatem_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom after an algorithm by J. W. Roach and J. E. Tatem</td>
+</tr>
+</tbody>
+</table>
+<p>Given the original image and an image of probably stafflines,
+removes the stafflines and returns the result.</p>
+<p>Part of the Roach and Tatem staff removal algorithm, and implements
+Section 3.5 of their paper.</p>
+</div>
+</div>
+<div class="section" id="skeleton-utilities">
+<h1><a class="toc-backref" href="#id77">Skeleton_utilities</a></h1>
+<div class="section" id="create-skeleton-segment">
+<h2><a class="toc-backref" href="#id78"><tt class="docutils literal">create_skeleton_segment</tt></a></h2>
+<p>SkeletonSegment <strong>create_skeleton_segment</strong> ([object <em>points</em>], [object <em>branching_points</em>])</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">SkeletonSegment</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Constructor for a <a class="reference external" href="gamera.toolkits.musicstaves.plugins.skeleton_utilities.SkeletonSegment.html">SkeletonSegment</a> from a list of points.</p>
+</div>
+<div class="section" id="distance-precentage-among-points">
+<h2><a class="toc-backref" href="#id79"><tt class="docutils literal">distance_precentage_among_points</tt></a></h2>
+<p>float <strong>distance_precentage_among_points</strong> ([object <em>points</em>], int <em>mindistance</em>, int <em>maxdistance</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [Float]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">float</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the fraction of the given points that have pixel value
+between <em>mindistance</em> and <em>maxdistance</em> in the image <em>distance_transform</em>.</p>
+</div>
+<div class="section" id="estimate-next-point">
+<h2><a class="toc-backref" href="#id80"><tt class="docutils literal">estimate_next_point</tt></a></h2>
+<p><tt class="docutils literal">FloatVector</tt> <strong>estimate_next_point</strong> (<tt class="docutils literal">Point</tt> <em>current</em>, <tt class="docutils literal">FloatVector</tt> <em>parameters</em>, float <em>t_end</em>, float <em>dt_end</em> = 0.00, int <em>direction</em> = 1)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">FloatVector</tt></td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+<p>Estimates the next point on a given parabola.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>current</em></dt>
+<dd>The current point, which has to lie on the parabola.</dd>
+<dt><em>parameters</em></dt>
+<dd>The parameters [ax, ay, bx, by, cx, cy] that describe a parametric
+parabola (see <a class="reference internal" href="#parabola">parabola</a>).</dd>
+<dt><em>t_end</em></dt>
+<dd>The distance of the current point to the first point (see <a class="reference internal" href="#parabola">parabola</a> for
+a possible computation).</dd>
+<dt><em>dt_end</em></dt>
+<dd>The distance of the current point to the previous one. When set to
+the default value, it will be estimated automatically.</dd>
+<dt><em>direction</em></dt>
+<dd>The direction where to go. This option is not supported yet.</dd>
+</dl>
+</dd>
+</dl>
+<p>The return value is the vector [p, t_end, dt_end] where</p>
+<blockquote>
+<p><em>p</em> is the estimated point,</p>
+<p><em>t_end</em> is the distance of the estimated point to the first point,</p>
+<p><em>dt_end</em> is the distance of the estimated point to the current point.</p>
+</blockquote>
+<div class="highlight"><pre><span class="c"># calculate the parameters of the parabola and estimate the following point</span>
+<span class="n">parameters</span><span class="p">,</span> <span class="n">t_end</span> <span class="o">=</span> <span class="n">parabola</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+<span class="n">next_point</span><span class="p">,</span> <span class="n">t_new</span><span class="p">,</span> <span class="n">dt_new</span> <span class="o">=</span> <span class="n">estimate_next_point</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">t_end</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="extend-skeleton">
+<h2><a class="toc-backref" href="#id81"><tt class="docutils literal">extend_skeleton</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>extend_skeleton</strong> (<tt class="docutils literal">Image</tt> [Float] <em>distance_transform</em>, <tt class="docutils literal">ChoiceString(strict)</tt> [horizontal|linear|parabolic] <em>extrapolation_scheme</em> = linear, int <em>n_points</em> = 3)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz, Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+<p>Extends a skeleton image at end points until a white
+pixel in the provided unskeletonized image is found.</p>
+<p>This is typically useful only for thinned out skeletons, because these do
+not extend to the edges. For medial axis transform skeletons use
+<tt class="docutils literal">remove_spurs_from_skeleton</tt> instead.</p>
+<p>Each skeleton segment in <em>self</em> will be extended, until the skeleton segment
+is as long as the segment in <em>orig_image</em>. In case that the skeleton segment
+consists of 3 or more points, an estimating parabola will be calculated using
+the function <a class="reference internal" href="#parabola">parabola</a>. In case of a skeleton segment consisting of 2 points,
+the segment will be extended using the fitting line.</p>
+<p>Arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>self</em></dt>
+<dd>The skeleton image to be extended</dd>
+<dt><em>distance_transform</em></dt>
+<dd>Distance transform of the original unskeletonized image. Determines
+how far the skeleton is extrapolated at each end point.</dd>
+<dt><em>extrapolation_scheme</em>, <em>n_points</em></dt>
+<dd><p class="first">Determines how new points are calculated. For 'linear' or 'parabolic'
+extrapolation a line or parabola is fitted through <em>n_points</em> end
+points of the skeleton branch. For 'horizontal' extrapolation the
+skeleton branch is not investigated.</p>
+<p class="last">As horizontal extrapolation can lead to errenous results,
+no more pixels are added in horizontal extrapolation than the distance
+transform value at the skeleton end point.</p>
+</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="get-corner-points">
+<h2><a class="toc-backref" href="#id82"><tt class="docutils literal">get_corner_points</tt></a></h2>
+<p>[object] <strong>get_corner_points</strong> ([object <em>points</em>], int <em>cornerwidth</em> = 1)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">[object]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the corner points of the skeleton segment consisting of the
+provided points by looking for angles below a certain threshold.</p>
+<p>Corners are detected by measuring the angle at each point plusminus
+<em>cornerwidth</em> neighbor points (see the figure below). The maximum angle is
+currently hard coded to 135 degrees. Apart from an angle threshold we
+also check whether the branches are approximately straight.</p>
+<img alt="images/split_skeleton.png" src="images/split_skeleton.png" />
+<p>For an overview of more sophisticated corner detection algorithms, see
+C.H. Teh and R.T. Chin:
+<em>On the Detection of Dominant points on Digital Curves.</em> IEEE Transactions
+on Pattern Analysis and Machine Intelligence, vol. 11, no. 8, pp. 859-872
+(1989).</p>
+</div>
+<div class="section" id="get-corner-points-rj">
+<h2><a class="toc-backref" href="#id83"><tt class="docutils literal">get_corner_points_rj</tt></a></h2>
+<p>[object] <strong>get_corner_points_rj</strong> ([object <em>points</em>], int <em>cornerwidth</em> = 1)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">[object]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the corner points (maximum curvature points) of the skeleton
+segment consisting of the provided points according to an algorithm by
+Rosenfeld and Johnston.</p>
+<p>See A. Rosenfeld and E. Johnston: <em>Angle detection on digital curves.</em> IEEE
+Trans. Comput., vol. C-22, pp. 875-878, Sept. 1973
+Compared to the algorithm in the paper the following modifications have been
+made:</p>
+<blockquote>
+<ul class="simple">
+<li>While Rosenfeld and Johnston's algorithm only works on closed curves,
+this function operates on an open curve. The first checked point is the
+one with the index <em>conerwidth</em> + 1 (<em>cornerwidth</em> corresponds to the
+parameter <em>m</em> in the original paper).</li>
+<li>This function does not allow adjacent dominant points, with a (chessboard)
+distance less than <em>cornerwidth</em>. When this happens, the algorithm decides
+based upon the angle found (it takes the sharper one).</li>
+<li>Dominant points are considered corner points only if the angle of
+the branches (see figure below) is less than <em>maxangle</em> (measured
+in degrees; currently hard coded to 140 degrees).</li>
+</ul>
+</blockquote>
+<img alt="images/split_skeleton.png" src="images/split_skeleton.png" />
+</div>
+<div class="section" id="lin-parabola">
+<h2><a class="toc-backref" href="#id84"><tt class="docutils literal">lin_parabola</tt></a></h2>
+<p><tt class="docutils literal">FloatVector</tt> <strong>lin_parabola</strong> ([object <em>points</em>])</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">FloatVector</tt></td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bastian Czerwinski</td>
+</tr>
+</tbody>
+</table>
+<p>Calculate an estimating parabola for the given points. The first given
+point (<em>points[0]</em>) is considered to be within the segment, whereas the last
+given point (<em>points[-1]</em>) is considered to be the end point of the segment.</p>
+<p>Since the segment (consisting of the given points) does not necessarily have to be a function, the values of <em>x</em> and <em>y</em> are described using a parameter <em>t</em>
+with 2 functions:</p>
+<blockquote>
+<p>x = x(t)</p>
+<p>y = y(t)</p>
+</blockquote>
+<p>where</p>
+<blockquote>
+<p>x(t) = ax*t^2 + bx*t + cx</p>
+<p>y(t) = by*t + cy</p>
+</blockquote>
+<p>The distance <em>t</em> is the sum of the distances between all points and is
+estimated with the eclidean distance:</p>
+<blockquote>
+t = sum(sqrt(dx^2 + dy^2))</blockquote>
+<p>Thus, the distance for <em>points[0]</em> is 0 and the distance for <em>points[-1]</em> is
+<em>t</em>.</p>
+<p>The return value is the FloatVector [ax, ay, bx, by, cx, cy] of which ay is
+always 0. The values can be used to calculate further points using the
+function <a class="reference internal" href="#estimate-next-point">estimate_next_point</a>.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Using the calculated parameters it is always possible to
+re-calculate the last given point (+-1). If the parabola of all
+given points does not match this criteria, the number of used points
+will be reduced and the parabola will be calculated again (see the
+image below).</p>
+</div>
+<img alt="images/parabola.png" src="images/parabola.png" />
+</div>
+<div class="section" id="parabola">
+<h2><a class="toc-backref" href="#id85"><tt class="docutils literal">parabola</tt></a></h2>
+<p><tt class="docutils literal">FloatVector</tt> <strong>parabola</strong> ([object <em>points</em>])</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">FloatVector</tt></td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+<p>Calculate an estimating parabola for the given points. The first given
+point (<em>points[0]</em>) is considered to be within the segment, whereas the last
+given point (<em>points[-1]</em>) is considered to be the end point of the segment.</p>
+<p>Since the segment (consisting of the given points) does not necessarily have to be a function, the values of <em>x</em> and <em>y</em> are described using a parameter <em>t</em>
+with 2 functions:</p>
+<blockquote>
+<p>x = x(t)</p>
+<p>y = y(t)</p>
+</blockquote>
+<p>where</p>
+<blockquote>
+<p>x(t) = ax*t^2 + bx*t + cx</p>
+<p>y(t) = ay*t^2 + by*t + cy</p>
+</blockquote>
+<p>The distance <em>t</em> is the sum of the distances between all points and is
+estimated with the eclidean distance:</p>
+<blockquote>
+t = sum(sqrt(dx^2 + dy^2))</blockquote>
+<p>Thus, the distance for <em>points[0]</em> is 0 and the distance for <em>points[-1]</em> is
+<em>t</em>.</p>
+<p>The return value is the FloatVector [ax, ay, bx, by, cx, cy]. The values can
+be used to calculate further points using the function <a class="reference internal" href="#estimate-next-point">estimate_next_point</a>.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Using the calculated parameters it is always possible to
+re-calculate the last given point (+-1). If the parabola of all
+given points does not match this criteria, the number of used points
+will be reduced and the parabola will be calculated again (see the
+image below).</p>
+</div>
+<img alt="images/parabola.png" src="images/parabola.png" />
+</div>
+<div class="section" id="remove-spurs-from-skeleton">
+<h2><a class="toc-backref" href="#id86"><tt class="docutils literal">remove_spurs_from_skeleton</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>remove_spurs_from_skeleton</strong> (int <em>length</em>, <tt class="docutils literal">Choice</tt> [remove|keep|extrapolate] <em>endtreatment</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Removes short branches (&quot;spurs&quot;) from a skeleton image.</p>
+<p>Parameters:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>length</em>:</dt>
+<dd>only end branches not longer than length are removed</dd>
+<dt><em>endtreatment</em>:</dt>
+<dd>determines how end points (branching points with two spurs and one
+branch longer than <em>length</em>) are treated: 0 = spurs are removed,
+1 = spurs are kept, 2 = end point is interpolated between the two
+end branches.</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Setting <em>endtreatment</em> = 0 will result in shortened
+skeletons that no longer extend to the corners. The same
+may happen for <em>endtreatment</em> = 2, though to a lesser extent.</p>
+</div>
+</div>
+<div class="section" id="remove-vruns-around-points">
+<h2><a class="toc-backref" href="#id87"><tt class="docutils literal">remove_vruns_around_points</tt></a></h2>
+<p><strong>remove_vruns_around_points</strong> ([object <em>points</em>], int <em>threshold</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Removes all vertical runs to which any of the given points belongs.
+When the parameter <em>threshold</em> is greater than zero, only vertical runlengths
+shorter than <em>threshold</em> are removed.</p>
+</div>
+<div class="section" id="split-skeleton">
+<h2><a class="toc-backref" href="#id88"><tt class="docutils literal">split_skeleton</tt></a></h2>
+<p>[SkeletonSegment] <strong>split_skeleton</strong> (<tt class="docutils literal">Image</tt> [Float] <em>distance_transform</em>, int <em>cornerwidth</em>, <tt class="docutils literal">Choice</tt> [chessboard|manhattan|euclidean] <em>norm</em> = chessboard)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">[SkeletonSegment]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Skeleton_utilities</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skeleton_utilities.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Splits a skeleton image at branching and corner points and returns
+a list of <a class="reference external" href="gamera.toolkits.musicstaves.plugins.skeleton_utilities.SkeletonSegment.html">SkeletonSegments</a>.</p>
+<p>The input image must be a skeleton, the <cite>FloatImage</cite> must be a distance
+transform obtained from the original image. The splitting procedure
+consists of two steps:</p>
+<ol class="arabic simple">
+<li>Split at &quot;branching&quot; (more than two connected) points.</li>
+<li>In the remaining branches, corners are detected with get_corner_points_rj,
+which requires a parameter <em>cornerwidth</em>. A reasonable value for
+<em>cornerwidth</em> could be <em>max(staffspace_height/2,5)</em>; setting <em>cornerwidth</em>
+to zero will skip the corner detection.</li>
+</ol>
+<p>In both steps, a number of pixels is removed around each splitting point.
+This number is taken from the <em>distance_transform</em> image. If you
+do not want this, simply pass as <em>distance_transform</em> an image with all
+pixel values equal to zero.
+The parameter <em>norm</em> should determine the removal shape (diamond for
+chessboard, square for manhatten and circle for euclidean distance), but
+is currently ignored.</p>
+</div>
+</div>
+<div class="section" id="stable-path">
+<h1><a class="toc-backref" href="#id89">Stable_path</a></h1>
+<div class="section" id="get-stable-path-staff-skeletons">
+<h2><a class="toc-backref" href="#id90"><tt class="docutils literal">get_stable_path_staff_skeletons</tt></a></h2>
+<p>object <strong>get_stable_path_staff_skeletons</strong> (<tt class="docutils literal">bool</tt> <em>with_trimming</em> = True, <tt class="docutils literal">bool</tt> <em>with_deletion</em> = False, <tt class="docutils literal">bool</tt> <em>with_staff_fixing</em> = False, <tt class="docutils literal">bool</tt> <em>enable_strong_staff_pixels</em> = False, int <em>staffline_height</em> = 0, int <em>staffspace_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/Stable_path</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">stable_path.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Ian Karp</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returns the staffline skeletons found by the stable path algorithm, as described in</dt>
+<dd><p class="first">Cardoso, J., A. Capela, A. Rebelo, C. Guedes, and I. Porto (2008): A connected path approach
+for staff detection on a music score. 15th IEEE International Conference on Image Processing,
+pp. 1005-8.</p>
+<p>Arguments:</p>
+<p><em>with_trimming</em>:
+Trims staff sets where white space or ornamentations are found.</p>
+<p><em>with_deletion</em>:
+If checked, the image will be processed once and will create an image comprised of only found staves and then the code is run again. More accurate for images with a lot of lyrics or ornamentation.</p>
+<p><em>with_staff_fixing</em>:
+Uses the slopes of staff sets to fix staff lines that differ wildly from the slope at specific intervals.</p>
+<p><em>enable_strong_staff_pixels</em>:
+Experimental method that reduces the weights of vertical runs that are the exact width of staffline_height and are exactly staffspace_height away from the closest black pixel.</p>
+<p><em>staffline_height</em> and <em>staffspace_height</em>:
+If left as 0 they will be automatically determined.</p>
+<p>Return value:</p>
+<p><em>skeleton_list</em>:
+A nested list, where each sublist represents a staffline candidate
+skeleton as an array of two elements: the first element is the leftmost
+x position, the second element is a list of subsequent y-values.</p>
+<p class="last">The returned skeleton list is sorted from top to bottom and from left
+to right.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="correct-rotation">
+<h1><a class="toc-backref" href="#id91"><tt class="docutils literal">correct_rotation</tt></a></h1>
+<p><tt class="docutils literal">Image</tt> [OneBit|GreyScale] <strong>correct_rotation</strong> (int <em>staffline_height</em> = 0)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Corrects a possible rotation angle with the aid of skewed projections.</p>
+<p>When the image is large, it is temporarily scaled down for performance
+reasons. The parameter <em>staffline_height</em> determines how much the image
+is scaled down: when it is larger than 3, the image is scaled down so that
+the resulting staffline height is 2. Thus if you want to suppress the
+downscaling, set <em>staffline_height</em> to one.</p>
+<p>When <em>staffline_height</em> is given as zero, it is computed automatically
+as most frequent black vertical run.</p>
+</div>
+<div class="section" id="fill-horizontal-line-gaps">
+<h1><a class="toc-backref" href="#id92"><tt class="docutils literal">fill_horizontal_line_gaps</tt></a></h1>
+<p><strong>fill_horizontal_line_gaps</strong> (int <em>windowwidth</em>, int(1, 100) <em>blackness</em>, <tt class="docutils literal">bool</tt> <em>fill_average</em> = False)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Fills white gaps in horizontal lines with black.</p>
+<p>The image is scanned with a line of <em>windowwidth</em> pixels.
+When the average blackness within this window is at least <em>blackness</em>
+percent, the middle pixel is turned black.</p>
+<p>The parameter <em>fill_average</em> only applies to greyscale images: when <em>True</em>,
+the middle pixel is not set to black but to the window average,
+if this average value is darker than the current pixel value.
+Note that this is different from a convolution because pixels
+are never turned lighter.</p>
+</div>
+<div class="section" id="fill-vertical-line-gaps">
+<h1><a class="toc-backref" href="#id93"><tt class="docutils literal">fill_vertical_line_gaps</tt></a></h1>
+<p><strong>fill_vertical_line_gaps</strong> (int <em>windowheight</em>, int(1, 100) <em>blackness</em>, <tt class="docutils literal">bool</tt> <em>fill_average</em> = False)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit|GreyScale]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Fills white gaps in vertical lines with black.</p>
+<p>The image is scanned with a vertical line of <em>windowwidth</em> pixels.
+When the average blackness within this window is at least <em>blackness</em>
+percent, the middle pixel is turned black.</p>
+<p>The parameter <em>fill_average</em> only applies to greyscale images: when <em>True</em>,
+the middle pixel is not set to black but to the window average,
+if this average value is darker than the current pixel value.
+Note that this is different from a convolution because pixels
+are never turned lighter.</p>
+</div>
+<div class="section" id="keep-tall-skewed-runs">
+<h1><a class="toc-backref" href="#id94"><tt class="docutils literal">keep_tall_skewed_runs</tt></a></h1>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>keep_tall_skewed_runs</strong> (float(-85.00, 85.00) <em>minangle</em>, float(-85.00, 85.00) <em>maxangle</em>, int <em>height</em>, [object <em>points</em>], <tt class="docutils literal">ChoiceString(strict)</tt> [both|up|down] <em>direction</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">skewed_runs.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten and Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Removes all black pixels except those belonging to black runs taller
+than a given height in a given angle range.</p>
+<p>Arguments:</p>
+<img alt="images/skewed_tall_runs.png" src="images/skewed_tall_runs.png" />
+<dl class="docutils">
+<dt><em>minangle</em>, <em>maxangle</em>:</dt>
+<dd>Angle range that is scanned for tall runs. Angles are measured in degrees
+and relative to the vertical axis; thus in the image above <em>minangle</em>
+is about -30 and <em>maxangle</em> about 45. When both angles are zero, the
+function behaves like <tt class="docutils literal">filter_short_runs</tt>.</dd>
+<dt><em>height</em>:</dt>
+<dd>When <em>points</em> is not given, only black runs taller than <em>2 * height</em> are kept.
+Otherwise the condition depends on the parameter <em>direction</em> (see below).</dd>
+<dt><em>points</em>:</dt>
+<dd>When given, only tall runs crossing these points are kept.
+Additionally they must run at least <em>height</em> in the given <em>direction</em>.
+For performance reasons, of each skewed run
+only the part up to <em>2 * height</em> around the given points is kept.
+When empty or omitted, all tall skewed runs are kept.</dd>
+<dt><em>direction</em>:</dt>
+<dd>When <tt class="docutils literal">both</tt>, skewed runs must run at least <em>height</em> both in the upper
+and lower vertical direction. When <tt class="docutils literal">up</tt> or <tt class="docutils literal">down</tt>, the only need to
+run in one direction starting from the given points. Only has effect
+when additionally <em>poins</em> is given.</dd>
+</dl>
+</div>
+<div class="section" id="match-staff-template">
+<h1><a class="toc-backref" href="#id95"><tt class="docutils literal">match_staff_template</tt></a></h1>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>match_staff_template</strong> (int <em>width</em>, int <em>line_distance</em>, int <em>nlines</em> = 2, int(1, 100) <em>blackness</em> = 70)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">musicstaves_plugins.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>Extracts all points from an image that match a staff template.</p>
+<p>The template consists of <em>nlines</em> horizontal lines of width <em>width</em> with
+a vertical distance <em>line_distance</em>. The midpoint of each line is extracted
+if each line contains more than <em>blackness</em> percent black pixels. In order
+to avoid cutting off the staff lines at the beginning and end of each staff,
+the lines are extrapolated at the ends until no further black point is found.</p>
+<p>Reasonable parameter values are <em>3 * staffspace_height / 2</em> for <em>width</em> and
+<em>staffspace_height + staffline_height</em> for <em>line_distance</em>.</p>
+</div>
+<div class="section" id="vector-field">
+<h1><a class="toc-backref" href="#id96">vector_field</a></h1>
+<div class="section" id="angles-to-rgb">
+<h2><a class="toc-backref" href="#id97"><tt class="docutils literal">angles_to_RGB</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [RGB] <strong>angles_to_RGB</strong> ([object <em>v_images</em>], int <em>path_length</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [RGB]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/vector_field</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">vector_field.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+<p>Converts angle information for each pixel to RGB values.</p>
+<p>Each angle is displayed in a specific color, e.g. 0 degrees is visualised in
+cyan (RGB (0, 255, 255)), and an angle of 90 degrees is shown in red
+(RGB (255, 0, 0)). The HSI color space is mapped to 180 degrees. Thus, angles
+of opposed chords will result in same colors, which is shown in the color
+circle below.</p>
+<p>Example:</p>
+<img alt="images/angles_to_RGB.png" src="images/angles_to_RGB.png" />
+<p>Argument:</p>
+<dl class="docutils">
+<dt><em>v_images</em>:</dt>
+<dd><p class="first">List of 1 to 3 FloatImages, typically returned by
+<a class="reference internal" href="#compute-longest-chord-vectors">compute_longest_chord_vectors</a>. Their meaning is as follows:</p>
+<dl class="last docutils">
+<dt><em>1st image</em>:</dt>
+<dd>Affects the hue of the RGB image. The pixel values must be in the range
+[-pi, pi] and are mapped to [0, 360] degrees.</dd>
+<dt><em>2nd image</em>:</dt>
+<dd>Affects the saturation of the RGB image. The higher the pixel value the
+higher the saturation. If not given, the saturation defaults to 1.0 (100
+percent).</dd>
+<dt><em>3rd image</em>:</dt>
+<dd>Affects the intensity of the RGB image. The smaller the pixel value the
+higher the intensity. If not given, the intensity defaults to 1.0 (100
+percent).</dd>
+</dl>
+</dd>
+<dt><em>path_length</em>:</dt>
+<dd>Maximum pixel value of the 2nd and the 3rd image. This value is used to
+normalise the pixel information and to keep both the saturation and the
+intensity in a range from [0, 1.0].</dd>
+</dl>
+</div>
+<div class="section" id="compute-longest-chord-vectors">
+<h2><a class="toc-backref" href="#id98"><tt class="docutils literal">compute_longest_chord_vectors</tt></a></h2>
+<p>[object] <strong>compute_longest_chord_vectors</strong> (int <em>path_length</em> = 0, float(0.00, 90.00) <em>resolution</em> = 3.00)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">[object]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/vector_field</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">vector_field.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+<p>Computes the vector field from a onebit image.</p>
+<p>This function determines about the longest chord where each black pixel is
+located at. A chord is a straight line, consisting of black pixels only. The
+return value consists of three FloatImages.</p>
+<dl class="docutils">
+<dt><em>1st image</em>:</dt>
+<dd>Contains the angle (in radians) of each pixel
+the line running through the corresponding pixel in the given image. Each
+pixel value will be in the range (-pi, pi].</dd>
+<dt><em>2nd image</em>:</dt>
+<dd>length of the longest chord at each pixel position</dd>
+<dt><em>3rd image</em>:</dt>
+<dd>Contains the thickness of the longest chord at each pixel position.
+Thereby the thickness is the length of the chord perpendicular to the
+detected longest chord (depending on <em>resolution</em> more or less
+perpendicular).</dd>
+</dl>
+<p>This function is similar to <a class="reference internal" href="#compute-vector-field">compute_vector_field</a>, but is not that
+computationally intensive (depending on <em>resolution</em>).</p>
+<p>Arguments:</p>
+<dl class="docutils">
+<dt><em>path_length</em>:</dt>
+<dd>maximum length that will be tested for each chord</dd>
+<dt><em>resolution</em>:</dt>
+<dd>Angle that is used to scan the image (in degree). When the resolution is
+set to 0, then the default value will be used instead.</dd>
+</dl>
+</div>
+<div class="section" id="keep-vectorfield-runs">
+<h2><a class="toc-backref" href="#id99"><tt class="docutils literal">keep_vectorfield_runs</tt></a></h2>
+<p><tt class="docutils literal">Image</tt> [OneBit] <strong>keep_vectorfield_runs</strong> ([object <em>points</em>], int <em>height</em>, <tt class="docutils literal">ChoiceString(strict)</tt> [up|down] <em>direction</em>, int <em>maxlength</em>, int <em>numangles</em>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Operates on:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal">Image</tt> [OneBit]</td>
+</tr>
+<tr class="field"><th class="field-name">Category:</th><td class="field-body">MusicStaves/vector_field</td>
+</tr>
+<tr class="field"><th class="field-name">Defined in:</th><td class="field-body">vector_field.py</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+<p>The returned image only contains those black pixels that belong to black
+runs crossing the given points at an angle equal the vector field value at
+these points. All runs are only extracted in the given <em>direction</em> and up
+to the given <em>height</em>.</p>
+<p>Arguments:</p>
+<dl class="docutils">
+<dt><em>height</em>:</dt>
+<dd>Black runs are only kept up to <em>height</em> in the given <em>direction</em> (see below).</dd>
+<dt><em>points</em>:</dt>
+<dd>Only tall runs crossing these points are kept.</dd>
+<dt><em>direction</em>:</dt>
+<dd>In which direction (<tt class="docutils literal">up</tt> or <tt class="docutils literal">down</tt>) <tt class="docutils literal">height</tt> takes effect.</dd>
+<dt><em>maxlength</em>, <em>numangles</em>:</dt>
+<dd>Technical details for the computation of the vector field values
+which are computed by picking the angle of the longest chord through
+the point. <em>numangles</em> is the number of sample chords tested; chords
+longer than <em>maxlength</em> are truncated (for performance reasons).</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

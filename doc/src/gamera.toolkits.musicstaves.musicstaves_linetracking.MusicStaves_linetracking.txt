@@ -1,0 +1,13 @@
+class ``MusicStaves_linetracking``
+==================================
+
+``MusicStaves_linetracking``
+----------------------------
+
+In module ``gamera.toolkits.musicstaves.musicstaves_linetracking``
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_linetracking MusicStaves_linetracking
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_linetracking MusicStaves_linetracking remove_staves get_staffpos
+

@@ -1,0 +1,13 @@
+class ``StafflineAverage``
+==========================
+
+``StafflineAverage``
+--------------------
+
+In module ``gamera.toolkits.musicstaves.stafffinder``
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder StafflineAverage
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder StafflineAverage __init__ to_average to_polygon to_skeleton
+

@@ -1,0 +1,13 @@
+class ``StaffFinder_projections``
+=================================
+
+``StaffFinder_projections``
+---------------------------
+
+In module ``gamera.toolkits.musicstaves.stafffinder_projections``
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder_projections StaffFinder_projections
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder_projections StaffFinder_projections find_staves
+

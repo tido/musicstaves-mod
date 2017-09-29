@@ -1,0 +1,13 @@
+class ``StaffFinder_miyao``
+===========================
+
+``StaffFinder_miyao``
+---------------------
+
+In module ``gamera.toolkits.musicstaves.stafffinder_miyao``
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder_miyao StaffFinder_miyao
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder_miyao StaffFinder_miyao find_staves
+

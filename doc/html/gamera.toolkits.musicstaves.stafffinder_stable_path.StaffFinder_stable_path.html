@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class StaffFinder_stable_path</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-stafffinder-stable-path">
+<h1 class="title">class <tt class="docutils literal">StaffFinder_stable_path</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#stafffinder-stable-path" id="id1"><tt class="docutils literal">StaffFinder_stable_path</tt></a><ul>
+<li><a class="reference internal" href="#find-staves" id="id2"><tt class="docutils literal">find_staves</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stafffinder-stable-path">
+<h1><a class="toc-backref" href="#id1"><tt class="docutils literal">StaffFinder_stable_path</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.stafffinder_stable_path</tt></p>
+<p><dl class="docutils">
+<dt>Finds staff lines with by the stable path algorithm, as described in</dt>
+<dd>Cardoso, J., A. Capela, A. Rebelo, C. Guedes, and I. Porto (2008):
+A connected path approach for staff detection on a music score.
+15th IEEE International Conference on Image Processing, pp. 1005-8.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Ian Karp (algorithm) and Christoph Dalitz (wrapper class)</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="find-staves">
+<h2><a class="toc-backref" href="#id2"><tt class="docutils literal">find_staves</tt></a></h2>
+<p>Method for finding the staff lines.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">find_staves(with_trimming=True, with_deletion=True, with_staff_fixing=True, enable_strong_staff_pixels=False)</tt></blockquote>
+<p>with</p>
+<ul class="simple">
+<li><em>with_trimming</em>:
+Trims staff sets where white space or ornamentations are found.</li>
+<li><em>with_deletion</em>:
+If true, the image will be processed once and will create an image comprised of only found staves and then the code is run again. More accurate for images with a lot of lyrics or ornamentation.</li>
+<li><em>with_staff_fixing</em>:
+Uses the slopes of staff sets to fix staff lines that differ wildly from the slope at specific intervals.</li>
+<li><em>enable_strong_staff_pixels</em>:
+Experimental method that reduces the weights of vertical runs that are the exact width of staffline_height and are exactly staffspace_height away from the closest black pixel.</li>
+</ul>
+<p>This method fills the <em>self.linelist</em> attribute for further
+processing.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

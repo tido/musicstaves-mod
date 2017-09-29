@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class StaffFinder_projections</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-stafffinder-projections">
+<h1 class="title">class <tt class="docutils literal">StaffFinder_projections</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#stafffinder-projections" id="id2"><tt class="docutils literal">StaffFinder_projections</tt></a><ul>
+<li><a class="reference internal" href="#find-staves" id="id3"><tt class="docutils literal">find_staves</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stafffinder-projections">
+<h1><a class="toc-backref" href="#id2"><tt class="docutils literal">StaffFinder_projections</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.stafffinder_projections</tt></p>
+<p><p>Finds staff lines as maxima in the y projection profile.</p>
+<p>The process is as follows:</p>
+<ol class="arabic">
+<li><p class="first">Optionally, the image is preprocessed in order to remove
+stuff &quot;irrelevant&quot; for staff line finding (eg. short black runs)</p>
+</li>
+<li><p class="first">The horizontal projection profile is computed and lowpass filtered
+with an averaging kernel of width <em>staffspace_height</em>. In this filtered
+profile, staff breaks are seeked as minima below a certain
+(hard coded) threshold.</p>
+<p>Per estimated staff system, a local threshold for accepting maxima
+in step 3) is set as a (choosable) fraction of the maximum projection
+value per estimated staff system. Apart from setting the local
+threshold values, the estimated staff breaks have no further effect
+on the algorithm.</p>
+</li>
+<li><p class="first">The original projection profile is lowpass filtered with an
+averaging kernel of width <em>staffline_height</em>. All maxima above the
+threshold from step 2) are computed. These peaks are grouped into
+staff systems based upon their distance.</p>
+</li>
+<li><p class="first">In each staff system, peaks lying on a grid with distance about
+<em>staffspace_height</em> are detected. As reference peak the highest
+peak in the staff system is chosen.</p>
+</li>
+<li><p class="first">Step 4) typically results in more or less than <em>num_lines</em> peaks.
+Staff systems with less peaks are removed, staff systems with
+more peaks are reduced to <em>num_lines</em> peaks by removing the lowest
+edge peaks.</p>
+<p>If <em>num_lines</em> is not given, it is computed as the maximum in
+the lines-per-staff histogram.</p>
+</li>
+</ol>
+<p>The horizontal edge points are found by scanning the vertical projection
+profile from the left resp. right until a projetion value larger than
+<em>staffline_height</em> is found. Note that this fails when the image contains
+black borders from the scanning process; in that case use the preprocessing
+plugin <cite>remove_border</cite> from the gamera core.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="find-staves">
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal">find_staves</tt></a></h2>
+<p>Finds staff lines from a music/tablature image with the aid
+of y projections.
+Signature:</p>
+<blockquote>
+<tt class="docutils literal">find_staves(num_lines=0, peakthreshold=0.0, preprocessing=1, postcorrect=True, debug=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>num_lines</em>:</dt>
+<dd>Number of lines within one staff. When zero, the number is automatically
+detected.</dd>
+<dt><em>peakthreshold</em>:</dt>
+<dd>Threshold factor (relative to maximum projection value within a stave
+group) for accepting peaks. When zero, it is set automatically,
+depending on the chosen preprocessing (see next parameter).</dd>
+<dt><em>preprocessing</em>:</dt>
+<dd>Whether the image should be prepared in such a way that &quot;obvious&quot;
+non staff segments should be removed. Possible values:
+0: no preprocessing
+1: extract filled horizontal runs
+2: filter short horizontal black runs</dd>
+<dt><em>postcorrect</em>:</dt>
+<dd>When <cite>True</cite>, the number of lines per staff is automatically adjusted
+to the <em>num_lines</em>.</dd>
+<dt><em>follow_wobble</em>:</dt>
+<dd>When <cite>True</cite>, each staffline is postprocessed with <a class="reference external" href="musicstaves.html#follow-staffwobble">follow_staffwobble</a>
+for a (hopefully) more accurate representation.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl class="docutils">
+<dt><em>debug</em>:</dt>
+<dd>When &gt; 0, information about each step is printed to stdout (flushed
+immediately). When &gt; 1, a number of images and datafiles are written
+into the current working directory; file names have the prefix <em>projdebug</em>.
+For the datafiles a <em>gnuplot</em> command file <em>projdebug.plot</em> is written.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

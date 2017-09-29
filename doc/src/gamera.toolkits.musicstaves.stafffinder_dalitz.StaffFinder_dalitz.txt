@@ -1,0 +1,13 @@
+class ``StaffFinder_dalitz``
+============================
+
+``StaffFinder_dalitz``
+----------------------
+
+In module ``gamera.toolkits.musicstaves.stafffinder_dalitz``
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder_dalitz StaffFinder_dalitz
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder_dalitz StaffFinder_dalitz find_staves
+

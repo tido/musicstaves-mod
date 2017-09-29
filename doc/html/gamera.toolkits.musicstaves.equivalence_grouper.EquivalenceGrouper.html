@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class EquivalenceGrouper</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-equivalencegrouper">
+<h1 class="title">class <tt class="docutils literal">EquivalenceGrouper</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#equivalencegrouper" id="id1"><tt class="docutils literal">EquivalenceGrouper</tt></a><ul>
+<li><a class="reference internal" href="#init" id="id2"><tt class="docutils literal">__init__</tt></a></li>
+<li><a class="reference internal" href="#join" id="id3"><tt class="docutils literal">join</tt></a></li>
+<li><a class="reference internal" href="#joined" id="id4"><tt class="docutils literal">joined</tt></a></li>
+<li><a class="reference internal" href="#iter" id="id5"><tt class="docutils literal">__iter__</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="equivalencegrouper">
+<h1><a class="toc-backref" href="#id1"><tt class="docutils literal">EquivalenceGrouper</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.equivalence_grouper</tt></p>
+<p><p>This class provides an easy way to parttion a set into <em>equivalence
+classes</em>, i.e. disjoint subsets where the members in each subset are
+equivalent.</p>
+<p>Objects can be joined using <tt class="docutils literal">.join()</tt>, tested for equivalence using
+<tt class="docutils literal">.joined()</tt>, and all disjoint sets can be retrieved using an iterator
+over the class.</p>
+<p>The objects being joined must be hashable.</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">equivalence_grouper</span> <span class="kn">import</span> <span class="n">EquivalenceGrouper</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">EquivalenceGrouper</span><span class="p">()</span>
+
+<span class="c"># mark items as equivalent</span>
+<span class="n">g</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="s">&#39;e&#39;</span><span class="p">)</span>
+
+<span class="c"># all classes can be accessed by iterating over g</span>
+<span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">g</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="s">&#39;e&#39;</span><span class="p">]]</span>
+
+<span class="c"># check for equivalence</span>
+<span class="n">g</span><span class="o">.</span><span class="n">joined</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">True</span>
+<span class="c"># transitivity is automatically detected</span>
+<span class="n">g</span><span class="o">.</span><span class="n">joined</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">True</span>
+<span class="n">g</span><span class="o">.</span><span class="n">joined</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">False</span>
+</pre></div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom and Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="init">
+<h2><a class="toc-backref" href="#id2"><tt class="docutils literal">__init__</tt></a></h2>
+<p>Optionally you can provide a list of items to the constructor which
+are first considered not to be equivalent. You can use <tt class="docutils literal">.join()</tt> afterwards
+to mark items as equivalent and/or to add addiitonal items.</p>
+</div>
+<div class="section" id="join">
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal">join</tt></a></h2>
+<p>Join given arguments into the same subset, i.e. mark them as
+equivalent.</p>
+<p>Items not yet part of any subset are added in a new subset.
+Accepts one or more arguments. To just add a new item <tt class="docutils literal">x</tt> to the superset,
+just call <tt class="docutils literal">.join(x)</tt>.</p>
+</div>
+<div class="section" id="joined">
+<h2><a class="toc-backref" href="#id4"><tt class="docutils literal">joined</tt></a></h2>
+<p>Returns True if a and b are equivalent, i.e. are members of the
+same subset (equivalence class).</p>
+</div>
+<div class="section" id="iter">
+<h2><a class="toc-backref" href="#id5"><tt class="docutils literal">__iter__</tt></a></h2>
+<p>Returns an iterator returning each of the disjoint subsets as a
+list.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

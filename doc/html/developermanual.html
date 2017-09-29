@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<title>MusicStaves Toolkit Developer's Manual</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="musicstaves-toolkit-developer-s-manual">
+<h1 class="title">MusicStaves Toolkit Developer's Manual</h1>
+
+<p><strong>Last modified</strong>: December 07, 2012</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overall-structure" id="id5">Overall Structure</a><ul>
+<li><a class="reference internal" href="#directory-structure" id="id6">Directory Structure</a><ul>
+<li><a class="reference internal" href="#naming-conventions" id="id7">Naming conventions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#adding-your-own-class" id="id8">Adding your own class</a><ul>
+<li><a class="reference internal" href="#musicstaves-class-architecture" id="id9">MusicStaves class architecture</a></li>
+<li><a class="reference internal" href="#stafffinder-class-architecture" id="id10">StaffFinder class architecture</a></li>
+<li><a class="reference internal" href="#adding-gui-support" id="id11">Adding GUI support</a><ul>
+<li><a class="reference internal" href="#init-py" id="id12">__init__.py</a></li>
+<li><a class="reference internal" href="#plugins" id="id13">Plugins</a></li>
+<li><a class="reference internal" href="#custom-arguments-for-remove-staves" id="id14">Custom arguments for remove_staves</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This manual is for those, who want to implement their own staff
+removal and/or finding algorithms for inclusion into this toolkit.</p>
+<div class="section" id="overall-structure">
+<h1><a class="toc-backref" href="#id5">Overall Structure</a></h1>
+<p>The toolkit provides two different interfaces, depending whether your
+algorithm only finds staff lines without removing them or whether it
+additionally removes staff lines. For staff line finding, the base class
+<tt class="docutils literal">StaffFinder</tt> is provided, for staff removal <tt class="docutils literal">MusicStaves</tt>.</p>
+<p>There are several algorithms for staff line finding and removal and each
+StaffFinder or MusicStaves class implements a specific algorithm. Hence
+adding a staff removal algorithm means adding a MusicStaves class, and
+adding a staff finding algorithm means adding a StaffFinder class.</p>
+<p>All MusicStaves classes are derived from the virtual class <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.MusicStaves.html">MusicStaves</a>
+which offers the following methods:</p>
+<blockquote>
+<ul class="simple">
+<li>__init__()</li>
+<li>remove_staves()</li>
+<li>get_staffpos()</li>
+</ul>
+</blockquote>
+<p>Of these only <tt class="docutils literal">__init__()</tt> is actually implemented in <tt class="docutils literal">MusicStaves</tt>;
+the other two are virtual functions. Hence you <em>must</em> at least implement
+<tt class="docutils literal">remove_staves()</tt> and <tt class="docutils literal">get_staffpos()</tt> in your derived class.</p>
+<p>All StaffFinder classes are derived from the virtual class <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html">StaffFinder</a>
+which offers the following methods:</p>
+<blockquote>
+<ul class="simple">
+<li>__init__()</li>
+<li>find_staves()</li>
+<li>get_average(), get_polygon(), get_skeleton()</li>
+</ul>
+</blockquote>
+<p>Of these <tt class="docutils literal">find_staves()</tt> is a virtual function which is not implemented
+in <tt class="docutils literal">StaffFinder</tt>. Hence you <em>must</em> at least implement
+<tt class="docutils literal">find_staves_staves()</tt> in your derived class.</p>
+<div class="section" id="directory-structure">
+<h2><a class="toc-backref" href="#id6">Directory Structure</a></h2>
+<p>The MusicStaves toolkit is conform to the specifications of Gamera toolkits
+(see the Gamera documentation for details). The base classes and all
+derived classes are in the directory
+<tt class="docutils literal">MusicStaves/gamera/toolkits/musicstaves</tt>. This directory also contains
+a file called <tt class="docutils literal">__init__.py</tt>. It is described <a class="reference external" href="developermanual.html#init-py">below</a> how to adjust
+this file to make your own class available in the toolkit.</p>
+<div class="section" id="naming-conventions">
+<h3><a class="toc-backref" href="#id7">Naming conventions</a></h3>
+<p>Additional MusicStaves classes should have a name starting with
+<tt class="docutils literal">MusicStaves_</tt>.
+Additional StaffFinder classes should have a name starting with
+<tt class="docutils literal">StaffFinder_</tt>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="adding-your-own-class">
+<h1><a class="toc-backref" href="#id8">Adding your own class</a></h1>
+<p>Adding your class to this toolkit involves two steps:</p>
+<blockquote>
+<ul class="simple">
+<li>implement your staff removal algorithm as a MusicStaves or StaffFinder
+derived class in <tt class="docutils literal">MusicStaves/gamera/toolkits/musicstaves</tt>. The name
+should begin with <tt class="docutils literal">MusicStaves_</tt> or <tt class="docutils literal">StaffFinder</tt>.</li>
+<li>make your class accessible from the Gamera GUI</li>
+</ul>
+</blockquote>
+<div class="section" id="musicstaves-class-architecture">
+<h2><a class="toc-backref" href="#id9">MusicStaves class architecture</a></h2>
+<p>Here is a simple implementation of a MusicStaves class:</p>
+<div class="highlight"><pre><span class="c"># import the base class</span>
+<span class="kn">from</span> <span class="nn">musicstaves</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">MusicStaves_own</span><span class="p">(</span><span class="n">MusicStaves</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">staffline_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c"># call the constructor of the base class</span>
+        <span class="n">MusicStaves</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">staffline_height</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="p">)</span>
+        <span class="c"># additional initializations can follow</span>
+        <span class="c"># ...</span>
+
+    <span class="c">#</span>
+    <span class="c"># own algorithm for staff line removal</span>
+    <span class="c"># stores the staffless image in self.image</span>
+    <span class="c">#</span>
+    <span class="k">def</span> <span class="nf">remove_staves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crossing_symbols</span><span class="p">,</span> <span class="n">num_lines</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c"># your implementation of staff line removal will be here</span>
+        <span class="k">pass</span>
+
+    <span class="c">#</span>
+    <span class="c"># return the y-position for every staff lines at a given</span>
+    <span class="c"># x-position, this is done using a ``StaffObj`` object</span>
+    <span class="c">#</span>
+    <span class="k">def</span> <span class="nf">get_staffpos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c"># the logic of returning the positions of the stafflines is here</span>
+        <span class="c"># ...</span>
+
+        <span class="c"># fill ``so`` with values and return it</span>
+        <span class="n">so</span> <span class="o">=</span> <span class="n">StaffObj</span><span class="p">()</span>
+        <span class="c"># ...</span>
+
+        <span class="k">return</span> <span class="n">so</span>
+</pre></div>
+<p>You can add more methods of course. You <em>must</em> however at least
+provide the <tt class="docutils literal">remove_staves</tt> and <tt class="docutils literal">get_staffpos</tt> because these are
+virtual functions in the base class.</p>
+</div>
+<div class="section" id="stafffinder-class-architecture">
+<h2><a class="toc-backref" href="#id10">StaffFinder class architecture</a></h2>
+<p>Here is a simple implementation of a StaffFinder class:</p>
+<div class="highlight"><pre><span class="c"># import the base class</span>
+<span class="kn">from</span> <span class="nn">stafffinder</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">StaffFinder_own</span><span class="p">(</span><span class="n">StaffFinder</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">staffline_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c"># call the constructor of the base class</span>
+        <span class="n">StaffFinder</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">staffline_height</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="p">)</span>
+        <span class="c"># additional initializations can follow</span>
+        <span class="c"># ...</span>
+
+    <span class="c">#</span>
+    <span class="c"># own algorithm for staff line finding</span>
+    <span class="c"># stores the staffline position information in in self.linelist</span>
+    <span class="c">#</span>
+    <span class="k">def</span> <span class="nf">find_staves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_lines</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c"># your implementation of staff line finding will be here</span>
+        <span class="c"># it stores all staff lines in self.linelist so that</span>
+        <span class="c"># self.linelist[0][0] is the first line in the first staff</span>
+        <span class="c"># system, self.linelist[2][3] is the fourth line in the third</span>
+        <span class="c"># staff system and so on</span>
+        <span class="k">pass</span>
+</pre></div>
+<p>You can add more methods of course. You <em>must</em> however at least
+provide <tt class="docutils literal">find_staves</tt> because this is a virtual functions in the
+base class.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">You do <em>not</em> need to implement <tt class="docutils literal">get_average</tt>, <tt class="docutils literal">get_polygon</tt>
+and <tt class="docutils literal">get_skeleton</tt>. These are already provided in the base class with
+the use of the conversion functions of the respective <tt class="docutils literal">Staffline</tt> classes.</p>
+</div>
+</div>
+<div class="section" id="adding-gui-support">
+<h2><a class="toc-backref" href="#id11">Adding GUI support</a></h2>
+<p>As described in the <a class="reference external" href="usermanual.html#using-the-gamera-gui">user's manual</a>, MusicStaves and StaffFinder objects
+are also accessible from the Gamera GUI. Making your own class accessible
+in the same way requires two steps:</p>
+<blockquote>
+<ul class="simple">
+<li>register your class in the context menu of the MusicStaves toolkit
+icon in <tt class="docutils literal">__init__.py</tt></li>
+<li>write a onebit/greyscale image plugin that creates a MusciStaves or
+StaffFinder instance of your class</li>
+</ul>
+</blockquote>
+<div class="section" id="init-py">
+<h3><a class="toc-backref" href="#id12">__init__.py</a></h3>
+<p>To make your class available in the context menu of the MusicStaves toolkit
+icon, some modifications in the file <tt class="docutils literal">__init__.py</tt> are needed.
+It defines a class called <tt class="docutils literal">MusicStavesModuleIcon</tt> where the menu entry
+for each MusicStaves and StaffFinder class
+is created and the correct method is called when creating an instance. The
+class contains the list <tt class="docutils literal">classes</tt> (defined in <tt class="docutils literal">__init__()</tt>) where all
+available classes are stored:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">musicstaves_rl_simple</span> <span class="kn">import</span> <span class="n">MusicStaves_rl_simple</span>
+<span class="kn">from</span> <span class="nn">stafffinder_mymethod</span> <span class="kn">import</span> <span class="n">StaffFinder_mymethod</span>
+
+<span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c"># ...</span>
+
+    <span class="c">#</span>
+    <span class="c"># list containing all classes derived from MusicStaves,</span>
+    <span class="c"># add your own class name to this list and it will appear</span>
+    <span class="c"># in the menu of the MusicStaves icon</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;MusicStaves_rl_simple&quot;</span><span class="p">,</span> <span class="s">&quot;StaffFinder_mymethod&quot;</span><span class="p">]</span>
+</pre></div>
+<p>Add your class name to this list.</p>
+</div>
+<div class="section" id="plugins">
+<h3><a class="toc-backref" href="#id13">Plugins</a></h3>
+<p>The plugins which create MusicStaves or StaffFinder objects from images
+are implemented in <tt class="docutils literal">musicstaves_plugins.py</tt> in the plugin directory of
+the MusicStaves toolkit. To give an example, the
+declaration of the class <tt class="docutils literal">MusicStaves_rl_simple</tt> looks as follows:</p>
+<div class="highlight"><pre><span class="c">#</span>
+<span class="c"># plugin to create a ``MusicStaves_rl_simple`` object</span>
+<span class="c">#</span>
+<span class="k">class</span> <span class="nc">MusicStaves_rl_simple</span><span class="p">(</span><span class="n">PluginFunction</span><span class="p">):</span>
+    <span class="n">pure_python</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="s">&quot;MusicStaves/classes&quot;</span>
+    <span class="n">self_type</span> <span class="o">=</span> <span class="n">ImageType</span><span class="p">([</span><span class="n">ONEBIT</span><span class="p">,</span> <span class="n">GREYSCALE</span><span class="p">])</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">Args</span><span class="p">([</span><span class="n">Int</span><span class="p">(</span><span class="s">&#39;staffline_height&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>\
+            <span class="n">Int</span><span class="p">(</span><span class="s">&#39;staffspace_height&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)])</span>
+    <span class="n">return_type</span> <span class="o">=</span> <span class="n">Class</span><span class="p">(</span><span class="s">&quot;musicstaves&quot;</span><span class="p">)</span>
+
+    <span class="c">#</span>
+    <span class="c"># import the module (containing our class declaration) and return</span>
+    <span class="c"># the created MusicStaves_rl_simple object</span>
+    <span class="c">#</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">staffline_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">gamera.toolkits.musicstaves</span> <span class="kn">import</span> <span class="n">musicstaves_rl_simple</span>
+        <span class="k">return</span> <span class="n">musicstaves_rl_simple</span><span class="o">.</span><span class="n">MusicStaves_rl_simple</span><span class="p">(</span>\
+                <span class="n">image</span><span class="p">,</span> <span class="n">staffline_height</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="p">)</span>
+
+    <span class="n">__call__</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">__call__</span><span class="p">)</span>
+</pre></div>
+<p>In this example the method <tt class="docutils literal">__call__()</tt> is called with three arguments
+(as specified by the <tt class="docutils literal">MusicStaves</tt> class). If your MusicStaves class
+works with more arguments, your <tt class="docutils literal">__call__()</tt> method has to be called
+with those additional arguments as well.</p>
+<p>Beside defining the function, you must also register it as a plugin function
+in the class <tt class="docutils literal">MusicStavesModule</tt> at the end of the file
+<tt class="docutils literal">musicstaves_plugins.py</tt>:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">MusicStavesModule</span><span class="p">(</span><span class="n">PluginModule</span><span class="p">):</span>
+    <span class="n">cpp_headers</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;musicstaves_plugins.hpp&quot;</span><span class="p">]</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="s">&quot;MusicStaves&quot;</span>
+    <span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">MusicStaves_rl_simple</span><span class="p">,</span>\
+                 <span class="n">fill_horizontal_line_gaps</span><span class="p">,</span>\
+                 <span class="n">fill_vertical_line_gaps</span><span class="p">]</span>
+</pre></div>
+<p>Add the name of your class instance creator plugin to the list <tt class="docutils literal">functions</tt>.</p>
+<p>Writing plugins is documented and described in detail in the Gamera
+documentation.</p>
+</div>
+<div class="section" id="custom-arguments-for-remove-staves">
+<h3><a class="toc-backref" href="#id14">Custom arguments for remove_staves</a></h3>
+<p>The GUI dialog for the <tt class="docutils literal">MusicStaves.remove_staves</tt> and
+<tt class="docutils literal">StaffFinder.find_staves</tt> methods by default offers the arguments
+defined in the base classes. If your particular implementation supports
+additional arguments, you can make them accessible from the GUI by
+defining the variable <tt class="docutils literal">remove_staves_args</tt> or <tt class="docutils literal">find_staves_args</tt>
+respectively in the class constructor.</p>
+<p>Here is an example for a MusicStaves derived class constructor:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">MusicStaves_own</span><span class="p">(</span><span class="n">MusicStaves</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">staffline_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c"># call constructor of base class</span>
+        <span class="c"># (sets self.remove_staves_args to some default value)</span>
+        <span class="n">StaffFinder</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">staffline_height</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="p">)</span>
+        <span class="c"># register a different set of arguments for remove_staves</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_staves_args</span> <span class="o">=</span> <span class="n">Args</span><span class="p">([</span><span class="n">Int</span><span class="p">(</span><span class="s">&quot;num_lines&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                                      <span class="n">Int</span><span class="p">(</span><span class="s">&quot;someintarg&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
+                                      <span class="n">Float</span><span class="p">(</span><span class="s">&quot;somefloatarg&quot;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)])</span>
+</pre></div>
+<p>Here is an example for a StaffFinder derived class constructor:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">StaffFinder_own</span><span class="p">(</span><span class="n">StaffFinder</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">staffline_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c"># call constructor of base class</span>
+        <span class="c"># (sets self.find_staves_args to some default value)</span>
+        <span class="n">StaffFinder</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">staffline_height</span><span class="p">,</span> <span class="n">staffspace_height</span><span class="p">)</span>
+        <span class="c"># register a different set of arguments for find_staves</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">find_staves_args</span> <span class="o">=</span> <span class="n">Args</span><span class="p">([</span><span class="n">Int</span><span class="p">(</span><span class="s">&quot;num_lines&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                                      <span class="n">Int</span><span class="p">(</span><span class="s">&quot;someintarg&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
+                                      <span class="n">Float</span><span class="p">(</span><span class="s">&quot;somefloatarg&quot;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

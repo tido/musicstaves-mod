@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class MusicStaves_linetracking</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-musicstaves-linetracking">
+<h1 class="title">class <tt class="docutils literal">MusicStaves_linetracking</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#musicstaves-linetracking" id="id4"><tt class="docutils literal">MusicStaves_linetracking</tt></a><ul>
+<li><a class="reference internal" href="#remove-staves" id="id5"><tt class="docutils literal">remove_staves</tt></a></li>
+<li><a class="reference internal" href="#get-staffpos" id="id6"><tt class="docutils literal">get_staffpos</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="musicstaves-linetracking">
+<h1><a class="toc-backref" href="#id4"><tt class="docutils literal">MusicStaves_linetracking</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.musicstaves_linetracking</tt></p>
+<p><p>This staff removal class implements the most obvious approach
+to staff line removal: first find the staff lines, then follow them
+(&quot;line tracking&quot;) and remove pixels based upon some decision criterion.</p>
+<p>For an overview of decision criteria, whether a pixel belongs to
+a symbol, see the reference below. Note that this class does <em>not</em> use
+the staff line finding method described in this reference, because we
+have found this &quot;wobble&quot; method to be rather unstable. Hence we
+use the more robust <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder_dalitz.StaffFinder_dalitz.html">StaffFinder_dalitz</a> instead. To use a different
+staff finding algorithm, set the property <tt class="docutils literal">staffinder</tt> to a class
+derived from <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StaffFinder.html">StaffFinder</a>, as in the following example:</p>
+<blockquote>
+<div class="highlight"><pre><span class="n">sf</span> <span class="o">=</span> <span class="n">StaffFinder_projections</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">ms</span> <span class="o">=</span> <span class="n">MusicStaves_linetracking</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">stafffinder</span> <span class="o">=</span> <span class="n">sf</span>
+</pre></div>
+</blockquote>
+<p>References:</p>
+<ul class="simple">
+<li>D Bainbridge and T C Bell: <a class="reference external" href="http://www.cs.waikato.ac.nz/~davidb/publications/ipa97/">Dealing with superimposed objects in optical
+music recognition</a>. 6th International Conference on Image Processing
+and its Applications (1997)</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz and Florian Pose</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="remove-staves">
+<h2><a class="toc-backref" href="#id5"><tt class="docutils literal">remove_staves</tt></a></h2>
+<p>Detects and removes staff lines from a music/tablature image.</p>
+<p>The stafflines are found using <tt class="docutils literal">self.staffinder</tt>, which is a
+<tt class="docutils literal">StaffFinder_dalitz</tt> by default. When the <tt class="docutils literal">self.stafffinder.linelist</tt>
+is non empty, the staff lines form this list are used; otherwise
+<tt class="docutils literal">self.stafffinder.find_staves</tt> is called.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal"><span class="pre">remove_staves(crossing_symbols='all',</span> num_lines=0, <span class="pre">symbol_criterion='runlength')</span></tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>crossing_symbols</em>:</dt>
+<dd>Determines which symbols crossing staff lines should be kept intact.
+Supported values are 'all', 'bars' or 'none'.</dd>
+<dt><em>num_lines</em>:</dt>
+<dd>Number of lines within one staff. A value of zero for automatic
+detection is supported, but if you give the actual number, staff line
+detection will improve.</dd>
+<dt><em>symbol_criterion</em>:</dt>
+<dd><p class="first">Determines which criterion is used for identifying symbol pixels which
+are not to be removed (only has effect when <em>crossing_symbols</em> = <tt class="docutils literal">'all'</tt>).
+Options are</p>
+<blockquote class="last">
+<dl class="docutils">
+<dt><tt class="docutils literal">runlength</tt></dt>
+<dd>Removes only vertical runlengths shorter than 2 * <em>staffline_height</em>.</dd>
+<dt><tt class="docutils literal">secondchord</tt></dt>
+<dd>Checks whether a second long chord different from the chord from
+the staff line passes a pixel (Martin and Bellissant). Only the
+staff skeleton pixels are tested and when the criterion is true,
+the entire black vertical runlength is kept, otherwise it is removed.</dd>
+<dt><tt class="docutils literal">mask</tt></dt>
+<dd>Checks for pixels within a <cite>T</cite>-shaped mask (Clarke, Brown and Thorne)</dd>
+<dt><tt class="docutils literal">skewedruns</tt></dt>
+<dd>Checks whether the pixel is part of a skewed run that extents
+beyond the staff line. The skewed runs are found by moving parallel
+to the staff skeleton at a distance plusminus 1.5 * <em>staffline_height</em>
+and keeping tall skewed runs through the found black pixels
+(see <a class="reference external" href="musicstaves.html#keep-tall-skewed-runs">keep_tall_skewed_runs</a>)</dd>
+<dt><tt class="docutils literal">vectorfieldruns</tt></dt>
+<dd>Similar to <tt class="docutils literal">skewedruns</tt>, but only skewed runs in the direction
+of the vector field, as computed by <a class="reference external" href="musicstaves.html#compute-longest-chord-vectors">compute_longest_chord_vectors</a>,
+are considered.</dd>
+</dl>
+</blockquote>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl class="docutils">
+<dt><em>threshold</em>:</dt>
+<dd>The height up to which a horizontal black runlength crossing the
+skeleton is interpreted as part of the staff line. Setting
+to zero results in 2 * <em>staffline_height</em>.</dd>
+<dt><em>debug</em>:</dt>
+<dd>Debug level. 0 = No debug messages. 1 = Only text messages. 2 = Create
+debug image 'musicstaves_linetracking_debug.png' in current directory.</dd>
+</dl>
+</blockquote>
+<p>For details and references see D Bainbridge and T C Bell: <a class="reference external" href="http://www.cs.waikato.ac.nz/~davidb/publications/ipa97/">Dealing with
+superimposed objects in optical music recognition</a>. 6th International
+Conference on Image Processing and its Applications (1997)</p>
+</div>
+<div class="section" id="get-staffpos">
+<h2><a class="toc-backref" href="#id6"><tt class="docutils literal">get_staffpos</tt></a></h2>
+<p>Returns the y-positions of all staff lines at a given x-position.
+Can only be called <em>after</em> <tt class="docutils literal">remove_staves</tt>.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">get_staffpos(x=0)</tt></blockquote>
+<p>The value for <em>x</em> is currently ignored and the average y-positions are
+always returned. The return value is a list of <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.StaffObj.html#staffobj">StaffObj</a>.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

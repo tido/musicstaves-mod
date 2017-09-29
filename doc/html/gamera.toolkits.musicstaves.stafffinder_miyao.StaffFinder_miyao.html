@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class StaffFinder_miyao</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-stafffinder-miyao">
+<h1 class="title">class <tt class="docutils literal">StaffFinder_miyao</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#stafffinder-miyao" id="id2"><tt class="docutils literal">StaffFinder_miyao</tt></a><ul>
+<li><a class="reference internal" href="#find-staves" id="id3"><tt class="docutils literal">find_staves</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stafffinder-miyao">
+<h1><a class="toc-backref" href="#id2"><tt class="docutils literal">StaffFinder_miyao</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.stafffinder_miyao</tt></p>
+<p><p>This staff finding algorithm is a based on a paper by H. Miyao
+(see below).</p>
+<p>The method as described by Miyao:</p>
+<ol class="arabic simple">
+<li>Find stave candidate points on equally spaced vertical scan lines</li>
+<li>Use Dynamic Programming Matching to link stave candidate points</li>
+<li>Link points vertically and identify stave groups as connected components</li>
+<li>Adjust the edge point positions</li>
+</ol>
+<p>Deviations from Miyao's method by Dalitz:</p>
+<ul class="simple">
+<li>The mismatch penalty in the Dynamic Programming Matching is set to
+three instead of two</li>
+<li>The number of lines per staff system is automatically guessed as
+the most frequent vertical link runlength</li>
+<li>Points on the same vertical scanline with the same staff/line label are
+melted into a single point</li>
+</ul>
+<p>Limitations:</p>
+<ul class="simple">
+<li>Cannot deal with a varying number of lines per staff as in mixed
+music and tablature prints</li>
+</ul>
+<p>References:</p>
+<ul class="simple">
+<li>Hidetoshi Miyao: <em>Stave Extraction for Printed Music Scores</em>. in
+H. Yin et al. (Eds.): IDEAL 2002, LNCS 2412, pp. 562-568, Springer (2002)</li>
+<li>Hidetoshi Miyao, Masayuki Okamoto: <em>Stave Extraction for Printed Music
+Scores Using DP Matching</em>. Journal of Advanced Computational Intelligence
+and Intelligent Informatics, Vol. 8 No. 2 (2004)</li>
+<li>Gina M. Cannarozzi: <a class="reference external" href="http://cbrg.inf.ethz.ch/bio-recipes/DynProgBasic/code.html">String Alignment using Dynamic Programming</a></li>
+</ul>
+<p>Note that the first two references are almost identical, with the second
+somewhat more detailed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz (after an algorithm by H. Miyao)</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="find-staves">
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal">find_staves</tt></a></h2>
+<p>Finds staff lines from a music/tablature image with Miyao's
+method.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">find_staves(num_lines=0, scanlines=20, blackness=0.8, <span class="pre">tolerance=-1,</span> debug=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>num_lines</em>:</dt>
+<dd>Number of lines within one staff. When zero, the number is automatically
+detected.</dd>
+<dt><em>scan_lines</em>:</dt>
+<dd>Number of vertical scan lines for extracting candidate points.</dd>
+<dt><em>blackness</em>:</dt>
+<dd>Required blackness on the connection line between two candidate points
+in order to consider them matching.</dd>
+<dt><em>tolerance</em>:</dt>
+<dd>How much the vertical black runlength of a candidate point may deviate
+from staffline_height. When negative, this value is set to
+<em>max([2, staffline_height / 4])</em>.</dd>
+<dt><em>debug</em>:</dt>
+<dd>When &gt; 0, information about each step is printed to stdout (flushed
+immediately). When &gt; 1, runtime information is printed. When &gt; 2, the
+information about some steps is more detailed. When &gt; 3,
+a number of images is written into the current working directory;
+the image names have the prefix <em>miyaodebug</em>.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

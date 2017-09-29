@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class StafflinePolygon</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-stafflinepolygon">
+<h1 class="title">class <tt class="docutils literal">StafflinePolygon</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#stafflinepolygon" id="id1"><tt class="docutils literal">StafflinePolygon</tt></a><ul>
+<li><a class="reference internal" href="#init" id="id2"><tt class="docutils literal">__init__</tt></a></li>
+<li><a class="reference internal" href="#to-average" id="id3"><tt class="docutils literal">to_average</tt></a></li>
+<li><a class="reference internal" href="#to-polygon" id="id4"><tt class="docutils literal">to_polygon</tt></a></li>
+<li><a class="reference internal" href="#to-skeleton" id="id5"><tt class="docutils literal">to_skeleton</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stafflinepolygon">
+<h1><a class="toc-backref" href="#id1"><tt class="docutils literal">StafflinePolygon</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.stafffinder</tt></p>
+<p><p>Represents a staff line as a polygon and contains the list of
+vertex points as public property:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>vertices</em>:</dt>
+<dd>a list of the vertices. Each point is stored as Gamera's data type <em>Point</em></dd>
+</dl>
+</blockquote>
+</p>
+<div class="section" id="init">
+<h2><a class="toc-backref" href="#id2"><tt class="docutils literal">__init__</tt></a></h2>
+<p>The constructor has no arguments. All values are accessed
+directly.</p>
+</div>
+<div class="section" id="to-average">
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal">to_average</tt></a></h2>
+<p>Converts to <tt class="docutils literal">StafflineAverage</tt>.</p>
+</div>
+<div class="section" id="to-polygon">
+<h2><a class="toc-backref" href="#id4"><tt class="docutils literal">to_polygon</tt></a></h2>
+<p>Converts to <tt class="docutils literal">StafflinePolygon</tt>. Thus simply returns <em>self</em>.</p>
+<p>The optional parameter <em>tolerance</em> is offered for compatibility to
+<tt class="docutils literal">StafflineSkeleton</tt>, but has no effect on the return value.</p>
+</div>
+<div class="section" id="to-skeleton">
+<h2><a class="toc-backref" href="#id5"><tt class="docutils literal">to_skeleton</tt></a></h2>
+<p>Converts to <tt class="docutils literal">StafflineSkeleton</tt>.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

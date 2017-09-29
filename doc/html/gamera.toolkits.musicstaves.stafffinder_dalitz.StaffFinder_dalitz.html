@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class StaffFinder_dalitz</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-stafffinder-dalitz">
+<h1 class="title">class <tt class="docutils literal">StaffFinder_dalitz</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#stafffinder-dalitz" id="id1"><tt class="docutils literal">StaffFinder_dalitz</tt></a><ul>
+<li><a class="reference internal" href="#find-staves" id="id2"><tt class="docutils literal">find_staves</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stafffinder-dalitz">
+<h1><a class="toc-backref" href="#id1"><tt class="docutils literal">StaffFinder_dalitz</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.stafffinder_dalitz</tt></p>
+<p><p>Finds staff lines with the aid of long quasi black run extraction
+and skeletonization.</p>
+<p>The method works as follows:</p>
+<ol class="arabic simple">
+<li>Extract long horizontal runs with an average blackness above
+a certain threshold. The resulting filaments are vertically thinned
+and among the resulting lines, those shorter than 2 * <em>staffspace_height</em>
+are removed.</li>
+<li>Vertically link line segments that overlap horizontally and
+have a vertical distance about <em>staff_space_height</em> + <em>staff_line_height</em>.</li>
+<li>Remove line segments without links and label the remaining segments
+with a staff and line label. Staffs are identified as connected components
+and line numbers are assinged based upon vertical link steps.</li>
+<li>&quot;Melt&quot; overlapping segments of the same staff line to one segment.
+This is done by selecting the segment that is closer to a least square
+fit of the total line.</li>
+<li>Remove staffs that have too few staff lines and remove additional
+staff lines on top of and below the staff.<ul>
+<li>If the number of lines in every staff is given:
+Get the shortest of the upper and lower line and
+remove it. Do this until the correct number
+of staff lines is reached.</li>
+<li>If the number of lines is unknown: Remove every
+line in a staff that is much shorter than the
+maximum length in this staff.</li>
+</ul>
+</li>
+<li>Remove staffline groups that overlap with other staffline groups.
+From all overlapping groups the widest is kept.
+Then join adjacent groups, whose distance is smaller then
+2 * <em>staffspace_height</em></li>
+<li>[Remove groups that are narrower than half the widest group.]
+This step has been removed!</li>
+<li>Interpolate between non-overlapping skeleton segments of
+the same staff line.</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Christoph Dalitz, Thomas Karsten and Florian Pose</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="find-staves">
+<h2><a class="toc-backref" href="#id2"><tt class="docutils literal">find_staves</tt></a></h2>
+<p>Method for finding the staff lines.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">find_staves(num_lines=0, window=3, blackness=60, tolerance=25, align_edges=True, join_interrupted=True, debug=0)</tt></blockquote>
+<p>with</p>
+<ul>
+<li><p class="first"><em>num_lines</em>:</p>
+<p>Number of lines per staff. If unknown, set to 0.</p>
+</li>
+<li><p class="first"><em>window</em> and <em>blackness</em>:</p>
+<p>Parameters for the extraction of long horizontal runs. Only pixels are
+extracted that have an average blackness greater than <em>blackness</em> within
+a window of the width <em>window</em> * <em>staff_space_height</em>.</p>
+</li>
+<li><p class="first"><em>tolerance</em>:</p>
+<p>The tolerance that is used while connecting line segments that
+belong to the same staff. They may have a vertical distance of
+<em>staff_line_height</em> + <em>staff_space_height</em> with a deviation of
+<em>tolerance</em> in percent.</p>
+</li>
+<li><p class="first"><em>align_edges</em>:</p>
+<p>When <cite>True</cite>, staff line edges in a staff are aligned up to the
+left most and right most found staff line within this staff.</p>
+</li>
+<li><p class="first"><em>debug</em>:</p>
+<p>0 = Be quiet.
+1 = Show Progress messages.
+2 = print images with prefix 'dalitzdebug' to current directory</p>
+</li>
+</ul>
+<p>This method fills the <em>self.linelist</em> attribute for further
+processing.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

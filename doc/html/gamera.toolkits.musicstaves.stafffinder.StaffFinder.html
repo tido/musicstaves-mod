@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class StaffFinder</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-stafffinder">
+<h1 class="title">class <tt class="docutils literal">StaffFinder</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#stafffinder" id="id2"><tt class="docutils literal">StaffFinder</tt></a><ul>
+<li><a class="reference internal" href="#init" id="id3"><tt class="docutils literal">__init__</tt></a></li>
+<li><a class="reference internal" href="#find-staves" id="id4"><tt class="docutils literal">find_staves</tt></a></li>
+<li><a class="reference internal" href="#show-result" id="id5"><tt class="docutils literal">show_result</tt></a></li>
+<li><a class="reference internal" href="#get-average" id="id6"><tt class="docutils literal">get_average</tt></a></li>
+<li><a class="reference internal" href="#get-polygon" id="id7"><tt class="docutils literal">get_polygon</tt></a></li>
+<li><a class="reference internal" href="#get-skeleton" id="id8"><tt class="docutils literal">get_skeleton</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stafffinder">
+<h1><a class="toc-backref" href="#id2"><tt class="docutils literal">StaffFinder</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.stafffinder</tt></p>
+<p><p>Virtual class providing a unified interface to staff line finding
+from a music/tablature image without their removal.
+For typical usage see the <a class="reference external" href="usermanual.html">user's manual</a>.</p>
+<p>Important properties:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>image</em>:</dt>
+<dd>The onebit image in which the staff lines are to be found.
+You might need to access this property, if the algorithm modifies
+this image during the staff finding process (e.g. by a line
+rectifying process).</dd>
+<dt><em>staffline_height</em>, <em>staffspace_height</em>:</dt>
+<dd>Line thickness and distance of adjacent staff lines.</dd>
+<dt><em>linelist</em>:</dt>
+<dd>Data structure in which the positional information is stored.
+It contains a nested list of <tt class="docutils literal">StafflinAverage</tt> or <tt class="docutils literal">StafflinePolygon</tt>
+or <tt class="docutils literal">StafflineSkeleton</tt> objects; each sublist represents a stave system.
+In order to be independant of the actual internal representation do not
+read this variable directly from outside the class, but use the methods
+<tt class="docutils literal">get_average()</tt>, <tt class="docutils literal">get_polygon()</tt> or <tt class="docutils literal">get_skeleton()</tt>.</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">This class cannot be used itself. You must use one of the
+derived classes which actually implement staff finding algorithms.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="init">
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal">__init__</tt></a></h2>
+<p>Constructor of StaffFinder. This base constructor should be
+called by all derived classes.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">__init__(image, staffline_height=0, staffspace_height=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>image</em>:</dt>
+<dd>Onebit or greyscale image of which the staves are to be found.
+StaffFinder creates a copy of the given image, so that the original
+image is not altered. The staff finding and possible additional operations
+will be done on <tt class="docutils literal">StaffFinder.image</tt></dd>
+<dt><em>staffline_height</em>:</dt>
+<dd>average height of a single black staff line. When zero is given,
+StaffFinder computes it itself (recommended, unless you know exactly
+what you are doing).</dd>
+<dt><em>staffspace_height</em>:</dt>
+<dd>average distance between adjacent lines of the same staff. When zero is
+given, StaffFinder computes it itself (recommended, unless you know exactly
+what you are doing).</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="find-staves">
+<h2><a class="toc-backref" href="#id4"><tt class="docutils literal">find_staves</tt></a></h2>
+<p>Finds staff lines from a music/tablature image.</p>
+<p>This method is virtual and must be implemented in every derived class.
+Each implementation must at least support the following keyword argument:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>num_lines</em>:</dt>
+<dd>Number of lines within one staff. In general it can be hard to guess this
+number automatically; if the staff removal algorithm supports this, a value
+<em>num_lines=0</em> can be used to indicate that this number should be guessed
+automatically.</dd>
+</dl>
+</blockquote>
+<p>Additional algorithm specific keyword are possible of course. If
+<em>num_lines</em> cannot be chosen in the algorithm, this option must
+be offered nevertheless (albeit with no effect).</p>
+</div>
+<div class="section" id="show-result">
+<h2><a class="toc-backref" href="#id5"><tt class="docutils literal">show_result</tt></a></h2>
+<p>Returns an RGB image with the found staff lines highlighted.</p>
+<p>Parameters:</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>highlight_groups</em>:</dt>
+<dd>when <em>True</em> (default), each stave system is underlayed in a different
+color. When false, only the edge points are marked in different colors,
+which is less visible for skeleton or average staff line representation.</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="get-average">
+<h2><a class="toc-backref" href="#id6"><tt class="docutils literal">get_average</tt></a></h2>
+<p>Returns the average y-positions of the staff lines.
+When the native type of the StaffFinder implementation is not
+<a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineAverage.html">StafflineAverage</a>, the average values are computed.</p>
+<p>The return value is a nested list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineAverage.html">StafflineAverage</a> where each
+sublist represents one stave group.</p>
+</div>
+<div class="section" id="get-polygon">
+<h2><a class="toc-backref" href="#id7"><tt class="docutils literal">get_polygon</tt></a></h2>
+<p>Returns a polygonal approximation of the staff lines.
+When the native type of the StaffFinder implementation is not
+<a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflinePolygon.html">StafflinePolygon</a>, the polygonal approximation is computed.</p>
+<p>The return value is a nested list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflinePolygon.html">StafflinePolygon</a> where each
+sublist represents one stave group.</p>
+</div>
+<div class="section" id="get-skeleton">
+<h2><a class="toc-backref" href="#id8"><tt class="docutils literal">get_skeleton</tt></a></h2>
+<p>Returns the skeleton of the staff lines.
+When the native type of the StaffFinder implementation is not
+<a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a>, the skeleton is computed.</p>
+<p>The return value is a nested list of <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder.StafflineSkeleton.html">StafflineSkeleton</a> where each
+sublist represents one stave group.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

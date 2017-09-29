@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class MusicStaves_rl_roach_tatem</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-musicstaves-rl-roach-tatem">
+<h1 class="title">class <tt class="docutils literal">MusicStaves_rl_roach_tatem</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#musicstaves-rl-roach-tatem" id="id5"><tt class="docutils literal">MusicStaves_rl_roach_tatem</tt></a><ul>
+<li><a class="reference internal" href="#remove-staves" id="id6"><tt class="docutils literal">remove_staves</tt></a></li>
+<li><a class="reference internal" href="#get-staffpos" id="id7"><tt class="docutils literal">get_staffpos</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="musicstaves-rl-roach-tatem">
+<h1><a class="toc-backref" href="#id5"><tt class="docutils literal">MusicStaves_rl_roach_tatem</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.musicstaves_rl_roach_tatem</tt></p>
+<p><p>This code is a clean-room reimplementation of the algorithm
+described in</p>
+<blockquote>
+Roach, J. W., and J. E. Tatem. 1988. Using domain knowledge in
+low-level visual processing to interpret handwritten music: an
+experiment. Pattern Recognition 21 (1): 33-44.</blockquote>
+<p>For a general overview of the algorithm, readers are referred to the
+paper. In addition to the algorithm described in this paper, we have
+added two improvements described below.</p>
+<p>Implementation notes:</p>
+<blockquote>
+<p>When computing the vector field, only the angle is stored for each
+pixel.  The distance and thickness values are used by higher-level
+parts of their system and are not used for raw staff removal, so to
+save run- and programming-time, this was not implemented.</p>
+<p>Roach and Tatem suggest a radius for the vector field window of &quot;at
+least half the width of one staves in the image.&quot;  I assume the
+authors meant &quot;width in the vertical direction&quot; as the horizontal
+direction would be so large as to take hours to compute a vector
+field.</p>
+<p>The original algorithm given by Roach and Tatem for computing the vector
+field was in our experiments computationally too expensive for practical
+use. Hence we have used a brute force approach instead, which picks the
+longest chord for a predefined range of angles (see
+<a class="reference external" href="musicstaves.html#compute-longest-chord-vectors">compute_longest_chord_vectors</a>).</p>
+</blockquote>
+<blockquote>
+<p>The rules described with bullet points in Sections 3.4 and 3.5 are
+quite clear, but exactly how those rules are applied is not entirely
+clear to me.  For instance, are the rules applied in parallel or in
+sequence?  Should the side effect of one rule be immediately
+applied?  Adding to the confusion, it appears the first rule can not
+be applied in sequence before the second.  Through experimentation,
+I decided to apply each rule to the entire image, one at a time.
+The side effects are applied all at once before applying the next
+rule.</p>
+<p>The algorithm has a concept of &quot;questionable pixels&quot;, which are
+pixels that likely belong to both a staffline and a musical figure.
+Nothing is made of this information at present.</p>
+<p>Roach and Tatem claim it is a simple matter to find stafflines because
+they are long horizontal connected components.  In our experiments,
+however, the stafflines were so broken up that we were unable to find
+a threshold to separate them from other noise using horizontal width
+alone.</p>
+</blockquote>
+<p>As the application of Roach and Tatem was handwritten music, their
+method simply removes all perfectly straight horizontal
+shapes. As this yields very poor results in printed music (it also
+removes beams and parts of lyrics) we have added two improvements:</p>
+<blockquote>
+<ul class="simple">
+<li>Vertical black runlengths longer than 2*staffline_height
+are not removed. This should leave most beams intact.</li>
+<li>On the horizontal lines detected by Roach and Tatem's algorithm
+we apply the staff finding algorithm <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder_dalitz.StaffFinder_dalitz.html">StaffFinder_dalitz</a> and
+only remove staff segments that cross the detected staff lines.</li>
+</ul>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, Thomas Karsten and Christoph Dalitz, based on Roach, J. W. and J. E. Tatem</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="remove-staves">
+<h2><a class="toc-backref" href="#id6"><tt class="docutils literal">remove_staves</tt></a></h2>
+<p>Detects and removes staff lines from a music/tablature image.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal"><span class="pre">remove_staves(crossing_symbols='all',</span> num_lines=0, resolution=3.0, debug=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>crossing_symbols</em>:</dt>
+<dd>This algorithm only supports the value 'all'.</dd>
+<dt><em>num_lines</em>:</dt>
+<dd>Number of lines within one staff. A value of zero for automatic
+detection is supported, but if you give the actual number, staff line
+detection will improve.</dd>
+<dt><em>resolution</em>:</dt>
+<dd>the resolution parameter passed to <a class="reference external" href="musicstaves.html#compute-longest-chord-vectors">compute_longest_chord_vectors</a></dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl class="docutils">
+<dt><em>debug</em>:</dt>
+<dd>Set the debug level verbosity. For <em>debug</em> &gt;= 1, tracing information
+is printed to stdout, for <em>debug</em> &gt;= 2 images with prefix
+<tt class="docutils literal">debug</tt> are written into the current working directory.</dd>
+</dl>
+</blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">The property <em>image</em> is the result of our &quot;improved&quot; algorithm.
+For comparison, the result of Roach and Tatem's original method
+is stored in the property <em>image_original</em>.</p>
+</div>
+</div>
+<div class="section" id="get-staffpos">
+<h2><a class="toc-backref" href="#id7"><tt class="docutils literal">get_staffpos</tt></a></h2>
+<p>Returns the y-positions of all staff lines at a given x-position.
+Can only be called <em>after</em> <tt class="docutils literal">remove_staves</tt>.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">get_staffpos(x=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>x</em>:</dt>
+<dd>This parameter has no effect, because the staffline is assumed to
+be horizontal.</dd>
+</dl>
+</blockquote>
+<p>The return value is a list of <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.StaffObj.html#staffobj">StaffObj</a>.</p>
+<p>Note that a more accurate way to obtain the staff lines for this class
+is by accessing <tt class="docutils literal">self.linelist</tt>, because this does not just yield the average
+y-position, but the full staff line skeletons. Example:</p>
+<div class="highlight"><pre><span class="n">ms</span> <span class="o">=</span> <span class="n">MusicStaves_skeleton</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">remove_staves</span><span class="p">()</span>
+<span class="n">sf</span> <span class="o">=</span> <span class="n">StaffFinder</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ms</span><span class="o">.</span><span class="n">staffline_height</span><span class="p">,</span> <span class="n">ms</span><span class="o">.</span><span class="n">staffspace_height</span><span class="p">)</span>
+<span class="n">sf</span><span class="o">.</span><span class="n">linelist</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">linelist</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">show_result</span><span class="p">()</span>
+<span class="n">rgb</span><span class="o">.</span><span class="n">save_PNG</span><span class="p">(</span><span class="s">&quot;foundstaves.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

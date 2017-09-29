@@ -1,0 +1,13 @@
+class ``MusicStaves_rl_carter``
+===============================
+
+``MusicStaves_rl_carter``
+-------------------------
+
+In module ``gamera.toolkits.musicstaves.musicstaves_rl_carter``
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_rl_carter MusicStaves_rl_carter
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_rl_carter MusicStaves_rl_carter remove_staves get_staffpos
+

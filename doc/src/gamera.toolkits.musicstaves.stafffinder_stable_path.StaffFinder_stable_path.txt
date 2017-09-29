@@ -1,0 +1,13 @@
+class ``StaffFinder_stable_path``
+=================================
+
+``StaffFinder_stable_path``
+---------------------------
+
+In module ``gamera.toolkits.musicstaves.stafffinder_stable_path``
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder_stable_path StaffFinder_stable_path
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.stafffinder_stable_path StaffFinder_stable_path find_staves
+

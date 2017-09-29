@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class MusicStaves_rl_fujinaga</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-musicstaves-rl-fujinaga">
+<h1 class="title">class <tt class="docutils literal">MusicStaves_rl_fujinaga</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#musicstaves-rl-fujinaga" id="id2"><tt class="docutils literal">MusicStaves_rl_fujinaga</tt></a><ul>
+<li><a class="reference internal" href="#remove-staves" id="id3"><tt class="docutils literal">remove_staves</tt></a></li>
+<li><a class="reference internal" href="#get-staffpos" id="id4"><tt class="docutils literal">get_staffpos</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="musicstaves-rl-fujinaga">
+<h1><a class="toc-backref" href="#id2"><tt class="docutils literal">MusicStaves_rl_fujinaga</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.musicstaves_rl_fujinaga</tt></p>
+<p><p>This staff removal algorithm is based directly on Ichiro
+Fujinaga's staff removal code, though through the filter of two major
+rewrites, the first by Karl MacMillan and the second by Michael
+Droettboom.</p>
+<p>This code is known to be functionally equivalent to Fujinaga's
+original code with the following exceptions:</p>
+<ul class="simple">
+<li>the case where systems stop in the middle of the page (as can be
+found in some chorale collections, for example) are not handled.</li>
+<li>a few things that were obviously bugs were fixed, though you can
+expect the output to be slightly different.</li>
+</ul>
+<p>A notable feature of this algorithm is that it attempts to straighten
+staves through deskewing, by shearing thin vertical strips up and down
+by cross-correlating them with their neighbors.  This deskewing first
+happens globally on the page and then on each staff individually.
+This helps to rectify images where the staves</p>
+<blockquote>
+<p>a) are not straight, as in the spine of a large book, or other
+anomalies in the printing</p>
+<p>b) are not parallel with one another, as is often the case in older
+hand-printed music.</p>
+</blockquote>
+<p>A consequence of this is that staffline detection is not easily
+decoupled from deskewing.  The deskewing can not finish without
+knowing where the stafflines are, and the stafflines can only be found
+as the iterative deskewing takes place, (since stafflines are modelled
+as perfectly straight and horizontal line segments).</p>
+<p>In the last rewrite of the code, staff removal was decoupled from staff finding
+and deskewing.  So there are three separate functions available so that the
+removal step could be interchanged with something else:</p>
+<blockquote>
+find_and_remove_staves_fujinaga
+find_and_deskew_staves_fujinaga
+remove_staves_fujinaga</blockquote>
+<p>TODO: There's a lot more to explain here.</p>
+<p>References:</p>
+<ul class="simple">
+<li>Ichiro Fujinaga: <em>Adaptive Optical Music Recognition</em>. Dissertation,
+McGill University Montreal, Canada (1996)</li>
+<li>Ichiro Fujinaga: <em>Staff Detection and Removal</em>. in S. George (editor):
+&quot;Visual Perception of Music Notation&quot;. Idea Group (2004)</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Michael Droettboom, Karl MacMillan and Ichiro Fujinaga</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="remove-staves">
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal">remove_staves</tt></a></h2>
+<p>Detects and removes staff lines from a music/tablature image.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal"><span class="pre">remove_staves(crossing_symbols='all',</span> num_lines=5, skew_strip_width=0, max_skew=5.0, undo_deskew=False)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>crossing_symbols</em>:</dt>
+<dd>Determines which symbols crossing staff lines should be kept intact.
+Supported values are 'all', 'bars' or 'none'.
+<strong>Currently ignored</strong></dd>
+<dt><em>num_lines</em>:</dt>
+<dd>The number of stafflines in each staff.  (Autodetection of number of stafflines not yet
+implemented).</dd>
+<dt><em>skew_strip_width</em> = 0</dt>
+<dd>The width (in pixels) of vertical strips used to deskew the image.  Smaller values will
+deskew the image with higher resolution, but this may make the deskewing overly sensitive.
+Larger values may miss fine detail.  If <em>skew_strip_width</em> &lt;= 0, the width will be
+autodetermined to be the global <em>staffspace_h</em> * 2.</dd>
+<dt><em>max_skew</em> = 5.0</dt>
+<dd>The maximum amount of skew that will be detected within each vertical strip.  Expressed in
+degrees.  This value should be fairly small, because deskewing only approximates rotation
+at very small degrees.</dd>
+<dt><em>undo_deskew</em> = False</dt>
+<dd>since the fujinaga performs deskewing on the input image, it might be necessary
+to undo it, for evaluational reasons.</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="get-staffpos">
+<h2><a class="toc-backref" href="#id4"><tt class="docutils literal">get_staffpos</tt></a></h2>
+<p>Returns the y-positions of all staff lines at a given x-position.
+Can only be called <em>after</em> <tt class="docutils literal">remove_staves</tt>.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">get_staffpos(x=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>x</em>:</dt>
+<dd>This parameter is currently ignored, but we do know where the left and right
+sides of the staff are, so we could do something with that.</dd>
+</dl>
+</blockquote>
+<p>The return value is a list of <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.StaffObj.html#staffobj">StaffObj</a>.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

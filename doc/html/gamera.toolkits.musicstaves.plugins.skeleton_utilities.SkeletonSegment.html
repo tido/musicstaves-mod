@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class SkeletonSegment</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-skeletonsegment">
+<h1 class="title">class <tt class="docutils literal">SkeletonSegment</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#skeletonsegment" id="id1"><tt class="docutils literal">SkeletonSegment</tt></a><ul>
+<li><a class="reference internal" href="#init" id="id2"><tt class="docutils literal">__init__</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="skeletonsegment">
+<h1><a class="toc-backref" href="#id1"><tt class="docutils literal">SkeletonSegment</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.plugins.skeleton_utilities</tt></p>
+<p><p>Represents a skeleton segment as a list of adjacent Points.</p>
+<p>Properties (except for points, all are computed in the constructor):</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>points</em></dt>
+<dd>list of adjacent skeleton points of type <tt class="docutils literal">Point</tt></dd>
+<dt><em>branching_points</em></dt>
+<dd>list of branching points adjacent to the segment</dd>
+<dt><em>offset_x</em>, <em>offset_y</em>, <em>nrows</em>, <em>ncols</em></dt>
+<dd>like in connected components</dd>
+<dt><em>orientation_angle</em></dt>
+<dd>angle of the least square fitted line through the segment or <tt class="docutils literal">None</tt>
+when the segment contains less than two points.</dd>
+<dt><em>straightness</em></dt>
+<dd>deviation (variance, ie. sum of square deviations) of the segment
+from the least square fitted line through the. <tt class="docutils literal">None</tt>
+when the segment contains less than two points.</dd>
+</dl>
+</blockquote>
+</p>
+<div class="section" id="init">
+<h2><a class="toc-backref" href="#id2"><tt class="docutils literal">__init__</tt></a></h2>
+<p>Creates a skeleton segment and computes its properties
+from a list of points. Signature:</p>
+<blockquote>
+<tt class="docutils literal">__init__(self, points, <span class="pre">branching_points=[])</span></tt></blockquote>
+<p>To do the same on the C++ side, use the function</p>
+<blockquote>
+<tt class="docutils literal">PyObject* create_skeleton_segment(PointVector* points, PointVector* branchpoints)</tt></blockquote>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

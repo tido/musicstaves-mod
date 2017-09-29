@@ -1,0 +1,13 @@
+class ``MusicStaves_rl_fujinaga``
+=================================
+
+``MusicStaves_rl_fujinaga``
+---------------------------
+
+In module ``gamera.toolkits.musicstaves.musicstaves_rl_fujinaga``
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_rl_fujinaga MusicStaves_rl_fujinaga
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.musicstaves_rl_fujinaga MusicStaves_rl_fujinaga remove_staves get_staffpos
+

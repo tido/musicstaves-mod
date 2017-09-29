@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title>class MusicStaves_rl_simple</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="class-musicstaves-rl-simple">
+<h1 class="title">class <tt class="docutils literal">MusicStaves_rl_simple</tt></h1>
+
+<p><strong>Last modified</strong>: October 27, 2015</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#musicstaves-rl-simple" id="id3"><tt class="docutils literal">MusicStaves_rl_simple</tt></a><ul>
+<li><a class="reference internal" href="#remove-staves" id="id4"><tt class="docutils literal">remove_staves</tt></a></li>
+<li><a class="reference internal" href="#get-staffpos" id="id5"><tt class="docutils literal">get_staffpos</tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="musicstaves-rl-simple">
+<h1><a class="toc-backref" href="#id3"><tt class="docutils literal">MusicStaves_rl_simple</tt></a></h1>
+<p>In module <tt class="docutils literal">gamera.toolkits.musicstaves.musicstaves_rl_simple</tt></p>
+<p><p>This staff removal algorithm is a simplified implementation of some
+ideas in Ichiro Fujinaga's dissertation (see below).</p>
+<p>The Method:</p>
+<blockquote>
+The basic idea is that black horizontal run lengths within a staff line are
+typically greater than staffspace_height, while the musical symbols
+have shorter runlenghts. Thus only sufficiently short runlengths are kept.
+Stafflines are detected with <a class="reference external" href="gamera.toolkits.musicstaves.stafffinder_projections.StaffFinder_projections.html">StaffFinder_projections</a>.</blockquote>
+<blockquote>
+In contrast to Fujinaga's approach, we do not try a deskewing by
+shearing. Moreover we only care for crossing symbols in a very crude way.</blockquote>
+<p>Assumptions and Limitations:</p>
+<ul class="simple">
+<li>Staff lines must not be heavily broken</li>
+<li>Skew correction (eg. with <tt class="docutils literal">rotation_angle_projections</tt> from
+the gamera core distribution) should be applied beforehand</li>
+<li>Symbols crossing staff lines are often distorted</li>
+<li>Staff lines highly varying in thickness are not completely removed</li>
+</ul>
+<p>References:</p>
+<ul class="simple">
+<li>Ichiro Fujinaga: <em>Adaptive Optical Music Recognition</em>. Dissertation,
+McGill University Montreal, Canada (1996)</li>
+<li>Ichiro Fujinaga: <em>Staff Detection and Removal</em>. in S. George (editor):
+&quot;Visual Perception of Music Notation&quot;. Idea Group (2004)</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Christoph Dalitz and Thomas Karsten</td>
+</tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="remove-staves">
+<h2><a class="toc-backref" href="#id4"><tt class="docutils literal">remove_staves</tt></a></h2>
+<p>Detects and removes staff lines from a music/tablature image.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal"><span class="pre">remove_staves(crossing_symbols='all',</span> num_lines=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>crossing_symbols</em>:</dt>
+<dd>Determines which symbols crossing staff lines should be kept intact.
+Supported values are 'all', 'bars' or 'none'.</dd>
+<dt><em>num_lines</em>:</dt>
+<dd>Number of lines within one staff. A value of zero for automatic
+detection is supported, but if you give the actual number, staff line
+detection will improve.</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="get-staffpos">
+<h2><a class="toc-backref" href="#id5"><tt class="docutils literal">get_staffpos</tt></a></h2>
+<p>Returns the y-positions of all staff lines at a given x-position.
+Can only be called <em>after</em> <tt class="docutils literal">remove_staves</tt>.</p>
+<p>Signature:</p>
+<blockquote>
+<tt class="docutils literal">get_staffpos(x=0)</tt></blockquote>
+<p>with</p>
+<blockquote>
+<dl class="docutils">
+<dt><em>x</em>:</dt>
+<dd>This parameter has no effect, because the staffline is assumed to
+be horizontal.</dd>
+</dl>
+</blockquote>
+<p>The return value is a list of <a class="reference external" href="gamera.toolkits.musicstaves.musicstaves.StaffObj.html#staffobj">StaffObj</a>.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<span class="raw-html"><a href="http://sourceforge.net/projects/gamera"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99328&type=13" width="120" height="30" border="0" alt="Get Gamera at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></span>
+</div>
+</body>
+</html>

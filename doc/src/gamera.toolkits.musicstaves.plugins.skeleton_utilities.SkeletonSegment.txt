@@ -1,0 +1,13 @@
+class ``SkeletonSegment``
+=========================
+
+``SkeletonSegment``
+-------------------
+
+In module ``gamera.toolkits.musicstaves.plugins.skeleton_utilities``
+
+.. docstring:: gamera.toolkits.musicstaves.plugins.skeleton_utilities SkeletonSegment
+   :no_title:
+
+.. docstring:: gamera.toolkits.musicstaves.plugins.skeleton_utilities SkeletonSegment __init__
+
