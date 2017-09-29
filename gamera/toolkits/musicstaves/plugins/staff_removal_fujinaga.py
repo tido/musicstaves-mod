@@ -143,7 +143,7 @@ the form (*image*, *staves*) where *image* is the image deskewed, and
                  skew_strip_width=0, max_skew=8.0):
         return _staff_removal_fujinaga.find_and_remove_staves_fujinaga(
             self, 0, n_stafflines, staffline_height, staffspace_height,
-            skew_strip_width, max_skew, True, False)
+            skew_strip_width, max_skew, True, False, False)
     __call__ = staticmethod(__call__)
 
 class find_staves_fujinaga(PluginFunction):
