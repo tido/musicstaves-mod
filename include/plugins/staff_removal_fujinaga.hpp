@@ -1253,14 +1253,53 @@ namespace Aomr {
   }
 
   
+  // Performs a deskewing by trying to cross-correlate the entire image 
+  // Can be applied to a whole image or just one previously extracted staff image
+
   template<class T>
-  view_type deskew_image_smooth(T& original, Param& param, Page& page) {
-      debug_message("deskew");
+  view_type* smooth_staffline_deskew(T& original, Param& param) {
+    debug_message("smooth_staffline_deskew");
     
-      param.undo_deskews(*image_original);
-      param.undo_deskews(*image_removed);
-      return pair<view_type*, view_type*>(image_original, image_removed);
+    double staffline_h, staffspace_h;
+    if (param.staffline_h <= 0.0 || param.staffspace_h <= 0.0)
+      find_rough_staffline_and_staffspace_height(original, staffline_h, staffspace_h);
+    else {
+      staffline_h = param.staffline_h; staffspace_h = param.staffspace_h;
     }
+
+    if (param.skew_strip_width <= 0)
+      param.skew_strip_width = int(staffspace_h * 2);
+
+    param.max_skew = calculate_max_skew(param.max_skew, param.skew_strip_width);
+
+    IntVector* yproj;
+    IntVector* offset_array;
+
+    {
+      data_type image_hfilter_data(Dim(original.ncols(), original.nrows()),
+                                   Point(original.offset_x(), original.offset_y()));
+      view_type image_hfilter(image_hfilter_data, original);
+
+      basic_filtering_step(original, image_hfilter, staffline_h, staffspace_h);
+
+      offset_array =
+        find_skew(image_hfilter, &yproj, param.skew_strip_width,
+                  int(std::min(param.max_skew, staffspace_h)));
+    }
+
+    data_type* result_data = new data_type(Dim(original.ncols(), original.nrows()),
+                                           Point(original.offset_x(), original.offset_y()));
+    view_type* result = new view_type(*result_data);
+    image_copy_fill(original, *result);
+    deskew(*result, offset_array, param.skew_strip_width);
+    debug_message("Deskewing with strip skews: " << offset_array);
+    
+    param.add_deskew_info(offset_array);
+
+    delete offset_array;
+    delete yproj;
+
+    return result;
   }
 
 
