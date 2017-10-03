@@ -1252,6 +1252,19 @@ namespace Aomr {
     return result;
   }
 
+  
+  template<class T>
+  view_type deskew_image_smooth(T& original, Param& param, Page& page) {
+      debug_message("deskew");
+    
+      param.undo_deskews(*image_original);
+      param.undo_deskews(*image_removed);
+      return pair<view_type*, view_type*>(image_original, image_removed);
+    }
+  }
+
+
+
   template<class T>
   std::pair<view_type*, view_type*> find_and_remove_staves_fujinaga(T& original, Param& param, Page& page) {
     debug_message("find_and_remove_staves");
