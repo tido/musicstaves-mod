@@ -243,7 +243,7 @@ anything ultimately useful.
     return_type = ImageType([ONEBIT])
     def __call__(self, staffline_height=0.0, staffspace_height=0.0,
                  skew_strip_width=0, max_skew=8.0):
-        return _staff_removal_fujinaga.global_staffline_deskewing(
+        return _staff_removal_fujinaga.global_staffline_deskew(
             self, staffline_height, staffspace_height,
             skew_strip_width, max_skew)
     __call__ = staticmethod(__call__)
