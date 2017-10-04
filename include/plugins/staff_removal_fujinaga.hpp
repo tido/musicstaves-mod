@@ -1212,6 +1212,24 @@ namespace Aomr {
   // one staff at a time).  This generally doesn't produce very good results.
   template<class T>
   view_type* global_staffline_deskew(T& original, Param& param) {
+
+    IntVector* offset_array;
+    // outsourced the offset_array analysis
+    get_global_staffline_deskew(original, param, offset_array);
+
+    data_type* result_data = new data_type(Dim(original.ncols(), original.nrows()),
+                                           Point(original.offset_x(), original.offset_y()));
+    view_type* result = new view_type(*result_data);
+    image_copy_fill(original, *result);
+    deskew(*result, offset_array, param.skew_strip_width);
+    param.add_deskew_info(offset_array);
+
+    delete offset_array;
+    return result;
+  }
+  
+  template<class T>
+  void get_global_staffline_deskew(T& original, Param& param, IntVector* offset_array) {
     double staffline_h, staffspace_h;
     if (param.staffline_h <= 0.0 || param.staffspace_h <= 0.0)
       find_rough_staffline_and_staffspace_height(original, staffline_h, staffspace_h);
@@ -1225,8 +1243,6 @@ namespace Aomr {
     param.max_skew = calculate_max_skew(param.max_skew, param.skew_strip_width);
 
     IntVector* yproj;
-    IntVector* offset_array;
-
     {
       data_type image_hfilter_data(Dim(original.ncols(), original.nrows()),
                                    Point(original.offset_x(), original.offset_y()));
@@ -1239,17 +1255,7 @@ namespace Aomr {
                   int(std::min(param.max_skew, staffspace_h)));
     }
 
-    data_type* result_data = new data_type(Dim(original.ncols(), original.nrows()),
-                                           Point(original.offset_x(), original.offset_y()));
-    view_type* result = new view_type(*result_data);
-    image_copy_fill(original, *result);
-    deskew(*result, offset_array, param.skew_strip_width);
-    param.add_deskew_info(offset_array);
-
-    delete offset_array;
     delete yproj;
-
-    return result;
   }
 
   // estimate rotation angle by using the single skew offsets
