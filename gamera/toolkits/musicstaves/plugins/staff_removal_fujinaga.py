@@ -248,15 +248,11 @@ anything ultimately useful.
             skew_strip_width, max_skew)
     __call__ = staticmethod(__call__)
     
-class smooth_staffline_deskew(PluginFunction):
-    """Performs a smooth deskewing on the entire image by
-cross-correlating thin vertical strips of the image.  Since this
-function is global and does not deskew on staff at a time, the results
-are not great, and in particular long slurs can introduce errors.
-This same deskewing also happens early on in the
-find_and_remove_staves_fujinaga process.
+class global_staffline_skew_angle(PluginFunction):
+    """Performs a skew analysis on the entire image by
+cross-correlating thin vertical strips of the image. 
 
-Returns deskewed copy of the image.
+Returns skew for each slice of the image, and a general angle.
 
 *staffline_height* = 0
    The height (in pixels) of the stafflines. If *staffline_height* <=
@@ -288,10 +284,11 @@ Returns deskewed copy of the image.
         Float('staffspace_height', default=0.0),
         Int('skew_strip_width', default=0),
         Float('max_skew', default=5.0)])
-    return_type = ImageType([ONEBIT])
+    return_type = IntVector("edgepoint", length=2)
+    author = "Daniel Wolff"
     def __call__(self, staffline_height=0.0, staffspace_height=0.0,
                  skew_strip_width=0, max_skew=8.0):
-        return _staff_removal_fujinaga.smooth_staffline_deskew(
+        return _staff_removal_fujinaga.global_staffline_skew_angle(
             self, staffline_height, staffspace_height,
             skew_strip_width, max_skew)
     __call__ = staticmethod(__call__)
@@ -378,7 +375,7 @@ class StaffRemovalFujinaga(PluginModule):
     category = "MusicStaves"
     extra_libraries = ['tiff']
     functions = [find_and_remove_staves_fujinaga, global_staffline_deskew,
-                 smooth_staffline_deskew,
+                 global_staffline_skew_angle,
                  find_and_deskew_staves_fujinaga, find_staves_fujinaga,
                  remove_staves_fujinaga, MusicStaves_rl_fujinaga]
                  # remove_staves_fujinaga2]
@@ -388,7 +385,7 @@ module = StaffRemovalFujinaga()
 
 find_and_remove_staves_fujinaga = find_and_remove_staves_fujinaga()
 global_staffline_deskew = global_staffline_deskew()
-smooth_staffline_deskew = smooth_staffline_deskew()
+global_staffline_skew_angle = global_staffline_skew_angle()
 find_staves_fujinaga = find_staves_fujinaga()
 find_and_deskew_staves_fujinaga = find_and_deskew_staves_fujinaga()
 remove_staves_fujinaga = remove_staves_fujinaga()
