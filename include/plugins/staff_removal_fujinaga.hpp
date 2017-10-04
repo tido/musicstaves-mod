@@ -1252,10 +1252,33 @@ namespace Aomr {
     return result;
   }
 
+  // estimate rotation angle by using the single skew offsets
+  double rotation_angle_from_skews(IntVector *offset_array, size_t deskew_strip_width) {
+    debug_message("rotation_angle_from_skews");
+    /* estimate the average skew 
+     * Note: this could be better
+     * 1) select relevant bits in image
+     * 2) use median
+     * 3) use linear regreession 
+     */
+    float avgSkewDiff = 0;
+    typename IntVector::iterator offset = offset_array->begin();
+    for (size_t shear = 1; shear < offset_array->size(); shear++) {
+      avgSkewDiff += float(offset[shear] - offset[shear-1]);
+    }
+    avgSkewDiff /=  (float)(offset_array->size() -1) ;
+    debug_message("avgSkewDiff " << avgSkewDiff);
+    
+    // tan(alpha) = avgSkewDiff / deskew_strip_width
+    static const double radians_to_degrees = 360.0/ (2 * 3.14159265358979323846);
+    float alpha = atan(avgSkewDiff / (float) deskew_strip_width) * radians_to_degrees;
+    debug_message("alpha " << alpha << "°") ;
+    
+    return alpha;
+  }
   
   // Performs a deskewing by trying to cross-correlate the entire image 
   // Can be applied to a whole image or just one previously extracted staff image
-
   template<class T>
   view_type* smooth_staffline_deskew(T& original, Param& param) {
     debug_message("smooth_staffline_deskew");
@@ -1269,9 +1292,12 @@ namespace Aomr {
 
     if (param.skew_strip_width <= 0)
       param.skew_strip_width = int(staffspace_h * 2);
-
+    debug_message( "skew_strip_width: " << param.skew_strip_width );
+    
+    
     param.max_skew = calculate_max_skew(param.max_skew, param.skew_strip_width);
-
+    debug_message( "max_skew: " << param.max_skew );
+    
     IntVector* yproj;
     IntVector* offset_array;
 
@@ -1285,15 +1311,26 @@ namespace Aomr {
       offset_array =
         find_skew(image_hfilter, &yproj, param.skew_strip_width,
                   int(std::min(param.max_skew, staffspace_h)));
+      
+      
+      std::string debug_str = "";
+      typename IntVector::iterator offset = offset_array->begin();
+      for (size_t shear = 0; shear < offset_array->size(); shear++) {
+        debug_str << offset[shear] << ", ";
+      }
+      debug_message( "Offsets:" << debug_str);
+      rotation_angle_from_skews(offset_array, param.skew_strip_width);
+      
     }
 
     data_type* result_data = new data_type(Dim(original.ncols(), original.nrows()),
                                            Point(original.offset_x(), original.offset_y()));
     view_type* result = new view_type(*result_data);
     image_copy_fill(original, *result);
-    deskew(*result, offset_array, param.skew_strip_width);
-    debug_message("Deskewing with strip skews: " << offset_array);
     
+
+    debug_message("Deskewing with strip skews: ");    
+    deskew(*result, offset_array, param.skew_strip_width);
     param.add_deskew_info(offset_array);
 
     delete offset_array;
