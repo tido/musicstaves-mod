@@ -1286,7 +1286,7 @@ namespace Aomr {
   
   // Calculates the necessary rotation angle and provides
   template<class T>
-  std::pair< IntVector*, float > global_staffline_skew_angle(T& original, Param& param) {
+  IntVector* global_staffline_skew_angle(T& original, Param& param) {
     debug_message("smooth_staffline_deskew");
     
     // outsourced the offset_array analysis
@@ -1298,9 +1298,9 @@ namespace Aomr {
       debug_str << offset[shear] << ", ";
     }
     debug_message( "Offsets:" << debug_str);
-    angle = rotation_angle_from_skews(offset_array, param.skew_strip_width);
+    float angle = rotation_angle_from_skews(offset_array, param.skew_strip_width);
 
-    return std::make_pair< IntVector*, float >(offset_array, angle);
+    return offset_array;
   }
 
 
