@@ -1213,9 +1213,9 @@ namespace Aomr {
   template<class T>
   view_type* global_staffline_deskew(T& original, Param& param) {
 
-    IntVector* offset_array;
+    
     // outsourced the offset_array analysis
-    get_global_staffline_deskew(original, param, offset_array);
+    IntVector* offset_array = get_global_staffline_deskew(original, param);
 
     data_type* result_data = new data_type(Dim(original.ncols(), original.nrows()),
                                            Point(original.offset_x(), original.offset_y()));
@@ -1229,7 +1229,7 @@ namespace Aomr {
   }
   
   template<class T>
-  void get_global_staffline_deskew(T& original, Param& param, IntVector* offset_array) {
+  IntVector* get_global_staffline_deskew(T& original, Param& param) {
     double staffline_h, staffspace_h;
     if (param.staffline_h <= 0.0 || param.staffspace_h <= 0.0)
       find_rough_staffline_and_staffspace_height(original, staffline_h, staffspace_h);
@@ -1241,7 +1241,8 @@ namespace Aomr {
       param.skew_strip_width = int(staffspace_h * 2);
 
     param.max_skew = calculate_max_skew(param.max_skew, param.skew_strip_width);
-
+    
+    IntVector* offset_array;
     IntVector* yproj;
     {
       data_type image_hfilter_data(Dim(original.ncols(), original.nrows()),
@@ -1256,6 +1257,7 @@ namespace Aomr {
     }
 
     delete yproj;
+    return offset_array;
   }
 
   // estimate rotation angle by using the single skew offsets
