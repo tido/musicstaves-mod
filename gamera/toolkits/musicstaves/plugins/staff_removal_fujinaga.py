@@ -376,7 +376,7 @@ class MusicStaves_rl_fujinaga(PluginFunction):
 class StaffRemovalFujinaga(PluginModule):
     cpp_headers = ["staff_removal_fujinaga.hpp", "staff_removal_fujinaga_python.hpp"]
     category = "MusicStaves"
-    # extra_libraries = ['tiff']
+    extra_libraries = ['tiff']
     functions = [find_and_remove_staves_fujinaga, global_staffline_deskew,
                  smooth_staffline_deskew,
                  find_and_deskew_staves_fujinaga, find_staves_fujinaga,
