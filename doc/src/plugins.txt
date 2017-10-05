@@ -201,7 +201,7 @@ remove_spurs_from_skeleton_, remove_stafflines_rt_, remove_staves_fujinaga_, rem
 
 **S**
 
-segment_error_, skeleton_list_to_image_, split_skeleton_, StaffFinder_dalitz_, StaffFinder_miyao_, StaffFinder_projections_, StaffFinder_stable_path_, staffline_interruptions_, staffline_thickness_ratio_, staffline_thickness_variation_, staffline_y_variation_
+segment_error_, skeleton_list_to_image_, split_skeleton_, smooth_staffline_deskew_, StaffFinder_dalitz_, StaffFinder_miyao_, StaffFinder_projections_, StaffFinder_stable_path_, staffline_interruptions_, staffline_thickness_ratio_, staffline_thickness_variation_, staffline_y_variation_
 
 **T**
 
@@ -243,6 +243,7 @@ white_speckles_parallel_
 .. _find_and_remove_staves_fujinaga: musicstaves.html#find-and-remove-staves-fujinaga
 .. _find_staves_fujinaga: musicstaves.html#find-staves-fujinaga
 .. _global_staffline_deskew: musicstaves.html#global-staffline-deskew
+.. _smooth_staffline_deskew: musicstaves.html#smooth-staffline-deskew
 .. _remove_staves_fujinaga: musicstaves.html#remove-staves-fujinaga
 .. _Line_tracking: musicstaves.html#line-tracking
 .. _extract_filled_horizontal_black_runs: musicstaves.html#extract-filled-horizontal-black-runs

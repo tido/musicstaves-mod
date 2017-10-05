@@ -1102,6 +1102,57 @@ anything ultimately useful.
 
 
 
+
+``smooth_staffline_deskew``
+```````````````````````````
+
+``Image`` [OneBit] **smooth_staffline_deskew** (float *staffline_height* = 0.00, float *staffspace_height* = 0.00, int *skew_strip_width* = 0, float *max_skew* = 5.00)
+
+
+:Operates on: ``Image`` [OneBit]
+:Returns: ``Image`` [OneBit]
+:Category: MusicStaves/Fujinaga
+:Defined in: staff_removal_fujinaga.py
+:Author: Michael Droettboom, Karl MacMillan and Ichiro Fujinaga
+
+
+Performs a global deskewing on the entire image by
+cross-correlating thin vertical strips of the image.  Since this
+function is global and does not deskew on staff at a time, the results
+are not great, and in particular long slurs can introduce errors.
+This same deskewing also happens early on in the
+find_and_remove_staves_fujinaga process.
+
+Returns deskewed copy of the image.
+
+It is available here for primarily for experimentation rather than as
+anything ultimately useful.
+
+*staffline_height* = 0
+   The height (in pixels) of the stafflines. If *staffline_height* <=
+   0, the staffline height is autodetected both globally and for each
+   staff.
+
+*staffspace_height* = 0
+   The height (in pixels) of the spaces between the stafflines.  If
+   *staffspace_height* <= 0, the staffspace height is autodetected
+   both globally and for each staff.
+
+*skew_strip_width* = 0
+   The width (in pixels) of vertical strips used to deskew the image.
+   Smaller values will deskew the image with higher resolution, but
+   this may make the deskewing overly sensitive.  Larger values may
+   miss fine detail.  If *skew_strip_width* <= 0, the width will be
+   autodetermined to be the global *staffspace_h* * 2.
+
+*max_skew* = 8.0
+   The maximum amount of skew that will be detected within each
+   vertical strip.  Expressed in degrees.  This value should be fairly
+   small, because deskewing only approximates rotation at very small
+   degrees.
+
+
+
 ``remove_staves_fujinaga``
 ``````````````````````````
 

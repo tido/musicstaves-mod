@@ -247,6 +247,51 @@ anything ultimately useful.
             self, staffline_height, staffspace_height,
             skew_strip_width, max_skew)
     __call__ = staticmethod(__call__)
+    
+class global_staffline_skew_angle(PluginFunction):
+    """Performs a skew analysis on the entire image by
+cross-correlating thin vertical strips of the image. 
+
+Returns skew for each slice of the image, and a general angle.
+
+*staffline_height* = 0
+   The height (in pixels) of the stafflines. If *staffline_height* <=
+   0, the staffline height is autodetected both globally and for each
+   staff.
+
+*staffspace_height* = 0
+   The height (in pixels) of the spaces between the stafflines.  If
+   *staffspace_height* <= 0, the staffspace height is autodetected
+   both globally and for each staff.
+
+*skew_strip_width* = 0
+   The width (in pixels) of vertical strips used to deskew the image.
+   Smaller values will deskew the image with higher resolution, but
+   this may make the deskewing overly sensitive.  Larger values may
+   miss fine detail.  If *skew_strip_width* <= 0, the width will be
+   autodetermined to be the global *staffspace_h* * 2.
+
+*max_skew* = 8.0
+   The maximum amount of skew that will be detected within each
+   vertical strip.  Expressed in degrees.  This value should be fairly
+   small, because deskewing only approximates rotation at very small
+   degrees.
+"""
+    category = "MusicStaves/Fujinaga"
+    self_type = ImageType([ONEBIT])
+    args = Args([
+        Float('staffline_height', default=0.0),
+        Float('staffspace_height', default=0.0),
+        Int('skew_strip_width', default=0),
+        Float('max_skew', default=5.0)])
+    return_type = IntVector("edgepoint", length=2)
+    author = "Daniel Wolff"
+    def __call__(self, staffline_height=0.0, staffspace_height=0.0,
+                 skew_strip_width=0, max_skew=8.0):
+        return _staff_removal_fujinaga.global_staffline_skew_angle(
+            self, staffline_height, staffspace_height,
+            skew_strip_width, max_skew)
+    __call__ = staticmethod(__call__)
 
 class remove_staves_fujinaga(PluginFunction):
     """Removes the staves from an image that has already been deskewed
@@ -328,8 +373,9 @@ class MusicStaves_rl_fujinaga(PluginFunction):
 class StaffRemovalFujinaga(PluginModule):
     cpp_headers = ["staff_removal_fujinaga.hpp", "staff_removal_fujinaga_python.hpp"]
     category = "MusicStaves"
-    # extra_libraries = ['tiff']
+    extra_libraries = ['tiff']
     functions = [find_and_remove_staves_fujinaga, global_staffline_deskew,
+                 global_staffline_skew_angle,
                  find_and_deskew_staves_fujinaga, find_staves_fujinaga,
                  remove_staves_fujinaga, MusicStaves_rl_fujinaga]
                  # remove_staves_fujinaga2]
@@ -339,6 +385,7 @@ module = StaffRemovalFujinaga()
 
 find_and_remove_staves_fujinaga = find_and_remove_staves_fujinaga()
 global_staffline_deskew = global_staffline_deskew()
+global_staffline_skew_angle = global_staffline_skew_angle()
 find_staves_fujinaga = find_staves_fujinaga()
 find_and_deskew_staves_fujinaga = find_and_deskew_staves_fujinaga()
 remove_staves_fujinaga = remove_staves_fujinaga()

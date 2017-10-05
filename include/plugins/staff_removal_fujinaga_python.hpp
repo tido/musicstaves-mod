@@ -134,6 +134,14 @@ Aomr::view_type* global_staffline_deskew(T& original, double staffline_h = 0.0,
 }
 
 template<class T>
+IntVector* global_staffline_skew_angle(T& original, double staffline_h = 0.0, 
+					 double staffspace_h = 0.0, size_t skew_strip_width = 0, 
+					 double max_skew = 8.0) {
+  Aomr::Param param(0, 0, staffline_h, staffspace_h, skew_strip_width, max_skew, false);
+  return Aomr::global_staffline_skew_angle(original, param);
+}
+
+template<class T>
 PyObject* find_and_remove_staves_fujinaga(T& original, size_t crossing_symbols, size_t n_stafflines,
 					  double staffline_h, double staffspace_h, 
 					  size_t skew_strip_width, double max_skew,
